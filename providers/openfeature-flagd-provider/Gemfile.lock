@@ -55,7 +55,6 @@ PLATFORMS
   arm64-darwin-21
 
 DEPENDENCIES
-  grpc (~> 1.50)
   openfeature-flagd-provider!
   rake (~> 13.0)
   rspec (~> 3.12.0)

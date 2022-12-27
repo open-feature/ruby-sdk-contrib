@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: 2.7
+  TargetRubyVersion: 3.1
   NewCops: enable
 
 Style/StringLiterals:
@@ -14,10 +14,11 @@ Layout/LineLength:
   Max: 120
   Exclude:
     - 'spec/**/*.rb'
+    - 'providers/openfeature-flagd-provider/lib/openfeature/flagd/provider/schemas/protobuf/schema/v1/**'
 
 Metrics/BlockLength:
   Exclude:
-    - 'spec/**/*.rb'
+    - 'spec/**/*_spec.rb'
     - 'openfeature-flagd-provider.gemspec'
 
 Gemspec/RequireMFA:

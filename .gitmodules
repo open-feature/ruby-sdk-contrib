@@ -1,0 +1,3 @@
+[submodule "providers/openfeature-flagd-provider/schemas"]
+	path = providers/openfeature-flagd-provider/schemas
+	url = https://github.com/open-feature/schemas

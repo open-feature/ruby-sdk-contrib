@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-require_relative "lib/openfeature/flagd/provider/version"
-
 Gem::Specification.new do |spec|
   spec.name          = "openfeature-flagd-provider"
-  spec.version       = '0.0.1'
+  spec.version       = "0.0.1"
   spec.authors = ["OpenFeature Authors"]
   spec.email = ["cncf-openfeature-contributors@lists.cncf.io"]
 
@@ -12,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.description   = "The FlagD provider for the OpenFeature Ruby SDK"
   spec.homepage = "https://github.com/open-feature/ruby-sdk-contrib/providers/openfeature-flagd-provider"
   spec.license = "Apache-2.0"
-  spec.required_ruby_version = ">= 3.0"
+  spec.required_ruby_version = ">= 3.1"
 
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = "https://github.com/open-feature/ruby-sdk-contrib/providers/openfeature-flagd-provider"
