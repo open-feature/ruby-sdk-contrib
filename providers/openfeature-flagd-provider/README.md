@@ -1,9 +1,6 @@
-# Openfeature::Flagd::Provider
+# OpenFeature FlagD Provider for Ruby
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/openfeature/flagd/provider`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
+This is the Ruby [provider](https://docs.openfeature.dev/docs/specification/sections/providers) implementation of the [FlagD](https://github.com/open-feature/flagd)
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -22,15 +19,33 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+The provider allows for configuration of host, port, socket_path, and tls connection.
 
-## Development
+```ruby
+OpenFeature::FlagD::Provider.configure do |config|
+    config.host = "localhost"
+    config.port = 8013
+    config.tls = false
+end
+```
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+If no configurations are provided, the provider will be initialized with the following environment variables:
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+> FLAGD_HOST
+> FLAGD_PORT
+> FLAGD_TLS
+> FLAGD_SOCKET_PATH
+
+If no environment variables are set the [default configuration](./lib/openfeature/flagd/provider/configuration.rb) is set
+
+## Resolving flag values
+
+```ruby
+OpenFeature::FlagD::Provider.resolve_boolean_value(flag_key: 'boolean-flag', default_value: false)
+
+
+```
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/openfeature-flagd-provider.
-
+https://github.com/open-feature/ruby-sdk-contrib

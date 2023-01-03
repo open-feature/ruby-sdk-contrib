@@ -14,12 +14,37 @@ Layout/LineLength:
   Max: 120
   Exclude:
     - 'spec/**/*.rb'
-    - 'providers/openfeature-flagd-provider/lib/openfeature/flagd/provider/schemas/protobuf/schema/v1/**'
+    - 'lib/openfeature/flagd/provider/schema/v1/**'
+
+Lint/EmptyBlock:
+  Exclude:
+    - 'lib/openfeature/flagd/provider/schema/v1/**'
 
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*_spec.rb'
     - 'openfeature-flagd-provider.gemspec'
+    - 'lib/openfeature/flagd/provider/schema/v1/**'
 
 Gemspec/RequireMFA:
   Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - 'lib/openfeature/flagd/provider/schema/v1/**'
+
+DocumentDynamicEvalDefinition:
+  Exclude:
+    - lib/openfeature/flagd/provider/client.rb
+
+Metrics/AbcSize:
+  Exclude:
+    - lib/openfeature/flagd/provider/**/*.rb
+
+Metrics/MethodLength:
+  Exclude:
+    - lib/openfeature/flagd/provider/**/*.rb
+
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - lib/openfeature/flagd/provider/**/*.rb

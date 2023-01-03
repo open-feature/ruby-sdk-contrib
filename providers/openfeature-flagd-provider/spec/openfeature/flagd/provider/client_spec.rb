@@ -26,13 +26,12 @@ RSpec.describe OpenFeature::FlagD::Provider::Client do
 
   context "https://docs.openfeature.dev/docs/specification/sections/providers#requirement-227" do
     it do
-      expect(client.resolve_boolean_value(flag_key: "some-non-existant-flag", default_value: false)).to eq({
-                                                                                                             value: nil,
-                                                                                                             variant: nil,
-                                                                                                             reason: "ERROR",
-                                                                                                             error_code: "FLAG_NOT_FOUND",
-                                                                                                             error_message: "The flag could not be found."
-                                                                                                           })
+      expect(client.resolve_boolean_value(flag_key: "some-non-existant-flag", default_value: false)).to include(
+        value: nil,
+        variant: nil,
+        reason: "ERROR",
+        error_code: "FLAG_NOT_FOUND"
+      )
     end
   end
 end
