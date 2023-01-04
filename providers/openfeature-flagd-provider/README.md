@@ -38,14 +38,6 @@ If no configurations are provided, the provider will be initialized with the fol
 
 If no environment variables are set the [default configuration](./lib/openfeature/flagd/provider/configuration.rb) is set
 
-## Resolving flag values
-
-```ruby
-OpenFeature::FlagD::Provider.resolve_boolean_value(flag_key: 'boolean-flag', default_value: false)
-
-
-```
-
 ## Contributing
 
 https://github.com/open-feature/ruby-sdk-contrib
