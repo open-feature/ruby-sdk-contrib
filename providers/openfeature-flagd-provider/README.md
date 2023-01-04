@@ -11,11 +11,15 @@ gem 'openfeature-flagd-provider'
 
 And then execute:
 
-    $ bundle install
+```sh
+bundle install
+```
 
 Or install it yourself as:
 
-    $ gem install openfeature-flagd-provider
+```sh
+gem install openfeature-flagd-provider
+```
 
 ## Usage
 
