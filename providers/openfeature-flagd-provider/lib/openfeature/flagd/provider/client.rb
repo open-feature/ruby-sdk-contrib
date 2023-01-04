@@ -37,7 +37,7 @@ module OpenFeature
           ).freeze
         end
 
-        PROVIDER_NAME = "Flagd Provider"
+        PROVIDER_NAME = "flagd Provider"
         TYPE_RESOLVER_MAPPER = {
           boolean: Grpc::ResolveBooleanRequest,
           integer: Grpc::ResolveIntRequest,
