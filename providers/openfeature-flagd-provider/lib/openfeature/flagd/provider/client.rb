@@ -48,11 +48,6 @@ module OpenFeature
 
         TYPE_RESOLVER_MAPPER.each_pair do |type, resolver|
           class_eval <<-RUBY, __FILE__, __LINE__ + 1
-            # def resolve_boolean_value(flag_key:, default_value, context: nil)
-            #   @dirty = true
-            #   super
-            # end
-
             def resolve_#{type}_value(flag_key:, default_value:, context: nil)
               request = #{resolver}.new(flag_key: flag_key)
               response = @grpc_client.resolve_#{type}(request)
