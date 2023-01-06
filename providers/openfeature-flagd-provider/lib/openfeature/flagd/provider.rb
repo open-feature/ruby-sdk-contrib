@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "grpc"
+
 require_relative "provider/configuration"
 require_relative "provider/client"
 
@@ -15,7 +17,7 @@ module OpenFeature
     #     config.port = 8379
     #     config.tls = false
     #   end
-    # The Provider providers the following methods and attributes:
+    # The Provider provides the following methods and attributes:
     #
     # * <tt>metadata</tt> - Returns the associated provider metadata with the name
     #
@@ -29,7 +31,7 @@ module OpenFeature
     #   manner; <tt>client.resolve_float_value(flag_key: 'float-flag', default_value: 2.0)</tt>
     #
     # * <tt>resolve_string_value(flag_key:, default_value:, context: nil)</tt>
-    #   manner; <tt>client.resolve_string_value(flag_key: 'string-flag', default_value: 'some-defau;t-value')</tt>
+    #   manner; <tt>client.resolve_string_value(flag_key: 'string-flag', default_value: 'some-default-value')</tt>
     #
     # * <tt>resolve_object_value(flag_key:, default_value:, context: nil)</tt>
     #   manner; <tt>client.resolve_object_value(flag_key: 'object-flag', default_value: { default_value: 'value'})</tt>
