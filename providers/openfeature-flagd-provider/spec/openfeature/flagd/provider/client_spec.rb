@@ -4,13 +4,14 @@ require "spec_helper"
 
 # https://docs.openfeature.dev/docs/specification/sections/providers
 RSpec.describe OpenFeature::FlagD::Provider::Client do
-  subject(:client) { described_class.new }
+  let(:configuration) { OpenFeature::FlagD::Provider::Configuration.default_config }
+  subject(:client) { described_class.new(configuration: configuration) }
 
   context "https://docs.openfeature.dev/docs/specification/sections/providers#requirement-211" do
     it do
       expect(client).to respond_to(:metadata)
       expect(client.metadata).to respond_to(:name)
-      expect(client.metadata.name).to eq("Flagd Provider")
+      expect(client.metadata.name).to eq("flagd Provider")
     end
   end
 
