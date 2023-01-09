@@ -11,7 +11,7 @@ module OpenFeature
       # values. The implementation follows the details specified in https://docs.openfeature.dev/docs/specification/sections/providers
       #
       #
-      # The Client providers the following methods and attributes:
+      # The Client provides the following methods and attributes:
       #
       # * <tt>metadata</tt> - Returns the associated provider metadata with the name
       #
