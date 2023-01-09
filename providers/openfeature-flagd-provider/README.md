@@ -23,7 +23,7 @@ gem install openfeature-flagd-provider
 
 ## Usage
 
-The `OpenFeature::FlagD` supports multiple configuration options that determine now the SDK communicates with flagd.
+The `OpenFeature::FlagD` supports multiple configuration options that dictate how the SDK communicates with flagd.
 Options can be defined in the constructor or as environment variables, with constructor options having the highest precedence.
 
 ### Available options
