@@ -55,7 +55,7 @@ end
 OpenFeature::SDK.configure do |config|
     # your provider of choice
     config.provider = OpenFeature::FlagD::Provider.configure do |provider_config|
-        provider_config.unix_socket_path = "tmp/flagd.socks"
+        provider_config.unix_socket_path = "tmp/flagd.sock"
     end
 end
 ```
