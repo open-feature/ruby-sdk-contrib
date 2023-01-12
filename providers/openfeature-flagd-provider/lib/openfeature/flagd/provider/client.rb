@@ -89,11 +89,11 @@ module OpenFeature
           @grpc_client = Grpc::Service::Stub.new(build_server_address(configuration), options).freeze
         end
 
-        def build_server_address(configuration)
-          if configuration.unix_socket_path
+        def server_address
+          @server_address ||= if @configuration.unix_socket_path
             "unix://#{configuration.unix_socket_path}"
           else
-            "#{configuration.host}:#{configuration.port}"
+            "#{@configuration.host}:#{@configuration.port}"
           end
         end
       end
