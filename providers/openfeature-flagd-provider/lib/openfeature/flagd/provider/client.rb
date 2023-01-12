@@ -77,14 +77,16 @@ module OpenFeature
           ResolutionDetails.new(error_code, error_message, "ERROR", nil, nil).to_h.freeze
         end
 
-        def build_client(configuration)
+        def grpc_client(configuration)
+          return @grpc_client unless defined?(@grpc_client)
+          
           options = :this_channel_is_insecure
           if configuration.tls
             options = GRPC::Core::ChannelCredentials.new(
               configuration.root_certs
             )
           end
-          Grpc::Service::Stub.new(build_server_address(configuration), options).freeze
+          @grpc_client = Grpc::Service::Stub.new(build_server_address(configuration), options).freeze
         end
 
         def build_server_address(configuration)
