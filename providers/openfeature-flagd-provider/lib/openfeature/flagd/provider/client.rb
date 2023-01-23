@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
+require "grpc"
+
 require_relative "schema/v1/schema_services_pb"
 require_relative "configuration"
-
 module OpenFeature
   module FlagD
     module Provider
@@ -10,31 +11,32 @@ module OpenFeature
       # values. The implementation follows the details specified in https://docs.openfeature.dev/docs/specification/sections/providers
       #
       #
-      # Within the Client instance, the following methods are available:
+      # The Client provides the following methods and attributes:
       #
-      # * <tt>resolve_boolean_value(flag_key:, default_value:, context: nil)</tt> -
-      #   Resolves the boolean value of the flag_key
+      # * <tt>metadata</tt> - Returns the associated provider metadata with the name
+      #
+      # * <tt>resolve_boolean_value(flag_key:, default_value:, context: nil)</tt>
       #   manner; <tt>client.resolve_boolean(flag_key: 'boolean-flag', default_value: false)</tt>
       #
-      # * <tt>resolve_integer_value(flag_key:, default_value:, context: nil)</tt> - Resolves the
-      #   manner; <tt>client.resolve_boolean = File.read('path/to/filename.png')</tt>
-
-      # * <tt>resolve_integer_value</tt> - Allows you to specify any header field in your email such
-      #   as <tt>headers['X-No-Spam'] = 'True'</tt>. Note that declaring a header multiple times
-      #   will add many fields of the same name. Read #headers doc for more information.
+      # * <tt>resolve_integer_value(flag_key:, default_value:, context: nil)</tt>
+      #   manner; <tt>client.resolve_integer_value(flag_key: 'integer-flag', default_value: 2)</tt>
       #
+      # * <tt>resolve_float_value(flag_key:, default_value:, context: nil)</tt>
+      #   manner; <tt>client.resolve_float_value(flag_key: 'float-flag', default_value: 2.0)</tt>
+      #
+      # * <tt>resolve_string_value(flag_key:, default_value:, context: nil)</tt>
+      #   manner; <tt>client.resolve_string_value(flag_key: 'string-flag', default_value: 'some-default-value')</tt>
+      #
+      # * <tt>resolve_object_value(flag_key:, default_value:, context: nil)</tt>
+      #   manner; <tt>client.resolve_object_value(flag_key: 'flag', default_value: { default_value: 'value'})</tt>
       class Client
         attr_reader :metadata
 
         def initialize(configuration: nil)
-          @configuration = Configuration.default_config
-                                        .merge(Configuration.environment_variables_config)
-                                        .merge(configuration)
+          @configuration = configuration.freeze
           @metadata = Metadata.new(PROVIDER_NAME).freeze
-          @grpc_client = Grpc::Service::Stub.new(
-            "#{@configuration.host}:#{@configuration.port}",
-            :this_channel_is_insecure
-          ).freeze
+
+          @grpc_client = build_client(configuration)
         end
 
         PROVIDER_NAME = "flagd Provider"
@@ -73,6 +75,26 @@ module OpenFeature
 
         def error_response(error_code, error_message)
           ResolutionDetails.new(error_code, error_message, "ERROR", nil, nil).to_h.freeze
+        end
+
+        def grpc_client(configuration)
+          return @grpc_client unless defined?(@grpc_client)
+          
+          options = :this_channel_is_insecure
+          if configuration.tls
+            options = GRPC::Core::ChannelCredentials.new(
+              configuration.root_certs
+            )
+          end
+          @grpc_client = Grpc::Service::Stub.new(build_server_address(configuration), options).freeze
+        end
+
+        def server_address
+          @server_address ||= if @configuration.unix_socket_path
+            "unix://#{configuration.unix_socket_path}"
+          else
+            "#{@configuration.host}:#{@configuration.port}"
+          end
         end
       end
     end

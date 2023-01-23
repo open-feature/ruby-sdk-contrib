@@ -73,7 +73,7 @@ RSpec.describe OpenFeature::FlagD::Provider do
     it "metadata name is defined" do
       expect(described_class).to respond_to(:metadata)
       expect(described_class.metadata).to respond_to(:name)
-      expect(described_class.metadata.name).to eq("Flagd Provider")
+      expect(described_class.metadata.name).to eq("flagd Provider")
     end
   end
 end
