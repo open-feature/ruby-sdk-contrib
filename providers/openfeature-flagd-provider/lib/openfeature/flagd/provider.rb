@@ -8,7 +8,7 @@ require_relative "provider/client"
 module OpenFeature
   module FlagD
     # Provider represents the entry point for interacting with the FlagD provider
-    # values. The implementation follows the details specified in https://docs.openfeature.dev/docs/specification/sections/providers
+    # values. The implementation follows the details specified in https://openfeature.dev/docs/specification/sections/providers
     #
     # Provider contains functionality to configure the GRPC connection via
     #

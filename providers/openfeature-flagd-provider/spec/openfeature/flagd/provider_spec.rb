@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-# https://docs.openfeature.dev/docs/specification/sections/providers
+# https://openfeature.dev/docs/specification/sections/providers
 
 RSpec.describe OpenFeature::FlagD::Provider do
   context "#configure" do
@@ -68,7 +68,7 @@ RSpec.describe OpenFeature::FlagD::Provider do
     end
   end
 
-  # https://docs.openfeature.dev/docs/specification/sections/providers#requirement-211
+  # https://openfeature.dev/docs/specification/sections/providers#requirement-211
   context "#metadata" do
     it "metadata name is defined" do
       expect(described_class).to respond_to(:metadata)

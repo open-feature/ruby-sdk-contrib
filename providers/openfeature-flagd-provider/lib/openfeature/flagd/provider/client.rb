@@ -8,7 +8,7 @@ module OpenFeature
   module FlagD
     module Provider
       # Client represents a wrapper for the GRPC stub that allows for resolution of boolean, string, number, and object
-      # values. The implementation follows the details specified in https://docs.openfeature.dev/docs/specification/sections/providers
+      # values. The implementation follows the details specified in https://openfeature.dev/docs/specification/sections/providers
       #
       #
       # The Client provides the following methods and attributes:
