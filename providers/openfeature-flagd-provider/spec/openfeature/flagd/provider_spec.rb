@@ -6,6 +6,15 @@ require "spec_helper"
 
 RSpec.describe OpenFeature::FlagD::Provider do
   context "#configure" do
+    before do
+      ENV["FLAGD_HOST"] = nil
+      ENV["FLAGD_PORT"] = nil
+      ENV["FLAGD_TLS"] = nil
+
+      OpenFeature::FlagD::Provider.instance_variable_set(:@configuration, nil)
+      OpenFeature::FlagD::Provider.instance_variable_set(:@explicit_configuration, nil)
+    end
+
     context "when defining host, port and tls options of gRPC service it wishes to access with configure method" do
       subject(:explicit_configuration) do
         described_class.configure do |config|
@@ -39,27 +48,21 @@ RSpec.describe OpenFeature::FlagD::Provider do
           expect(described_class.configuration.port).to eq(explicit_port)
           expect(described_class.configuration.tls).to eq(explicit_tls)
         end
-
-        after do
-          ENV["FLAGD_HOST"] = nil
-          ENV["FLAGD_PORT"] = nil
-          ENV["FLAGD_TLS"] = nil
-        end
       end
     end
 
     context "when defining environment variables" do
+      let(:env_host) { "172.16.1.2" }
+      let(:env_port) { "8014" }
+      let(:env_tls) { "true" }
       subject(:env_configuration) do
         ENV["FLAGD_HOST"] = env_host
         ENV["FLAGD_PORT"] = env_port
         ENV["FLAGD_TLS"] = env_tls
         described_class.configuration
       end
-      let(:env_host) { "172.16.1.2" }
-      let(:env_port) { "8014" }
-      let(:env_tls) { "true" }
 
-      skip "uses environment variables when no explicit configuration" do
+      it "uses environment variables when no explicit configuration" do
         env_configuration
         expect(env_configuration.host).to eq(env_host)
         expect(env_configuration.port).to eq(env_port)

@@ -33,10 +33,8 @@ module OpenFeature
         attr_reader :metadata
 
         def initialize(configuration: nil)
-          @configuration = configuration.freeze
           @metadata = Metadata.new(PROVIDER_NAME).freeze
-
-          @grpc_client = build_client(configuration)
+          @grpc_client = grpc_client(configuration)
         end
 
         PROVIDER_NAME = "flagd Provider"
@@ -78,22 +76,21 @@ module OpenFeature
         end
 
         def grpc_client(configuration)
-          return @grpc_client unless defined?(@grpc_client)
-          
           options = :this_channel_is_insecure
           if configuration.tls
             options = GRPC::Core::ChannelCredentials.new(
-              configuration.root_certs
+              configuration.root_cert_path
             )
           end
-          @grpc_client = Grpc::Service::Stub.new(build_server_address(configuration), options).freeze
+
+          Grpc::Service::Stub.new(server_address(configuration), options).freeze
         end
 
-        def server_address
-          @server_address ||= if @configuration.unix_socket_path
+        def server_address(configuration)
+          if configuration.unix_socket_path
             "unix://#{configuration.unix_socket_path}"
           else
-            "#{@configuration.host}:#{@configuration.port}"
+            "#{configuration.host}:#{configuration.port}"
           end
         end
       end

@@ -68,7 +68,7 @@ module OpenFeature
         end
 
         def client
-          @client ||= Client.new(configuration:)
+          @client ||= Client.new(configuration: configuration)
         end
       end
     end
