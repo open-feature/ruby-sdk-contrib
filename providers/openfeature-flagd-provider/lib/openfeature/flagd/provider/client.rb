@@ -47,7 +47,7 @@ module OpenFeature
 
         def resolve_integer_value(flag_key:, default_value:, context: nil)
           request = Grpc::ResolveIntRequest.new(flag_key: flag_key)
-          process_request { @grpc_client.resolve_integer(request) }
+          process_request { @grpc_client.resolve_int(request) }
         end
 
         def resolve_float_value(flag_key:, default_value:, context: nil)
@@ -83,7 +83,6 @@ module OpenFeature
           error_response("PARSE_ERROR", e.message)
         rescue StandardError => e
           error_response("GENERAL", e.message)
-        ensure
         end
 
         def error_response(error_code, error_message)
