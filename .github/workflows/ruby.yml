@@ -32,5 +32,6 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+        working-directory: ./providers/openfeature-flagd-provider
     - name: Run tests
       run: rspec
