@@ -44,29 +44,26 @@ RSpec.describe OpenFeature::FlagD::Provider do
 
         it "uses the explicit configuration" do
           explicit_configuration
-          expect(described_class.configuration.host).to eq(explicit_host)
-          expect(described_class.configuration.port).to eq(explicit_port)
-          expect(described_class.configuration.tls).to eq(explicit_tls)
+          expect(described_class.configuration.host).to eq("explicit_host")
+          expect(described_class.configuration.port).to eq(8013)
+          expect(described_class.configuration.tls).to be_falsy
         end
       end
     end
 
     context "when defining environment variables" do
-      let(:env_host) { "172.16.1.2" }
-      let(:env_port) { "8014" }
-      let(:env_tls) { "true" }
       subject(:env_configuration) do
-        ENV["FLAGD_HOST"] = env_host
-        ENV["FLAGD_PORT"] = env_port
-        ENV["FLAGD_TLS"] = env_tls
+        ENV["FLAGD_HOST"] = "172.16.1.2"
+        ENV["FLAGD_PORT"] = "8014"
+        ENV["FLAGD_TLS"] = "true"
         described_class.configuration
       end
 
       it "uses environment variables when no explicit configuration" do
         env_configuration
-        expect(env_configuration.host).to eq(env_host)
-        expect(env_configuration.port).to eq(env_port)
-        expect(env_configuration.tls).to eq(env_tls == "true")
+        expect(env_configuration.host).to eq("172.16.1.2")
+        expect(env_configuration.port).to eq(8014)
+        expect(env_configuration.tls).to be_truthy
       end
     end
   end

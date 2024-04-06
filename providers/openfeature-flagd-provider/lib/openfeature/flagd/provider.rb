@@ -50,9 +50,9 @@ module OpenFeature
         end
 
         def configuration
-          @configuration ||= explicit_configuration
+          @configuration ||= Configuration.default_config
                              .merge(Configuration.environment_variables_config)
-                             .merge(Configuration.default_config)
+                             .merge(explicit_configuration)
         end
 
         def configure(&block)
