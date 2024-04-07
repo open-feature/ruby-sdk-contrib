@@ -39,28 +39,36 @@ module OpenFeature
           @grpc_client = grpc_client(configuration)
         end
 
-
-        def resolve_boolean_value(flag_key:, default_value:, context: nil)
+        def fetch_boolean_value(flag_key:, default_value:, evaluation_context: nil)
           request = Grpc::ResolveBooleanRequest.new(flag_key: flag_key)
           process_request { @grpc_client.resolve_boolean(request) }
         end
 
-        def resolve_integer_value(flag_key:, default_value:, context: nil)
+        def fetch_number_value(flag_key:, default_value:, evaluation_context: nil)
+          case default_value
+          when Integer
+            fetch_integer_value(flag_key: flag_key, default_value: default_value, evaluation_context: evaluation_context)
+          when Float
+            fetch_float_value(flag_key: flag_key, default_value: default_value, evaluation_context: evaluation_context)
+          end
+        end
+
+        def fetch_integer_value(flag_key:, default_value:, evaluation_context: nil)
           request = Grpc::ResolveIntRequest.new(flag_key: flag_key)
           process_request { @grpc_client.resolve_int(request) }
         end
 
-        def resolve_float_value(flag_key:, default_value:, context: nil)
+        def fetch_float_value(flag_key:, default_value:, evaluation_context: nil)
           request = Grpc::ResolveFloatRequest.new(flag_key: flag_key)
           process_request { @grpc_client.resolve_float(request) }
         end
 
-        def resolve_string_value(flag_key:, default_value:, context: nil)
+        def fetch_string_value(flag_key:, default_value:, evaluation_context: nil)
           request = Grpc::ResolveStringRequest.new(flag_key: flag_key)
           process_request { @grpc_client.resolve_string(request) }
         end
 
-        def resolve_object_value(flag_key:, default_value:, context: nil)
+        def fetch_object_value(flag_key:, default_value:, evaluation_context: nil)
           request = Grpc::ResolveObjectRequest.new(flag_key: flag_key)
           process_request { @grpc_client.resolve_object(request) }
         end
@@ -72,7 +80,7 @@ module OpenFeature
 
         def process_request(&block)
           response = block.call
-          ResolutionDetails.new(nil, nil, response.reason, response.value, response.variant).to_h
+          ResolutionDetails.new(nil, nil, response.reason, response.value, response.variant)
         rescue GRPC::NotFound => e
           error_response("FLAG_NOT_FOUND", e.message)
         rescue GRPC::InvalidArgument => e
@@ -86,7 +94,7 @@ module OpenFeature
         end
 
         def error_response(error_code, error_message)
-          ResolutionDetails.new(error_code, error_message, "ERROR", nil, nil).to_h
+          ResolutionDetails.new(error_code, error_message, "ERROR", nil, nil)
         end
 
         def grpc_client(configuration)
