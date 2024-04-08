@@ -24,9 +24,12 @@ jobs:
         working-directory: ./providers/openfeature-flagd-provider
     strategy:
       matrix:
-        ruby-version: ['3.1']
+        ruby-version:
+          - "3.3"
+          - "3.2"
+          - "3.1"
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
