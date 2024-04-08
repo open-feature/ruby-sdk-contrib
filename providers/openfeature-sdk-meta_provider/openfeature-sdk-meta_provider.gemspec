@@ -32,4 +32,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rspec", "~> 3.12"
   spec.add_development_dependency "standard", "~> 1.34"
+  spec.add_development_dependency "debug", "~> 1.9.2"
 end

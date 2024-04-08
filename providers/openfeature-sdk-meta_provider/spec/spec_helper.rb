@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 require "bundler/setup"
+require "debug"
 require "open_feature/sdk/provider/meta_provider"
+require "open_feature/sdk"
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
@@ -22,6 +24,6 @@ RSpec.configure do |config|
 
   config.warnings = true
 
-  config.order = :rando
+  config.order = :random
   Kernel.srand config.seed
 end
