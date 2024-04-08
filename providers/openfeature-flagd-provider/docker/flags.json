@@ -1,0 +1,41 @@
+{
+  "$schema": "https://flagd.dev/schema/v0/flags.json",
+  "flags": {
+    "boolean-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": true,
+        "off": false
+      },
+      "defaultVariant": "off"
+    },
+    "integer-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "fourty-two": 42
+      },
+      "defaultVariant": "fourty-two"
+    },
+    "float-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "four-point-two": 4.2
+      },
+      "defaultVariant": "four-point-two"
+    },
+    "string-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "lilili": "lalala"
+      },
+      "defaultVariant": "lilili"
+    },
+    "object-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "real-object": { "real": "value" }
+      },
+      "defaultVariant": "real-object"
+    }
+  }
+}

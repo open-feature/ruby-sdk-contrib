@@ -30,40 +30,39 @@ module OpenFeature
       # * <tt>resolve_object_value(flag_key:, default_value:, context: nil)</tt>
       #   manner; <tt>client.resolve_object_value(flag_key: 'flag', default_value: { default_value: 'value'})</tt>
       class Client
+        PROVIDER_NAME = "flagd Provider"
+
         attr_reader :metadata
 
         def initialize(configuration: nil)
-          @metadata = Metadata.new(PROVIDER_NAME).freeze
+          @metadata = Metadata.new(PROVIDER_NAME)
           @grpc_client = grpc_client(configuration)
         end
 
-        PROVIDER_NAME = "flagd Provider"
-        TYPE_RESOLVER_MAPPER = {
-          boolean: Grpc::ResolveBooleanRequest,
-          integer: Grpc::ResolveIntRequest,
-          float: Grpc::ResolveFloatRequest,
-          string: Grpc::ResolveStringRequest,
-          object: Grpc::ResolveObjectRequest
-        }.freeze
 
-        TYPE_RESOLVER_MAPPER.each_pair do |type, resolver|
-          class_eval <<-RUBY, __FILE__, __LINE__ + 1
-            def resolve_#{type}_value(flag_key:, default_value:, context: nil)
-              request = #{resolver}.new(flag_key: flag_key)
-              response = @grpc_client.resolve_#{type}(request)
-              ResolutionDetails.new(nil, nil, response.reason, response.value, response.variant).to_h.freeze
-            rescue GRPC::NotFound => e
-              error_response("FLAG_NOT_FOUND", e.message)
-            rescue GRPC::InvalidArgument => e
-              error_response("TYPE_MISMATCH", e.message)
-            rescue GRPC::Unavailable => e
-              error_response("FLAG_NOT_FOUND", e.message)
-            rescue GRPC::DataLoss => e
-              error_response("PARSE_ERROR", e.message)
-            rescue StandardError => e
-              error_response("GENERAL", e.message)
-            end
-          RUBY
+        def resolve_boolean_value(flag_key:, default_value:, context: nil)
+          request = Grpc::ResolveBooleanRequest.new(flag_key: flag_key)
+          process_request { @grpc_client.resolve_boolean(request) }
+        end
+
+        def resolve_integer_value(flag_key:, default_value:, context: nil)
+          request = Grpc::ResolveIntRequest.new(flag_key: flag_key)
+          process_request { @grpc_client.resolve_int(request) }
+        end
+
+        def resolve_float_value(flag_key:, default_value:, context: nil)
+          request = Grpc::ResolveFloatRequest.new(flag_key: flag_key)
+          process_request { @grpc_client.resolve_float(request) }
+        end
+
+        def resolve_string_value(flag_key:, default_value:, context: nil)
+          request = Grpc::ResolveStringRequest.new(flag_key: flag_key)
+          process_request { @grpc_client.resolve_string(request) }
+        end
+
+        def resolve_object_value(flag_key:, default_value:, context: nil)
+          request = Grpc::ResolveObjectRequest.new(flag_key: flag_key)
+          process_request { @grpc_client.resolve_object(request) }
         end
 
         private
@@ -71,8 +70,23 @@ module OpenFeature
         Metadata = Struct.new("Metadata", :name)
         ResolutionDetails = Struct.new("ResolutionDetails", :error_code, :error_message, :reason, :value, :variant)
 
+        def process_request(&block)
+          response = block.call
+          ResolutionDetails.new(nil, nil, response.reason, response.value, response.variant).to_h
+        rescue GRPC::NotFound => e
+          error_response("FLAG_NOT_FOUND", e.message)
+        rescue GRPC::InvalidArgument => e
+          error_response("TYPE_MISMATCH", e.message)
+        rescue GRPC::Unavailable => e
+          error_response("FLAG_NOT_FOUND", e.message)
+        rescue GRPC::DataLoss => e
+          error_response("PARSE_ERROR", e.message)
+        rescue StandardError => e
+          error_response("GENERAL", e.message)
+        end
+
         def error_response(error_code, error_message)
-          ResolutionDetails.new(error_code, error_message, "ERROR", nil, nil).to_h.freeze
+          ResolutionDetails.new(error_code, error_message, "ERROR", nil, nil).to_h
         end
 
         def grpc_client(configuration)
