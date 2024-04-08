@@ -110,6 +110,33 @@ RSpec.describe OpenFeature::FlagD::Provider do
       end
     end
 
+    context "get value with evaluated context" do
+      it do
+        expect(
+          client.fetch_boolean_value(
+            flag_key: 'boolean-flag-targeting',
+            default_value: false,
+            evaluation_context: OpenFeature::SDK::EvaluationContext.new(be_true: true)
+          )
+        ).to be_truthy
+      end
+
+      it do
+        fetch_value_with_targeting_key = ->(targeting_key) do
+          client.fetch_boolean_value(
+            flag_key: 'color-palette-experiment',
+            default_value: "#b91c1c",
+            evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: targeting_key)
+          )
+        end
+
+        initial_value = fetch_value_with_targeting_key.("123")
+        (0..2).to_a.each do # try with 1000
+          expect(fetch_value_with_targeting_key.("123")).to eq(initial_value)
+        end
+      end
+    end
+
     context "get details" do
       it do
         expect(client.fetch_boolean_details(flag_key: 'boolean-flag', default_value: false).resolution_details.to_h).to include(
