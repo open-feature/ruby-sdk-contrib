@@ -1,0 +1,10 @@
+version: '3.7'
+
+services:
+  flagd:
+    image: ghcr.io/open-feature/flagd:v0.9.2
+    ports:
+      - '127.0.0.1:8013:8013'
+    volumes:
+      - ./:/etc/flagd
+    command: start -x --uri file:./etc/flagd/flags.json

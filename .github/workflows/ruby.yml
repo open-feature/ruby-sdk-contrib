@@ -33,5 +33,8 @@ jobs:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
         working-directory: ./providers/openfeature-flagd-provider
+    - name: Launch flagd instance
+      run: docker-compose up -d flagd
+      working-directory: ./providers/openfeature-flagd-provider/docker
     - name: Run tests
       run: bundle exec rspec
