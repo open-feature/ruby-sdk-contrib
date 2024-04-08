@@ -24,7 +24,30 @@ gem install openfeature-meta-provider
 
 ## Usage
 
-Coming soon
+The `MetaProvider` is initialized with a collection of `Provider`s and a strategy for fetching flags from them.
+
+```ruby
+# Create a MetaProvider
+meta_provider = OpenFeature::SDK::Provider::MetaProvider.new(
+  providers: [
+    OpenFeature::SDK::ProviderInMemoryProvider.new,
+    MyCustomProvider.new
+  ],
+  strategy: :first_match
+)
+
+# Use it as the default provider
+OpenFeature.configure do |c|
+  c.set_provider(meta_provider)
+end
+```
+
+### Strategies
+
+#### :first_match
+
+When `:first_match` is given as the strategy, each provider will be evaluated, in the order they were passed in, for the requested `flag_key`. The first provider where the `flag_key` is found will be returned, short-circuiting flag evaluation with the remaining providers. In the case of a provider error, or no matching flags, returns the default value.
+
 
 ## Contributing
 
