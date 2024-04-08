@@ -1,0 +1,10 @@
+{
+  "folders": [
+    {
+      "path": "providers/openfeature-flagd-provider"
+    },
+    {
+      "path": "providers/openfeature-sdk-meta_provider"
+    }
+  ]
+}
