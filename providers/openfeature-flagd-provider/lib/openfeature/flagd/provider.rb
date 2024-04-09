@@ -43,9 +43,9 @@ module OpenFeature
       end
 
       class ConfiguredClient
-        def method_missing(method_name, *args, **kwargs, &)
+        def method_missing(method_name, ...)
           if client.respond_to?(method_name)
-            client.send(method_name, *args, **kwargs, &)
+            client.send(method_name, ...)
           else
             super
           end
@@ -57,12 +57,12 @@ module OpenFeature
 
         def configuration
           @configuration ||= Configuration.default_config
-                             .merge(Configuration.environment_variables_config)
-                             .merge(explicit_configuration)
+            .merge(Configuration.environment_variables_config)
+            .merge(explicit_configuration)
         end
 
         def configure(&block)
-          return unless block_given?
+          return unless block
 
           block.call(explicit_configuration)
         end

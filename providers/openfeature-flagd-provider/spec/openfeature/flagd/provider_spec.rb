@@ -90,7 +90,7 @@ RSpec.describe OpenFeature::FlagD::Provider do
 
     context "get value" do
       it do
-        expect(client.fetch_boolean_value(flag_key: 'boolean-flag', default_value: false)).to be_falsy
+        expect(client.fetch_boolean_value(flag_key: "boolean-flag", default_value: false)).to be_falsy
       end
 
       it do
@@ -106,7 +106,7 @@ RSpec.describe OpenFeature::FlagD::Provider do
       end
 
       it do
-        expect(client.fetch_object_value(flag_key: "object-flag", default_value: { "a" => "b" })).to be_a(Google::Protobuf::Struct)
+        expect(client.fetch_object_value(flag_key: "object-flag", default_value: {"a" => "b"})).to be_a(Google::Protobuf::Struct)
       end
     end
 
@@ -114,7 +114,7 @@ RSpec.describe OpenFeature::FlagD::Provider do
       it do
         expect(
           client.fetch_boolean_value(
-            flag_key: 'boolean-flag-targeting',
+            flag_key: "boolean-flag-targeting",
             default_value: false,
             evaluation_context: OpenFeature::SDK::EvaluationContext.new(be_true: true)
           )
@@ -124,27 +124,27 @@ RSpec.describe OpenFeature::FlagD::Provider do
       it do
         fetch_value_with_targeting_key = ->(targeting_key) do
           client.fetch_boolean_value(
-            flag_key: 'color-palette-experiment',
+            flag_key: "color-palette-experiment",
             default_value: "#b91c1c",
             evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: targeting_key)
           )
         end
 
-        initial_value = fetch_value_with_targeting_key.("123")
+        initial_value = fetch_value_with_targeting_key.call("123")
         (0..2).to_a.each do # try with 1000
-          expect(fetch_value_with_targeting_key.("123")).to eq(initial_value)
+          expect(fetch_value_with_targeting_key.call("123")).to eq(initial_value)
         end
       end
     end
 
     context "get details" do
       it do
-        expect(client.fetch_boolean_details(flag_key: 'boolean-flag', default_value: false).resolution_details.to_h).to include(
+        expect(client.fetch_boolean_details(flag_key: "boolean-flag", default_value: false).resolution_details.to_h).to include(
           error_code: nil,
           error_message: nil,
           reason: "STATIC",
           value: false,
-          variant: "off",
+          variant: "off"
         )
       end
 
@@ -154,7 +154,7 @@ RSpec.describe OpenFeature::FlagD::Provider do
           error_message: nil,
           reason: "STATIC",
           value: 42,
-          variant: "fourty-two",
+          variant: "fourty-two"
         )
       end
 
@@ -164,7 +164,7 @@ RSpec.describe OpenFeature::FlagD::Provider do
           error_message: nil,
           reason: "STATIC",
           value: 4.2,
-          variant: "four-point-two",
+          variant: "four-point-two"
         )
       end
 
@@ -174,16 +174,16 @@ RSpec.describe OpenFeature::FlagD::Provider do
           error_message: nil,
           reason: "STATIC",
           value: "lalala",
-          variant: "lilili",
+          variant: "lilili"
         )
       end
 
       it do
-        expect(client.fetch_object_details(flag_key: "object-flag", default_value: { "a" => "b" }).resolution_details.to_h).to include(
+        expect(client.fetch_object_details(flag_key: "object-flag", default_value: {"a" => "b"}).resolution_details.to_h).to include(
           error_code: nil,
           error_message: nil,
           reason: "STATIC",
-          variant: "real-object",
+          variant: "real-object"
         )
       end
     end

@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 Gem::Specification.new do |spec|
-  spec.name          = "openfeature-flagd-provider"
-  spec.version       = "0.0.1"
+  spec.name = "openfeature-flagd-provider"
+  spec.version = "0.0.1"
   spec.authors = ["OpenFeature Authors"]
   spec.email = ["cncf-openfeature-contributors@lists.cncf.io"]
 
-  spec.summary       = "The FlagD provider for the OpenFeature Ruby SDK"
-  spec.description   = "The FlagD provider for the OpenFeature Ruby SDK"
+  spec.summary = "The FlagD provider for the OpenFeature Ruby SDK"
+  spec.description = "The FlagD provider for the OpenFeature Ruby SDK"
   spec.homepage = "https://github.com/open-feature/ruby-sdk-contrib/providers/openfeature-flagd-provider"
   spec.license = "Apache-2.0"
   spec.required_ruby_version = ">= 3.1"
@@ -23,8 +23,8 @@ Gem::Specification.new do |spec|
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
     `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   end
-  spec.bindir        = "exe"
-  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.bindir = "exe"
+  spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency "grpc", "~> 1.50"
