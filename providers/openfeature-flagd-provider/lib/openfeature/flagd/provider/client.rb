@@ -96,7 +96,7 @@ module OpenFeature
         end
 
         def prepare_evaluation_context(evaluation_context)
-          return nil if !evaluation_context
+          return nil unless evaluation_context
 
           fields = evaluation_context.fields
           fields["targetingKey"] = fields.delete(:targeting_key)
