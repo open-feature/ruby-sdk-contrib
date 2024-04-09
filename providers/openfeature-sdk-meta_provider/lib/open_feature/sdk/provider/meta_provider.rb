@@ -26,26 +26,26 @@ module OpenFeature
         end
 
         def fetch_boolean_value(flag_key:, default_value:, evaluation_context: nil)
-          fetch_from_sources(default_value: default_value) do |provider|
-            provider.fetch_boolean_value(flag_key: flag_key, default_value: default_value, evaluation_context: evaluation_context)
+          fetch_from_sources(default_value:) do |provider|
+            provider.fetch_boolean_value(flag_key:, default_value:, evaluation_context:)
           end
         end
 
         def fetch_number_value(flag_key:, default_value:, evaluation_context: nil)
-          fetch_from_sources(default_value: default_value) do |provider|
-            provider.fetch_number_value(flag_key: flag_key, default_value: default_value, evaluation_context: evaluation_context)
+          fetch_from_sources(default_value:) do |provider|
+            provider.fetch_number_value(flag_key:, default_value:, evaluation_context:)
           end
         end
 
         def fetch_object_value(flag_key:, default_value:, evaluation_context: nil)
-          fetch_from_sources(default_value: default_value) do |provider|
-            provider.fetch_object_value(flag_key: flag_key, default_value: default_value, evaluation_context: evaluation_context)
+          fetch_from_sources(default_value:) do |provider|
+            provider.fetch_object_value(flag_key:, default_value:, evaluation_context:)
           end
         end
 
         def fetch_string_value(flag_key:, default_value:, evaluation_context: nil)
-          fetch_from_sources(default_value: default_value) do |provider|
-            provider.fetch_string_value(flag_key: flag_key, default_value: default_value, evaluation_context: evaluation_context)
+          fetch_from_sources(default_value:) do |provider|
+            provider.fetch_string_value(flag_key:, default_value:, evaluation_context:)
           end
         end
 
