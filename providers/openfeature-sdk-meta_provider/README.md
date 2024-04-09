@@ -1,26 +1,10 @@
 # OpenFeature::SDK::Provider::MetaProvider for Ruby
 
-The `OpenFeature::SDK::Provider::MetaProvider` is a utility provider implementation that takes multiple [providers](https://docs.openfeature.dev/docs/specification/sections/providers) for use during flag resolution.
+The `OpenFeature::SDK::Provider::MetaProvider` is a utility provider implementation that takes multiple [providers](https://docs.openfeature.dev/docs/specification/sections/providers) for use during flag resolution. This can be helpful when an organization is migrating or consolidating feature flag providers as they transition to OpenFeature. There are usually a combination of internal and vendor providers that are combined together to handle flag resolution. If your organization has different providers for different teams, consider looking at using [domains](https://openfeature.dev/specification/glossary#domain).
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'openfeature-meta-provider'
-```
-
-And then execute:
-
-```sh
-bundle install
-```
-
-Or install it yourself as:
-
-```sh
-gem install openfeature-meta-provider
-```
+Coming soon!
 
 ## Usage
 
