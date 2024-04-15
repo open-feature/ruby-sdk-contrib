@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 require "grpc"
+require 'google/protobuf/well_known_types'
 
 require_relative "schema/v1/schema_services_pb"
 require_relative "configuration"
+
 module OpenFeature
   module FlagD
     module Provider
@@ -15,20 +17,20 @@ module OpenFeature
       #
       # * <tt>metadata</tt> - Returns the associated provider metadata with the name
       #
-      # * <tt>resolve_boolean_value(flag_key:, default_value:, context: nil)</tt>
-      #   manner; <tt>client.resolve_boolean(flag_key: 'boolean-flag', default_value: false)</tt>
+      # * <tt>fetch_boolean_value(flag_key:, default_value:, evaluation_context: nil)</tt>
+      #   manner; <tt>client.fetch_boolean(flag_key: 'boolean-flag', default_value: false)</tt>
       #
-      # * <tt>resolve_integer_value(flag_key:, default_value:, context: nil)</tt>
-      #   manner; <tt>client.resolve_integer_value(flag_key: 'integer-flag', default_value: 2)</tt>
+      # * <tt>fetch_integer_value(flag_key:, default_value:, evaluation_context: nil)</tt>
+      #   manner; <tt>client.fetch_integer_value(flag_key: 'integer-flag', default_value: 2)</tt>
       #
-      # * <tt>resolve_float_value(flag_key:, default_value:, context: nil)</tt>
-      #   manner; <tt>client.resolve_float_value(flag_key: 'float-flag', default_value: 2.0)</tt>
+      # * <tt>fetch_float_value(flag_key:, default_value:, evaluation_context: nil)</tt>
+      #   manner; <tt>client.fetch_float_value(flag_key: 'float-flag', default_value: 2.0)</tt>
       #
-      # * <tt>resolve_string_value(flag_key:, default_value:, context: nil)</tt>
-      #   manner; <tt>client.resolve_string_value(flag_key: 'string-flag', default_value: 'some-default-value')</tt>
+      # * <tt>fetch_string_value(flag_key:, default_value:, evaluation_context: nil)</tt>
+      #   manner; <tt>client.fetch_string_value(flag_key: 'string-flag', default_value: 'some-default-value')</tt>
       #
-      # * <tt>resolve_object_value(flag_key:, default_value:, context: nil)</tt>
-      #   manner; <tt>client.resolve_object_value(flag_key: 'flag', default_value: { default_value: 'value'})</tt>
+      # * <tt>fetch_object_value(flag_key:, default_value:, evaluation_context: nil)</tt>
+      #   manner; <tt>client.fetch_object_value(flag_key: 'flag', default_value: { default_value: 'value'})</tt>
       class Client
         PROVIDER_NAME = "flagd Provider"
 
@@ -39,29 +41,37 @@ module OpenFeature
           @grpc_client = grpc_client(configuration)
         end
 
-
-        def resolve_boolean_value(flag_key:, default_value:, context: nil)
-          request = Grpc::ResolveBooleanRequest.new(flag_key: flag_key)
+        def fetch_boolean_value(flag_key:, default_value:, evaluation_context: nil)
+          request = Grpc::ResolveBooleanRequest.new(flag_key: flag_key, context: prepare_evaluation_context(evaluation_context))
           process_request { @grpc_client.resolve_boolean(request) }
         end
 
-        def resolve_integer_value(flag_key:, default_value:, context: nil)
-          request = Grpc::ResolveIntRequest.new(flag_key: flag_key)
+        def fetch_number_value(flag_key:, default_value:, evaluation_context: nil)
+          case default_value
+          when Integer
+            fetch_integer_value(flag_key: flag_key, default_value: default_value, evaluation_context: evaluation_context)
+          when Float
+            fetch_float_value(flag_key: flag_key, default_value: default_value, evaluation_context: evaluation_context)
+          end
+        end
+
+        def fetch_integer_value(flag_key:, default_value:, evaluation_context: nil)
+          request = Grpc::ResolveIntRequest.new(flag_key: flag_key, context: prepare_evaluation_context(evaluation_context))
           process_request { @grpc_client.resolve_int(request) }
         end
 
-        def resolve_float_value(flag_key:, default_value:, context: nil)
-          request = Grpc::ResolveFloatRequest.new(flag_key: flag_key)
-          process_request { @grpc_client.resolve_float(request) }
+        def fetch_float_value(flag_key:, default_value:, evaluation_context: nil)
+          request = Grpc::ResolveFloatRequest.new(flag_key: flag_key, context: prepare_evaluation_context(evaluation_context))
+          process_request { @grpc_client.resolve_float(request)  }
         end
 
-        def resolve_string_value(flag_key:, default_value:, context: nil)
-          request = Grpc::ResolveStringRequest.new(flag_key: flag_key)
+        def fetch_string_value(flag_key:, default_value:, evaluation_context: nil)
+          request = Grpc::ResolveStringRequest.new(flag_key: flag_key, context: prepare_evaluation_context(evaluation_context))
           process_request { @grpc_client.resolve_string(request) }
         end
 
-        def resolve_object_value(flag_key:, default_value:, context: nil)
-          request = Grpc::ResolveObjectRequest.new(flag_key: flag_key)
+        def fetch_object_value(flag_key:, default_value:, evaluation_context: nil)
+          request = Grpc::ResolveObjectRequest.new(flag_key: flag_key, context: prepare_evaluation_context(evaluation_context))
           process_request { @grpc_client.resolve_object(request) }
         end
 
@@ -72,7 +82,7 @@ module OpenFeature
 
         def process_request(&block)
           response = block.call
-          ResolutionDetails.new(nil, nil, response.reason, response.value, response.variant).to_h
+          ResolutionDetails.new(nil, nil, response.reason, response.value, response.variant)
         rescue GRPC::NotFound => e
           error_response("FLAG_NOT_FOUND", e.message)
         rescue GRPC::InvalidArgument => e
@@ -85,8 +95,16 @@ module OpenFeature
           error_response("GENERAL", e.message)
         end
 
+        def prepare_evaluation_context(evaluation_context)
+          return nil unless evaluation_context
+
+          fields = evaluation_context.fields
+          fields["targetingKey"] = fields.delete(:targeting_key)
+          Google::Protobuf::Struct.from_hash(fields)
+        end
+
         def error_response(error_code, error_message)
-          ResolutionDetails.new(error_code, error_message, "ERROR", nil, nil).to_h
+          ResolutionDetails.new(error_code, error_message, "ERROR", nil, nil)
         end
 
         def grpc_client(configuration)
