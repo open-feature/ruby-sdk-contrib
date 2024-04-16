@@ -11,8 +11,8 @@ module OpenFeature
     # values. The implementation follows the details specified in https://openfeature.dev/docs/specification/sections/providers
     #
     # Provider contains functionality to configure the GRPC connection via
-    #
-    #   OpenFeature::FlagD::Provider.configure do |config|
+    #   flagd_client = OpenFeature::FlagD::Provider.get_client
+    #   flagd_client.configure do |config|
     #     config.host = 'localhost'
     #     config.port = 8379
     #     config.tls = false
@@ -37,6 +37,12 @@ module OpenFeature
     #   manner; <tt>client.resolve_object_value(flag_key: 'object-flag', default_value: { default_value: 'value'})</tt>
     module Provider
       class << self
+        def build_client
+          ConfiguredClient.new
+        end
+      end
+
+      class ConfiguredClient
         def method_missing(method_name, *args, **kwargs, &)
           if client.respond_to?(method_name)
             client.send(method_name, *args, **kwargs, &)

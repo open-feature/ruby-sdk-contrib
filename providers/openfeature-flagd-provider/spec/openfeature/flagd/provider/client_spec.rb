@@ -17,17 +17,17 @@ RSpec.describe OpenFeature::FlagD::Provider::Client do
 
   context "https://openfeature.dev/docs/specification/sections/providers#requirement-221|222" do
     it do
-      expect(client).to respond_to(:resolve_boolean_value).with_keywords(:flag_key, :default_value, :context)
-      expect(client).to respond_to(:resolve_integer_value).with_keywords(:flag_key, :default_value, :context)
-      expect(client).to respond_to(:resolve_float_value).with_keywords(:flag_key, :default_value, :context)
-      expect(client).to respond_to(:resolve_string_value).with_keywords(:flag_key, :default_value, :context)
-      expect(client).to respond_to(:resolve_object_value).with_keywords(:flag_key, :default_value, :context)
+      expect(client).to respond_to(:fetch_boolean_value).with_keywords(:flag_key, :default_value, :evaluation_context)
+      expect(client).to respond_to(:fetch_integer_value).with_keywords(:flag_key, :default_value, :evaluation_context)
+      expect(client).to respond_to(:fetch_float_value).with_keywords(:flag_key, :default_value, :evaluation_context)
+      expect(client).to respond_to(:fetch_string_value).with_keywords(:flag_key, :default_value, :evaluation_context)
+      expect(client).to respond_to(:fetch_object_value).with_keywords(:flag_key, :default_value, :evaluation_context)
     end
   end
 
   context "https://openfeature.dev/docs/specification/sections/providers#requirement-223|224|225|226" do
     it do
-      expect(client.resolve_boolean_value(flag_key: "boolean-flag", default_value: false)).to include(
+      expect(client.fetch_boolean_value(flag_key: "boolean-flag", default_value: false).to_h).to include(
         error_code: nil,
         error_message: nil,
         reason: "STATIC",
@@ -37,7 +37,7 @@ RSpec.describe OpenFeature::FlagD::Provider::Client do
     end
 
     it do
-      expect(client.resolve_integer_value(flag_key: "integer-flag", default_value: 1)).to include(
+      expect(client.fetch_integer_value(flag_key: "integer-flag", default_value: 1).to_h).to include(
         error_code: nil,
         error_message: nil,
         reason: "STATIC",
@@ -47,7 +47,7 @@ RSpec.describe OpenFeature::FlagD::Provider::Client do
     end
 
     it do
-      expect(client.resolve_float_value(flag_key: "float-flag", default_value: 1.1)).to include(
+      expect(client.fetch_float_value(flag_key: "float-flag", default_value: 1.1).to_h).to include(
         error_code: nil,
         error_message: nil,
         reason: "STATIC",
@@ -57,7 +57,7 @@ RSpec.describe OpenFeature::FlagD::Provider::Client do
     end
 
     it do
-      expect(client.resolve_string_value(flag_key: "string-flag", default_value: "lololo")).to include(
+      expect(client.fetch_string_value(flag_key: "string-flag", default_value: "lololo").to_h).to include(
         error_code: nil,
         error_message: nil,
         reason: "STATIC",
@@ -67,8 +67,8 @@ RSpec.describe OpenFeature::FlagD::Provider::Client do
     end
 
     it do
-      resolution_details = client.resolve_object_value(flag_key: "object-flag", default_value: { "a" => "b" })
-      expect(resolution_details).to include(
+      resolution_details = client.fetch_object_value(flag_key: "object-flag", default_value: { "a" => "b" })
+      expect(resolution_details.to_h).to include(
         error_code: nil,
         error_message: nil,
         reason: "STATIC",
@@ -80,7 +80,7 @@ RSpec.describe OpenFeature::FlagD::Provider::Client do
 
   context "https://openfeature.dev/docs/specification/sections/providers#requirement-227" do
     it do
-      expect(client.resolve_boolean_value(flag_key: "some-non-existant-flag", default_value: false)).to include(
+      expect(client.fetch_boolean_value(flag_key: "some-non-existant-flag", default_value: false).to_h).to include(
         value: nil,
         variant: nil,
         reason: "ERROR",
