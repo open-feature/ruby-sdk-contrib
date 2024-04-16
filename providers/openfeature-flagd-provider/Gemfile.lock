@@ -85,7 +85,8 @@ DEPENDENCIES
   openfeature-sdk
   rake (~> 13.0)
   rspec (~> 3.12.0)
-  standard (~> 1.35.1)
+  rubocop
+  standard
 
 BUNDLED WITH
    2.3.25

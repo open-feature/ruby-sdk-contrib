@@ -1,8 +1,1 @@
-require:
-  - standard
-  - standard-performance
-  - rubocop-performance
-
-inherit_gem:
-  standard: config/base.yml
-  standard-performance: config/base.yml
+inherit_from: ../../shared_config/.rubocop.yml
