@@ -1,6 +1,7 @@
 # OpenFeature FlagD Provider for Ruby
 
 This is the Ruby [provider](https://openfeature.dev/docs/specification/sections/providers) implementation of the [FlagD](https://github.com/open-feature/flagd)
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -74,7 +75,6 @@ OpenFeature::SDK.configure do |config|
     end
 end
 ```
-
 
 If no environment variables are set the [default configuration](./lib/openfeature/flagd/provider/configuration.rb) is set
 

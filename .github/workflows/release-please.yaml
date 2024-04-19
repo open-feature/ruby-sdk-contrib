@@ -1,0 +1,59 @@
+name: Release Please
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release-please:
+    name: Release Please
+    runs-on: ubuntu-latest
+    # Release-please creates a PR that tracks all changes
+    steps:
+      - uses: google-github-actions/release-please-action@v3
+        id: release
+        with:
+          release-type: ruby
+          command: manifest
+          token: ${{ secrets.RELEASE_PLEASE_ACTION_TOKEN }}
+          default-branch: main
+          signoff: "OpenFeature Bot <109696520+openfeaturebot@users.noreply.github.com>"
+
+      - name: Dump Release Please Output
+        env:
+          RELEASE_PLEASE_OUTPUT: ${{ toJson(steps.release.outputs) }}
+        run: |
+          echo "$RELEASE_PLEASE_OUTPUT"
+
+    outputs:
+      all: ${{ toJSON(steps.release.outputs) }}
+      paths_released: ${{ steps.release.outputs.paths_released }}
+
+  publish-gems:
+    name: Publish Ruby Gems
+    needs: release-please
+    runs-on: ubuntu-latest
+    if: ${{ fromJSON(needs.release-please.outputs.paths_released)[0] != null }}
+    strategy:
+      matrix:
+        path: ${{ fromJSON(needs.release-please.outputs.paths_released) }}
+    env:
+      TAG: ${{ fromJSON(needs.release-please.outputs.all)[format('{0}--tag_name', matrix.path)] }}
+    defaults:
+      run:
+        working-directory: ./${{ matrix.path }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+        with:
+          ref: ${{ env.TAG }}
+      
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          # TODO see if the ruby version matter for publishing
+          # ruby-version: ${{ matrix.ruby-version }}
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+
+      ## TODO add a step to publish the gem

@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+require_relative "lib/open_feature/sdk/proivder/version"
+
 Gem::Specification.new do |spec|
   spec.name = "openfeature-sdk-meta_provider"
-  spec.version = "0.1.0"
+  spec.version = OpenFeature::SDK::Provider::VERSION
   spec.authors = ["OpenFeature Authors"]
   spec.email = ["cncf-openfeature-contributors@lists.cncf.io"]
 
@@ -14,7 +16,7 @@ Gem::Specification.new do |spec|
 
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = "https://github.com/open-feature/ruby-sdk-contrib/providers/openfeature-sdk-meta_provider"
-  spec.metadata["changelog_uri"] = "https://github.com/open-feature/ruby-sdk-contrib/blob/main/CHANGELOG.md"
+  spec.metadata["changelog_uri"] = "https://github.com/open-feature/ruby-sdk-contrib/blob/main/providers/openfeature-sdk-meta_provider/CHANGELOG.md"
   spec.metadata["bug_tracker_uri"] = "https://github.com/open-feature/ruby-sdk-contrib/issues"
   spec.metadata["documentation_uri"] = "https://github.com/open-feature/ruby-sdk-contrib/README.md"
 
