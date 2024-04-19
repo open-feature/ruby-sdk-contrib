@@ -32,7 +32,7 @@ RSpec.describe OpenFeature::FlagD::Provider::Client do
         error_message: nil,
         reason: "STATIC",
         value: false,
-        variant: "off",
+        variant: "off"
       )
     end
 
@@ -42,7 +42,7 @@ RSpec.describe OpenFeature::FlagD::Provider::Client do
         error_message: nil,
         reason: "STATIC",
         value: 42,
-        variant: "fourty-two",
+        variant: "fourty-two"
       )
     end
 
@@ -52,7 +52,7 @@ RSpec.describe OpenFeature::FlagD::Provider::Client do
         error_message: nil,
         reason: "STATIC",
         value: 4.2,
-        variant: "four-point-two",
+        variant: "four-point-two"
       )
     end
 
@@ -62,17 +62,17 @@ RSpec.describe OpenFeature::FlagD::Provider::Client do
         error_message: nil,
         reason: "STATIC",
         value: "lalala",
-        variant: "lilili",
+        variant: "lilili"
       )
     end
 
     it do
-      resolution_details = client.fetch_object_value(flag_key: "object-flag", default_value: { "a" => "b" })
+      resolution_details = client.fetch_object_value(flag_key: "object-flag", default_value: {"a" => "b"})
       expect(resolution_details.to_h).to include(
         error_code: nil,
         error_message: nil,
         reason: "STATIC",
-        variant: "real-object",
+        variant: "real-object"
       )
       expect(resolution_details[:value].fields["real"].string_value).to eq("value")
     end

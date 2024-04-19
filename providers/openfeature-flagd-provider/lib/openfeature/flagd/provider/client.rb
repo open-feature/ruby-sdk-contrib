@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "grpc"
-require 'google/protobuf/well_known_types'
+require "google/protobuf/well_known_types"
 
 require_relative "schema/v1/schema_services_pb"
 require_relative "configuration"
@@ -62,7 +62,7 @@ module OpenFeature
 
         def fetch_float_value(flag_key:, default_value:, evaluation_context: nil)
           request = Grpc::ResolveFloatRequest.new(flag_key: flag_key, context: prepare_evaluation_context(evaluation_context))
-          process_request { @grpc_client.resolve_float(request)  }
+          process_request { @grpc_client.resolve_float(request) }
         end
 
         def fetch_string_value(flag_key:, default_value:, evaluation_context: nil)
@@ -91,7 +91,7 @@ module OpenFeature
           error_response("FLAG_NOT_FOUND", e.message)
         rescue GRPC::DataLoss => e
           error_response("PARSE_ERROR", e.message)
-        rescue StandardError => e
+        rescue => e
           error_response("GENERAL", e.message)
         end
 

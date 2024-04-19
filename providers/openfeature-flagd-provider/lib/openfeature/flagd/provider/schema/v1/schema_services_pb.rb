@@ -8,8 +8,8 @@
 # It supports single and bulk evaluation RPCs, and flags of various types, as well as establishing a stream for getting notifications about changes in a flag definition.
 # It supports the inclusion of a "context" with each evaluation, which may contain arbitrary attributes relevant to flag evaluation.
 
-require 'grpc'
-require_relative 'schema_pb' # [alxckn] had to edit this
+require "grpc"
+require_relative "schema_pb" # [alxckn] had to edit this
 
 module OpenFeature
   module FlagD
@@ -18,12 +18,11 @@ module OpenFeature
         module Service
           # Service defines the exposed rpcs of flagd
           class Service
-
             include ::GRPC::GenericService
 
             self.marshal_class_method = :encode
             self.unmarshal_class_method = :decode
-            self.service_name = 'schema.v1.Service'
+            self.service_name = "schema.v1.Service"
 
             rpc :ResolveAll, ::OpenFeature::FlagD::Provider::Grpc::ResolveAllRequest, ::OpenFeature::FlagD::Provider::Grpc::ResolveAllResponse
             rpc :ResolveBoolean, ::OpenFeature::FlagD::Provider::Grpc::ResolveBooleanRequest, ::OpenFeature::FlagD::Provider::Grpc::ResolveBooleanResponse

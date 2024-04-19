@@ -34,7 +34,7 @@ module OpenFeature
         def merge(other_configuration)
           return self if other_configuration.nil?
 
-          self.class.new(**self.to_h.compact.merge(other_configuration.to_h.compact))
+          self.class.new(**to_h.compact.merge(other_configuration.to_h.compact))
         end
       end
     end
