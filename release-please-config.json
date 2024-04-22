@@ -11,7 +11,7 @@
     },
     "providers/openfeature-sdk-meta_provider": {
       "package-name": "openfeature-flagd-provider",
-      "version-file": "lib/openfeature/flagd/provider/version.rb",
+      "version-file": "lib/open_feature/sdk/provider/version.rb",
       "bump-minor-pre-major": true,
       "bump-patch-for-minor-pre-major": true,
       "versioning": "default",
