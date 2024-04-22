@@ -10,7 +10,7 @@
       "extra-files": ["README.md"]
     },
     "providers/openfeature-sdk-meta_provider": {
-      "package-name": "openfeature-flagd-provider",
+      "package-name": "openfeature-sdk-meta_provider",
       "version-file": "lib/open_feature/sdk/provider/version.rb",
       "bump-minor-pre-major": true,
       "bump-patch-for-minor-pre-major": true,
