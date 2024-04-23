@@ -47,12 +47,7 @@ module OpenFeature
         end
 
         def fetch_number_value(flag_key:, default_value:, evaluation_context: nil)
-          case default_value
-          when Integer
-            fetch_integer_value(flag_key: flag_key, default_value: default_value, evaluation_context: evaluation_context)
-          when Float
-            fetch_float_value(flag_key: flag_key, default_value: default_value, evaluation_context: evaluation_context)
-          end
+          raise "fetch_number_value is not supported by flagd"
         end
 
         def fetch_integer_value(flag_key:, default_value:, evaluation_context: nil)
