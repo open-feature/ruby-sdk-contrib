@@ -43,7 +43,7 @@ module OpenFeature
 
         def fetch_boolean_value(flag_key:, default_value:, evaluation_context: nil)
           request = Grpc::ResolveBooleanRequest.new(flag_key: flag_key, context: prepare_evaluation_context(evaluation_context))
-          process_request { @grpc_client.resolve_boolean(request) }
+          process_request(default_value) { @grpc_client.resolve_boolean(request) }
         end
 
         def fetch_number_value(flag_key:, default_value:, evaluation_context: nil)
@@ -57,27 +57,27 @@ module OpenFeature
 
         def fetch_integer_value(flag_key:, default_value:, evaluation_context: nil)
           request = Grpc::ResolveIntRequest.new(flag_key: flag_key, context: prepare_evaluation_context(evaluation_context))
-          process_request { @grpc_client.resolve_int(request) }
+          process_request(default_value) { @grpc_client.resolve_int(request) }
         end
 
         def fetch_float_value(flag_key:, default_value:, evaluation_context: nil)
           request = Grpc::ResolveFloatRequest.new(flag_key: flag_key, context: prepare_evaluation_context(evaluation_context))
-          process_request { @grpc_client.resolve_float(request) }
+          process_request(default_value) { @grpc_client.resolve_float(request) }
         end
 
         def fetch_string_value(flag_key:, default_value:, evaluation_context: nil)
           request = Grpc::ResolveStringRequest.new(flag_key: flag_key, context: prepare_evaluation_context(evaluation_context))
-          process_request { @grpc_client.resolve_string(request) }
+          process_request(default_value) { @grpc_client.resolve_string(request) }
         end
 
         def fetch_object_value(flag_key:, default_value:, evaluation_context: nil)
           request = Grpc::ResolveObjectRequest.new(flag_key: flag_key, context: prepare_evaluation_context(evaluation_context))
-          process_request { @grpc_client.resolve_object(request) }
+          process_request(default_value) { @grpc_client.resolve_object(request) }
         end
 
         private
 
-        def process_request(&block)
+        def process_request(default_value, &block)
           response = block.call
           OpenFeature::SDK::Provider::ResolutionDetails.new(
             value: response.value,
@@ -88,15 +88,15 @@ module OpenFeature
             flag_metadata: nil,
           )
         rescue GRPC::NotFound => e
-          error_response("FLAG_NOT_FOUND", e.message)
+          error_response(default_value, "FLAG_NOT_FOUND", e.message)
         rescue GRPC::InvalidArgument => e
-          error_response("TYPE_MISMATCH", e.message)
+          error_response(default_value, "TYPE_MISMATCH", e.message)
         rescue GRPC::Unavailable => e
-          error_response("FLAG_NOT_FOUND", e.message)
+          error_response(default_value, "FLAG_NOT_FOUND", e.message)
         rescue GRPC::DataLoss => e
-          error_response("PARSE_ERROR", e.message)
+          error_response(default_value, "PARSE_ERROR", e.message)
         rescue => e
-          error_response("GENERAL", e.message)
+          error_response(default_value, "GENERAL", e.message)
         end
 
         def prepare_evaluation_context(evaluation_context)
@@ -107,9 +107,9 @@ module OpenFeature
           Google::Protobuf::Struct.from_hash(fields)
         end
 
-        def error_response(error_code, error_message)
+        def error_response(default_value, error_code, error_message)
           OpenFeature::SDK::Provider::ResolutionDetails.new(
-            value: nil,
+            value: default_value,
             reason: "ERROR",
             variant: nil,
             error_code: error_code,

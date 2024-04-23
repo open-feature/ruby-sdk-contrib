@@ -81,7 +81,7 @@ RSpec.describe OpenFeature::FlagD::Provider::Client do
   context "https://openfeature.dev/docs/specification/sections/providers#requirement-227" do
     it do
       expect(client.fetch_boolean_value(flag_key: "some-non-existant-flag", default_value: false).to_h).to include(
-        value: nil,
+        value: false,
         variant: nil,
         reason: "ERROR",
         error_code: "FLAG_NOT_FOUND"
