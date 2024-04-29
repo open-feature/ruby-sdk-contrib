@@ -37,7 +37,7 @@ module OpenFeature
         attr_reader :metadata
 
         def initialize(configuration: nil)
-          @metadata = Metadata.new(PROVIDER_NAME)
+          @metadata = OpenFeature::SDK::Provider::ProviderMetadata.new(name: PROVIDER_NAME)
           @grpc_client = grpc_client(configuration)
         end
 
@@ -77,12 +77,16 @@ module OpenFeature
 
         private
 
-        Metadata = Struct.new("Metadata", :name)
-        ResolutionDetails = Struct.new("ResolutionDetails", :error_code, :error_message, :reason, :value, :variant)
-
         def process_request(&block)
           response = block.call
-          ResolutionDetails.new(nil, nil, response.reason, response.value, response.variant)
+          OpenFeature::SDK::Provider::ResolutionDetails.new(
+            value: response.value,
+            reason: response.reason,
+            variant: response.variant,
+            error_code: nil,
+            error_message: nil,
+            flag_metadata: nil
+          )
         rescue GRPC::NotFound => e
           error_response("FLAG_NOT_FOUND", e.message)
         rescue GRPC::InvalidArgument => e
@@ -104,7 +108,14 @@ module OpenFeature
         end
 
         def error_response(error_code, error_message)
-          ResolutionDetails.new(error_code, error_message, "ERROR", nil, nil)
+          OpenFeature::SDK::Provider::ResolutionDetails.new(
+            value: nil,
+            reason: "ERROR",
+            variant: nil,
+            error_code: error_code,
+            error_message: error_message,
+            flag_metadata: nil
+          )
         end
 
         def grpc_client(configuration)
