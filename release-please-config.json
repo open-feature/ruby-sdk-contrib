@@ -7,15 +7,19 @@
       "bump-minor-pre-major": true,
       "bump-patch-for-minor-pre-major": true,
       "versioning": "default",
-      "extra-files": ["README.md"]
+      "extra-files": [
+        "README.md"
+      ]
     },
     "providers/openfeature-meta_provider": {
       "package-name": "openfeature-meta_provider",
-      "version-file": "lib/open_feature/sdk/provider/version.rb",
+      "version-file": "lib/openfeature/meta_provider_version.rb",
       "bump-minor-pre-major": true,
       "bump-patch-for-minor-pre-major": true,
       "versioning": "default",
-      "extra-files": ["README.md"]
+      "extra-files": [
+        "README.md"
+      ]
     }
   },
   "changelog-sections": [

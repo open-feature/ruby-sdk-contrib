@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative "lib/open_feature/sdk/provider/version"
+require_relative "lib/openfeature/meta_provider_version"
 
 Gem::Specification.new do |spec|
   spec.name = "openfeature-meta_provider"
-  spec.version = OpenFeature::SDK::Provider::VERSION
+  spec.version = OpenFeature::META_PROVIDER_VERSION
   spec.authors = ["OpenFeature Authors"]
   spec.email = ["cncf-openfeature-contributors@lists.cncf.io"]
 
