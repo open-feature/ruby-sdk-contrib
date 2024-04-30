@@ -85,7 +85,7 @@ module OpenFeature
             variant: response.variant,
             error_code: nil,
             error_message: nil,
-            flag_metadata: nil,
+            flag_metadata: nil
           )
         rescue GRPC::NotFound => e
           error_response(default_value, "FLAG_NOT_FOUND", e.message)
@@ -114,7 +114,7 @@ module OpenFeature
             variant: nil,
             error_code: error_code,
             error_message: error_message,
-            flag_metadata: nil,
+            flag_metadata: nil
           )
         end
 
