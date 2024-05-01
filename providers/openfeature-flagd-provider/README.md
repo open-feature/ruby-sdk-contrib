@@ -1,6 +1,6 @@
-# OpenFeature FlagD Provider for Ruby
+# OpenFeature Flagd Provider for Ruby
 
-This is the Ruby [provider](https://openfeature.dev/docs/specification/sections/providers) implementation of the [FlagD](https://github.com/open-feature/flagd)
+This is the Ruby [provider](https://openfeature.dev/docs/specification/sections/providers) implementation of the [Flagd](https://flagd.dev/)
 
 ## Installation
 
@@ -24,7 +24,7 @@ gem install openfeature-flagd-provider
 
 ## Usage
 
-The `OpenFeature::FlagD` supports multiple configuration options that dictate how the SDK communicates with flagd.
+The `OpenFeature::Flagd` supports multiple configuration options that dictate how the SDK communicates with flagd.
 Options can be defined in the constructor or as environment variables, with constructor options having the highest precedence.
 
 ### Available options
@@ -42,7 +42,7 @@ Options can be defined in the constructor or as environment variables, with cons
 ```ruby
 OpenFeature::SDK.configure do |config|
     # your provider of choice
-    config.provider = OpenFeature::FlagD::Provider.configure do |provider_config|
+    config.provider = OpenFeature::Flagd::Provider.configure do |provider_config|
         provider_config.host = "localhost"
         provider_config.port = 8013
         provider_config.tls = false
@@ -55,7 +55,7 @@ end
 ```ruby
 OpenFeature::SDK.configure do |config|
     # your provider of choice
-    config.provider = OpenFeature::FlagD::Provider.configure do |provider_config|
+    config.provider = OpenFeature::Flagd::Provider.configure do |provider_config|
         provider_config.unix_socket_path = "tmp/flagd.sock"
     end
 end
@@ -67,7 +67,7 @@ end
 ```ruby
 OpenFeature::SDK.configure do |config|
     # your provider of choice
-    config.provider = OpenFeature::FlagD::Provider.configure do |provider_config|
+    config.provider = OpenFeature::Flagd::Provider.configure do |provider_config|
         provider_config.host = "localhost"
         provider_config.port = 8013
         provider_config.tls = true

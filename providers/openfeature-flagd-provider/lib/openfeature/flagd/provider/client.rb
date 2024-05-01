@@ -3,11 +3,11 @@
 require "grpc"
 require "google/protobuf/well_known_types"
 
-require_relative "schema/v1/schema_services_pb"
+require_relative "flagd/evaluation/v1/evaluation_services_pb"
 require_relative "configuration"
 
 module OpenFeature
-  module FlagD
+  module Flagd
     module Provider
       # Client represents a wrapper for the GRPC stub that allows for resolution of boolean, string, number, and object
       # values. The implementation follows the details specified in https://openfeature.dev/docs/specification/sections/providers

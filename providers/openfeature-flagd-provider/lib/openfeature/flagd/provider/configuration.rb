@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 module OpenFeature
-  module FlagD
+  module Flagd
     module Provider
-      # Represents the configuration object for the FlagD provider,
+      # Represents the configuration object for the Flagd provider,
       # This class is not meant to be interacted with directly but instead through the
-      # <tt>OpenFeature::FlagD::Provider.configure</tt> method
+      # <tt>OpenFeature::Flagd::Provider.configure</tt> method
       class Configuration < Struct.new(:host, :port, :tls, :unix_socket_path, :root_cert_path, keyword_init: true)
         ENVIRONMENT_CONFIG_NAME = {
           host: "FLAGD_HOST",
