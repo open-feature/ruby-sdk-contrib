@@ -47,7 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./providers/openfeature-sdk-meta_provider
+        working-directory: ./providers/openfeature-meta_provider
     strategy:
       matrix:
         ruby-version:
@@ -61,6 +61,6 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-        working-directory: ./providers/openfeature-sdk-meta_provider
+        working-directory: ./providers/openfeature-meta_provider
     - name: Lint and test
       run: bin/rake

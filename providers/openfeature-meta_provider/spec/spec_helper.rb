@@ -2,7 +2,7 @@
 
 require "bundler/setup"
 require "debug"
-require "open_feature/sdk/provider/meta_provider"
+require "openfeature/meta_provider"
 require "open_feature/sdk"
 
 RSpec.configure do |config|
