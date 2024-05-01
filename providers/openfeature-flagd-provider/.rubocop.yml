@@ -1,1 +1,4 @@
 inherit_from: ../../shared_config/.rubocop.yml
+AllCops:
+  Exclude:
+    - 'lib/openfeature/flagd/provider/flagd/**/*.rb'
