@@ -1,6 +1,6 @@
-# OpenFeature Flagd Provider for Ruby
+# OpenFeature flagd Provider for Ruby
 
-This is the Ruby [provider](https://openfeature.dev/docs/specification/sections/providers) implementation of the [Flagd](https://flagd.dev/)
+This is the Ruby [provider](https://openfeature.dev/docs/specification/sections/providers) implementation of the [flagd](https://flagd.dev/)
 
 ## Installation
 

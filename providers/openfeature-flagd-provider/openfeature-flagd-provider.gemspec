@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors = ["OpenFeature Authors"]
   spec.email = ["cncf-openfeature-contributors@lists.cncf.io"]
 
-  spec.summary = "The Flagd provider for the OpenFeature Ruby SDK"
-  spec.description = "The Flagd provider for the OpenFeature Ruby SDK"
+  spec.summary = "The flagd provider for the OpenFeature Ruby SDK"
+  spec.description = "The flagd provider for the OpenFeature Ruby SDK"
   spec.homepage = "https://github.com/open-feature/ruby-sdk-contrib/providers/openfeature-flagd-provider"
   spec.license = "Apache-2.0"
   spec.required_ruby_version = ">= 3.1"
