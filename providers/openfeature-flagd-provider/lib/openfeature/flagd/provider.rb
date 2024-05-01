@@ -4,6 +4,7 @@ require "grpc"
 
 require_relative "provider/configuration"
 require_relative "provider/client"
+require_relative "provider/version"
 
 module OpenFeature
   module FlagD

@@ -48,7 +48,7 @@ RSpec.shared_examples "meta resolution" do |type, default_value, first_matched_v
   end
 end
 
-RSpec.describe OpenFeature::SDK::Provider::MetaProvider do
+RSpec.describe OpenFeature::MetaProvider do
   subject(:meta_provider) { described_class.new(providers: [provider_one, provider_two]) }
 
   let(:provider_one) do
