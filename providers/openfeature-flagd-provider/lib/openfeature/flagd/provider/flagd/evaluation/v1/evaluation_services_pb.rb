@@ -9,7 +9,7 @@
 # It supports the inclusion of a "context" with each evaluation, which may contain arbitrary attributes relevant to flag evaluation.
 
 require 'grpc'
-require 'flagd/evaluation/v1/evaluation_pb'
+require 'evaluation_pb'
 
 module OpenFeature
   module Flagd
