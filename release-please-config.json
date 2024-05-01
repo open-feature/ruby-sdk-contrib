@@ -18,6 +18,7 @@
       "bump-minor-pre-major": true,
       "bump-patch-for-minor-pre-major": true,
       "versioning": "default",
+      "release-as": "0.0.2",
       "extra-files": [
         "README.md"
       ]
