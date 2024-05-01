@@ -1,5 +1,6 @@
 {
   "separate-pull-requests": true,
+  "release-type": "ruby",
   "packages": {
     "providers/openfeature-flagd-provider": {
       "package-name": "openfeature-flagd-provider",
