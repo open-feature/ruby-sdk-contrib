@@ -57,6 +57,15 @@ module OpenFeature
         successful_details = providers.each do |provider|
           details = yield(provider)
 
+          details = SDK::Provider::ResolutionDetails.new(
+            value: details.value,
+            reason: details.reason,
+            variant: details.variant,
+            error_code: details.error_code,
+            error_message: details.error_message,
+            flag_metadata: (details.flag_metadata || {}).merge("provider_name" => provider.metadata.name)
+          )
+
           break details if details.error_code.nil?
         rescue
           next
