@@ -11,7 +11,7 @@ RSpec.shared_examples "meta resolution" do |type, default_value, first_matched_v
         expected_result = OpenFeature::SDK::Provider::ResolutionDetails.new(
           value: first_matched_value,
           reason: OpenFeature::SDK::Provider::Reason::STATIC,
-          flag_metadata: {"provider_name" => "In-memory Provider"}
+          flag_metadata: {"matched_provider" => "In-memory Provider"}
         )
 
         result = meta_provider.send(:"fetch_#{type}_value", flag_key:, default_value:)
@@ -27,7 +27,7 @@ RSpec.shared_examples "meta resolution" do |type, default_value, first_matched_v
         expected_result = OpenFeature::SDK::Provider::ResolutionDetails.new(
           value: second_matched_value,
           reason: OpenFeature::SDK::Provider::Reason::STATIC,
-          flag_metadata: {"provider_name" => "In-memory Provider"}
+          flag_metadata: {"matched_provider" => "In-memory Provider"}
         )
 
         result = meta_provider.send(:"fetch_#{type}_value", flag_key:, default_value:)

@@ -63,7 +63,7 @@ module OpenFeature
             variant: details.variant,
             error_code: details.error_code,
             error_message: details.error_message,
-            flag_metadata: (details.flag_metadata || {}).merge("provider_name" => provider.metadata.name)
+            flag_metadata: (details.flag_metadata || {}).merge("matched_provider" => provider.metadata.name)
           )
 
           break details if details.error_code.nil?
