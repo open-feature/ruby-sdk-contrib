@@ -3,11 +3,11 @@
 require "grpc"
 require "google/protobuf/well_known_types"
 
-require_relative "schema/v1/schema_services_pb"
+require_relative "flagd/evaluation/v1/evaluation_services_pb"
 require_relative "configuration"
 
 module OpenFeature
-  module FlagD
+  module Flagd
     module Provider
       # Client represents a wrapper for the GRPC stub that allows for resolution of boolean, string, number, and object
       # values. The implementation follows the details specified in https://openfeature.dev/docs/specification/sections/providers
@@ -42,7 +42,7 @@ module OpenFeature
         end
 
         def fetch_boolean_value(flag_key:, default_value:, evaluation_context: nil)
-          request = Grpc::ResolveBooleanRequest.new(flag_key: flag_key, context: prepare_evaluation_context(evaluation_context))
+          request = Grpc::Evaluation::ResolveBooleanRequest.new(flag_key: flag_key, context: prepare_evaluation_context(evaluation_context))
           process_request(default_value) { @grpc_client.resolve_boolean(request) }
         end
 
@@ -51,22 +51,22 @@ module OpenFeature
         end
 
         def fetch_integer_value(flag_key:, default_value:, evaluation_context: nil)
-          request = Grpc::ResolveIntRequest.new(flag_key: flag_key, context: prepare_evaluation_context(evaluation_context))
+          request = Grpc::Evaluation::ResolveIntRequest.new(flag_key: flag_key, context: prepare_evaluation_context(evaluation_context))
           process_request(default_value) { @grpc_client.resolve_int(request) }
         end
 
         def fetch_float_value(flag_key:, default_value:, evaluation_context: nil)
-          request = Grpc::ResolveFloatRequest.new(flag_key: flag_key, context: prepare_evaluation_context(evaluation_context))
+          request = Grpc::Evaluation::ResolveFloatRequest.new(flag_key: flag_key, context: prepare_evaluation_context(evaluation_context))
           process_request(default_value) { @grpc_client.resolve_float(request) }
         end
 
         def fetch_string_value(flag_key:, default_value:, evaluation_context: nil)
-          request = Grpc::ResolveStringRequest.new(flag_key: flag_key, context: prepare_evaluation_context(evaluation_context))
+          request = Grpc::Evaluation::ResolveStringRequest.new(flag_key: flag_key, context: prepare_evaluation_context(evaluation_context))
           process_request(default_value) { @grpc_client.resolve_string(request) }
         end
 
         def fetch_object_value(flag_key:, default_value:, evaluation_context: nil)
-          request = Grpc::ResolveObjectRequest.new(flag_key: flag_key, context: prepare_evaluation_context(evaluation_context))
+          request = Grpc::Evaluation::ResolveObjectRequest.new(flag_key: flag_key, context: prepare_evaluation_context(evaluation_context))
           process_request(default_value) { @grpc_client.resolve_object(request) }
         end
 
@@ -121,7 +121,7 @@ module OpenFeature
             )
           end
 
-          Grpc::Service::Stub.new(server_address(configuration), options).freeze
+          Grpc::Evaluation::Service::Stub.new(server_address(configuration), options).freeze
         end
 
         def server_address(configuration)
