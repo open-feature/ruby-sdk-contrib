@@ -4,12 +4,12 @@ require_relative "lib/openfeature/flagd/provider/version"
 
 Gem::Specification.new do |spec|
   spec.name = "openfeature-flagd-provider"
-  spec.version = OpenFeature::FlagD::VERSION
+  spec.version = OpenFeature::Flagd::VERSION
   spec.authors = ["OpenFeature Authors"]
   spec.email = ["cncf-openfeature-contributors@lists.cncf.io"]
 
-  spec.summary = "The FlagD provider for the OpenFeature Ruby SDK"
-  spec.description = "The FlagD provider for the OpenFeature Ruby SDK"
+  spec.summary = "The flagd provider for the OpenFeature Ruby SDK"
+  spec.description = "The flagd provider for the OpenFeature Ruby SDK"
   spec.homepage = "https://github.com/open-feature/ruby-sdk-contrib/providers/openfeature-flagd-provider"
   spec.license = "Apache-2.0"
   spec.required_ruby_version = ">= 3.1"

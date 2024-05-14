@@ -3,8 +3,8 @@
 require "spec_helper"
 
 # https://openfeature.dev/docs/specification/sections/providers
-RSpec.describe OpenFeature::FlagD::Provider::Client do
-  let(:configuration) { OpenFeature::FlagD::Provider::Configuration.default_config }
+RSpec.describe OpenFeature::Flagd::Provider::Client do
+  let(:configuration) { OpenFeature::Flagd::Provider::Configuration.default_config }
   subject(:client) { described_class.new(configuration: configuration) }
 
   context "https://openfeature.dev/docs/specification/sections/providers#requirement-211" do

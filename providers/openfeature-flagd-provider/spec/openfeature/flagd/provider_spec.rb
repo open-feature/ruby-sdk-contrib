@@ -5,7 +5,7 @@ require "open_feature/sdk"
 
 # https://openfeature.dev/docs/specification/sections/providers
 
-RSpec.describe OpenFeature::FlagD::Provider do
+RSpec.describe OpenFeature::Flagd::Provider do
   before do
     ENV["FLAGD_HOST"] = nil
     ENV["FLAGD_PORT"] = nil
@@ -83,7 +83,7 @@ RSpec.describe OpenFeature::FlagD::Provider do
   context "OpenFeature SDK integration" do
     before do
       OpenFeature::SDK.configure do |config|
-        config.set_provider(OpenFeature::FlagD::Provider.build_client)
+        config.set_provider(OpenFeature::Flagd::Provider.build_client)
       end
     end
     subject(:client) { OpenFeature::SDK.build_client }
