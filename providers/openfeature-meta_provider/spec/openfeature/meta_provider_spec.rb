@@ -8,9 +8,15 @@ RSpec.shared_examples "meta resolution" do |type, default_value, first_matched_v
       let(:flag_key) { "first_match_#{type}" }
 
       it "returns from first" do
+        expected_result = OpenFeature::SDK::Provider::ResolutionDetails.new(
+          value: first_matched_value,
+          reason: OpenFeature::SDK::Provider::Reason::STATIC,
+          flag_metadata: {"matched_provider" => "In-memory Provider"}
+        )
+
         result = meta_provider.send(:"fetch_#{type}_value", flag_key:, default_value:)
 
-        expect(result).to eq(OpenFeature::SDK::Provider::ResolutionDetails.new(value: first_matched_value, reason: OpenFeature::SDK::Provider::Reason::STATIC))
+        expect(result).to eq(expected_result)
       end
     end
 
@@ -18,9 +24,15 @@ RSpec.shared_examples "meta resolution" do |type, default_value, first_matched_v
       let(:flag_key) { "second_match_#{type}" }
 
       it "returns from second" do
+        expected_result = OpenFeature::SDK::Provider::ResolutionDetails.new(
+          value: second_matched_value,
+          reason: OpenFeature::SDK::Provider::Reason::STATIC,
+          flag_metadata: {"matched_provider" => "In-memory Provider"}
+        )
+
         result = meta_provider.send(:"fetch_#{type}_value", flag_key:, default_value:)
 
-        expect(result).to eq(OpenFeature::SDK::Provider::ResolutionDetails.new(value: second_matched_value, reason: OpenFeature::SDK::Provider::Reason::STATIC))
+        expect(result).to eq(expected_result)
       end
     end
 
