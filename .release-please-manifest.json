@@ -1,4 +1,4 @@
 {
   "providers/openfeature-flagd-provider": "0.1.0",
-  "providers/openfeature-meta_provider": "0.0.2"
+  "providers/openfeature-meta_provider": "0.0.3"
 }
