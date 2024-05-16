@@ -37,6 +37,10 @@ RSpec.describe OpenFeature::Flagd::Provider::Client do
     end
 
     it do
+      expect { client.fetch_number_value(flag_key: "integer-flag", default_value: 1) }.to raise_error(StandardError)
+    end
+
+    it do
       expect(client.fetch_integer_value(flag_key: "integer-flag", default_value: 1).to_h).to include(
         error_code: nil,
         error_message: nil,

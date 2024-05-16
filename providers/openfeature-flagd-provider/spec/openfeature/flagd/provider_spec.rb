@@ -94,11 +94,11 @@ RSpec.describe OpenFeature::Flagd::Provider do
       end
 
       it do
-        expect(client.fetch_number_value(flag_key: "integer-flag", default_value: 1)).to eq(42)
+        expect(client.fetch_integer_value(flag_key: "integer-flag", default_value: 1)).to eq(42)
       end
 
       it do
-        expect(client.fetch_number_value(flag_key: "float-flag", default_value: 1.1)).to eq(4.2)
+        expect(client.fetch_float_value(flag_key: "float-flag", default_value: 1.1)).to eq(4.2)
       end
 
       it do
@@ -149,7 +149,7 @@ RSpec.describe OpenFeature::Flagd::Provider do
       end
 
       it do
-        expect(client.fetch_number_details(flag_key: "integer-flag", default_value: 1).resolution_details.to_h).to include(
+        expect(client.fetch_integer_details(flag_key: "integer-flag", default_value: 1).resolution_details.to_h).to include(
           error_code: nil,
           error_message: nil,
           reason: "STATIC",
@@ -159,7 +159,7 @@ RSpec.describe OpenFeature::Flagd::Provider do
       end
 
       it do
-        expect(client.fetch_number_details(flag_key: "float-flag", default_value: 1.1).resolution_details.to_h).to include(
+        expect(client.fetch_float_details(flag_key: "float-flag", default_value: 1.1).resolution_details.to_h).to include(
           error_code: nil,
           error_message: nil,
           reason: "STATIC",
