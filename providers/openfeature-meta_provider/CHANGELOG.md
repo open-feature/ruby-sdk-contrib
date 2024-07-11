@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.3](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-meta_provider/v0.0.2...openfeature-meta_provider/v0.0.3) (2024-05-16)
+
+
+### 🧹 Chore
+
+* update readme title ([#34](https://github.com/open-feature/ruby-sdk-contrib/issues/34)) ([06f1517](https://github.com/open-feature/ruby-sdk-contrib/commit/06f1517f0e384b6b86d5aa7caedc6c3fd0bd74c7))
+
 ## [0.0.2](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-meta_provider-v0.0.1...openfeature-meta_provider/v0.0.2) (2024-05-14)
 
 
