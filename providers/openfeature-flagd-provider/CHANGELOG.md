@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.1](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-flagd-provider/v0.1.0...openfeature-flagd-provider/v0.1.1) (2024-07-11)
+
+
+### ✨ New Features
+
+* Use integer and float specific resolver methods ([#26](https://github.com/open-feature/ruby-sdk-contrib/issues/26)) ([6baa243](https://github.com/open-feature/ruby-sdk-contrib/commit/6baa243f7586d65796fdba9a567352c66d100fde))
+
+
+### 🧹 Chore
+
+* **flagd:** update spec metadata links ([#36](https://github.com/open-feature/ruby-sdk-contrib/issues/36)) ([400d625](https://github.com/open-feature/ruby-sdk-contrib/commit/400d6254c164b8c3623bf2b18c5bea66580b0b1a))
+
 ## [0.1.0](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-flagd-provider-v0.0.1...openfeature-flagd-provider/v0.1.0) (2024-05-16)
 
 
