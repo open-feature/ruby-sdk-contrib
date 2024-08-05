@@ -47,12 +47,21 @@ describe OpenFeature::GoFeatureFlag::Provider do
         config.set_provider(goff_provider, domain: test_name)
       end
       client = OpenFeature::SDK.build_client(domain: test_name)
-      bool_value = client.fetch_boolean_value(
+      got = client.fetch_boolean_details(
         flag_key: "boolean_flag",
         default_value: false,
         evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: "9b9450f8-ab5c-4dcf-872f-feda3f6ccb16")
       )
-      expect(bool_value).to be_truthy
+      want = OpenFeature::SDK::EvaluationDetails.new(
+        flag_key: "boolean_flag",
+        resolution_details: OpenFeature::SDK::Provider::ResolutionDetails.new(
+          value: true,
+          reason: OpenFeature::SDK::Provider::Reason::TARGETING_MATCH,
+          variant: "variantA",
+          flag_metadata: {"website" => "https://gofeatureflag.org"}
+        )
+      )
+      expect(got).to eql(want)
     end
 
     it "should return the default value if flag is not the right type" do
@@ -71,12 +80,21 @@ describe OpenFeature::GoFeatureFlag::Provider do
         config.set_provider(goff_provider, domain: test_name)
       end
       client = OpenFeature::SDK.build_client(domain: test_name)
-      bool_value = client.fetch_boolean_value(
+      got = client.fetch_boolean_details(
         flag_key: "boolean_flag",
         default_value: false,
         evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: "9b9450f8-ab5c-4dcf-872f-feda3f6ccb16")
       )
-      expect(bool_value).to be_falsey
+      want = OpenFeature::SDK::EvaluationDetails.new(
+        flag_key: "boolean_flag",
+        resolution_details: OpenFeature::SDK::Provider::ResolutionDetails.new(
+          value: false,
+          reason: OpenFeature::SDK::Provider::Reason::ERROR,
+          error_code: OpenFeature::SDK::Provider::ErrorCode::TYPE_MISMATCH,
+          error_message: "flag type String does not match allowed types [TrueClass, FalseClass]"
+        )
+      )
+      expect(got).to eql(want)
     end
 
     it "should return the default value of the flag if error send by the API (http code 403)" do
@@ -88,12 +106,21 @@ describe OpenFeature::GoFeatureFlag::Provider do
         config.set_provider(goff_provider, domain: test_name)
       end
       client = OpenFeature::SDK.build_client(domain: test_name)
-      bool_value = client.fetch_boolean_value(
+      got = client.fetch_boolean_details(
         flag_key: "boolean_flag",
         default_value: false,
         evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: "9b9450f8-ab5c-4dcf-872f-feda3f6ccb16")
       )
-      expect(bool_value).to be_falsey
+      want = OpenFeature::SDK::EvaluationDetails.new(
+        flag_key: "boolean_flag",
+        resolution_details: OpenFeature::SDK::Provider::ResolutionDetails.new(
+          value: false,
+          reason: OpenFeature::SDK::Provider::Reason::ERROR,
+          error_code: OpenFeature::SDK::Provider::ErrorCode::GENERAL,
+          error_message: "unauthorized"
+        )
+      )
+      expect(got).to eql(want)
     end
 
     it "should return the default value of the flag if error send by the API (http code 400)" do
@@ -109,12 +136,20 @@ describe OpenFeature::GoFeatureFlag::Provider do
         config.set_provider(goff_provider, domain: test_name)
       end
       client = OpenFeature::SDK.build_client(domain: test_name)
-      bool_value = client.fetch_boolean_value(
+      got = client.fetch_boolean_details(
         flag_key: "boolean_flag",
         default_value: false,
         evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: "9b9450f8-ab5c-4dcf-872f-feda3f6ccb16")
       )
-      expect(bool_value).to be_falsey
+      want = OpenFeature::SDK::EvaluationDetails.new(
+        flag_key: "boolean_flag",
+        resolution_details: OpenFeature::SDK::Provider::ResolutionDetails.new(
+          value: false,
+          reason: OpenFeature::SDK::Provider::Reason::ERROR,
+          error_code: OpenFeature::SDK::Provider::ErrorCode::INVALID_CONTEXT
+        )
+      )
+      expect(got).to eql(want)
     end
 
     it "should return default value if no evaluation context" do
@@ -133,12 +168,21 @@ describe OpenFeature::GoFeatureFlag::Provider do
         config.set_provider(goff_provider, domain: test_name)
       end
       client = OpenFeature::SDK.build_client(domain: test_name)
-      bool_value = client.fetch_boolean_value(
+      got = client.fetch_boolean_details(
         flag_key: "boolean_flag",
         default_value: false,
         evaluation_context: nil
       )
-      expect(bool_value).to be_falsey
+      want = OpenFeature::SDK::EvaluationDetails.new(
+        flag_key: "boolean_flag",
+        resolution_details: OpenFeature::SDK::Provider::ResolutionDetails.new(
+          value: false,
+          reason: OpenFeature::SDK::Provider::Reason::ERROR,
+          error_code: OpenFeature::SDK::Provider::ErrorCode::INVALID_CONTEXT,
+          error_message: "invalid evaluation context provided"
+        )
+      )
+      expect(got).to eql(want)
     end
 
     it "should return default value if evaluation context has empty string targetingKey" do
@@ -157,12 +201,21 @@ describe OpenFeature::GoFeatureFlag::Provider do
         config.set_provider(goff_provider, domain: test_name)
       end
       client = OpenFeature::SDK.build_client(domain: test_name)
-      bool_value = client.fetch_boolean_value(
+      got = client.fetch_boolean_details(
         flag_key: "boolean_flag",
         default_value: false,
         evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: "")
       )
-      expect(bool_value).to be_falsey
+      want = OpenFeature::SDK::EvaluationDetails.new(
+        flag_key: "boolean_flag",
+        resolution_details: OpenFeature::SDK::Provider::ResolutionDetails.new(
+          value: false,
+          reason: OpenFeature::SDK::Provider::Reason::ERROR,
+          error_code: OpenFeature::SDK::Provider::ErrorCode::INVALID_CONTEXT,
+          error_message: "invalid evaluation context provided"
+        )
+      )
+      expect(got).to eql(want)
     end
 
     it "should return default value if evaluation context has nil targetingKey" do
@@ -181,12 +234,21 @@ describe OpenFeature::GoFeatureFlag::Provider do
         config.set_provider(goff_provider, domain: test_name)
       end
       client = OpenFeature::SDK.build_client(domain: test_name)
-      bool_value = client.fetch_boolean_value(
+      got = client.fetch_boolean_details(
         flag_key: "boolean_flag",
         default_value: false,
         evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: nil)
       )
-      expect(bool_value).to be_falsey
+      want = OpenFeature::SDK::EvaluationDetails.new(
+        flag_key: "boolean_flag",
+        resolution_details: OpenFeature::SDK::Provider::ResolutionDetails.new(
+          value: false,
+          reason: OpenFeature::SDK::Provider::Reason::ERROR,
+          error_code: OpenFeature::SDK::Provider::ErrorCode::INVALID_CONTEXT,
+          error_message: "invalid evaluation context provided"
+        )
+      )
+      expect(got).to eql(want)
     end
 
     it "should return default value if flag_key nil" do
@@ -205,12 +267,21 @@ describe OpenFeature::GoFeatureFlag::Provider do
         config.set_provider(goff_provider, domain: test_name)
       end
       client = OpenFeature::SDK.build_client(domain: test_name)
-      bool_value = client.fetch_boolean_value(
+      got = client.fetch_boolean_details(
         flag_key: nil,
         default_value: false,
         evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: "1234")
       )
-      expect(bool_value).to be_falsey
+      want = OpenFeature::SDK::EvaluationDetails.new(
+        flag_key: nil,
+        resolution_details: OpenFeature::SDK::Provider::ResolutionDetails.new(
+          value: false,
+          reason: OpenFeature::SDK::Provider::Reason::ERROR,
+          error_code: OpenFeature::SDK::Provider::ErrorCode::GENERAL,
+          error_message: "invalid flag key provided"
+        )
+      )
+      expect(got).to eql(want)
     end
 
     it "should return default value if flag_key empty string" do
@@ -229,12 +300,21 @@ describe OpenFeature::GoFeatureFlag::Provider do
         config.set_provider(goff_provider, domain: test_name)
       end
       client = OpenFeature::SDK.build_client(domain: test_name)
-      bool_value = client.fetch_boolean_value(
+      got = client.fetch_boolean_details(
         flag_key: "",
         default_value: false,
         evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: "1234")
       )
-      expect(bool_value).to be_falsey
+      want = OpenFeature::SDK::EvaluationDetails.new(
+        flag_key: "",
+        resolution_details: OpenFeature::SDK::Provider::ResolutionDetails.new(
+          value: false,
+          reason: OpenFeature::SDK::Provider::Reason::ERROR,
+          error_code: OpenFeature::SDK::Provider::ErrorCode::GENERAL,
+          error_message: "invalid flag key provided"
+        )
+      )
+      expect(got).to eql(want)
     end
   end
 
@@ -255,12 +335,21 @@ describe OpenFeature::GoFeatureFlag::Provider do
         config.set_provider(goff_provider, domain: test_name)
       end
       client = OpenFeature::SDK.build_client(domain: test_name)
-      value = client.fetch_string_value(
+      got = client.fetch_string_details(
         flag_key: "flag_key",
         default_value: "default",
         evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: "9b9450f8-ab5c-4dcf-872f-feda3f6ccb16")
       )
-      expect(value).to eq("aValue")
+      want = OpenFeature::SDK::EvaluationDetails.new(
+        flag_key: "flag_key",
+        resolution_details: OpenFeature::SDK::Provider::ResolutionDetails.new(
+          value: "aValue",
+          variant: "variantA",
+          reason: OpenFeature::SDK::Provider::Reason::TARGETING_MATCH,
+          flag_metadata: {"website" => "https://gofeatureflag.org"},
+        )
+      )
+      expect(got).to eql(want)
     end
 
     it "should return the default value if flag is not the right type" do
@@ -279,12 +368,21 @@ describe OpenFeature::GoFeatureFlag::Provider do
         config.set_provider(goff_provider, domain: test_name)
       end
       client = OpenFeature::SDK.build_client(domain: test_name)
-      value = client.fetch_string_value(
+      got = client.fetch_string_details(
         flag_key: "flag_key",
         default_value: "default",
         evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: "9b9450f8-ab5c-4dcf-872f-feda3f6ccb16")
       )
-      expect(value).to eq("default")
+      want = OpenFeature::SDK::EvaluationDetails.new(
+        flag_key: "flag_key",
+        resolution_details: OpenFeature::SDK::Provider::ResolutionDetails.new(
+          value: "default",
+          reason: OpenFeature::SDK::Provider::Reason::ERROR,
+          error_code: OpenFeature::SDK::Provider::ErrorCode::TYPE_MISMATCH,
+          error_message: "flag type Integer does not match allowed types [String]"
+        )
+      )
+      expect(got).to eql(want)
     end
   end
 
@@ -305,12 +403,21 @@ describe OpenFeature::GoFeatureFlag::Provider do
         config.set_provider(goff_provider, domain: test_name)
       end
       client = OpenFeature::SDK.build_client(domain: test_name)
-      value = client.fetch_number_value(
+      got = client.fetch_number_details(
         flag_key: "flag_key",
         default_value: 25,
         evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: "9b9450f8-ab5c-4dcf-872f-feda3f6ccb16")
       )
-      expect(value).to eq(15)
+      want = OpenFeature::SDK::EvaluationDetails.new(
+        flag_key: "flag_key",
+        resolution_details: OpenFeature::SDK::Provider::ResolutionDetails.new(
+          value: 15,
+          variant: "variantA",
+          reason: OpenFeature::SDK::Provider::Reason::TARGETING_MATCH,
+          flag_metadata: {"website" => "https://gofeatureflag.org"}
+        )
+      )
+      expect(got).to eql(want)
     end
 
     it "should return the default value if flag is not the right type" do
@@ -329,12 +436,21 @@ describe OpenFeature::GoFeatureFlag::Provider do
         config.set_provider(goff_provider, domain: test_name)
       end
       client = OpenFeature::SDK.build_client(domain: test_name)
-      value = client.fetch_number_value(
+      got = client.fetch_number_details(
         flag_key: "flag_key",
         default_value: 25,
         evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: "9b9450f8-ab5c-4dcf-872f-feda3f6ccb16")
       )
-      expect(value).to eq(25)
+      want = OpenFeature::SDK::EvaluationDetails.new(
+        flag_key: "flag_key",
+        resolution_details: OpenFeature::SDK::Provider::ResolutionDetails.new(
+          value: 25,
+          reason: OpenFeature::SDK::Provider::Reason::ERROR,
+          error_code: OpenFeature::SDK::Provider::ErrorCode::TYPE_MISMATCH,
+          error_message: "flag type String does not match allowed types [Integer, Float]"
+        )
+      )
+      expect(got).to eql(want)
     end
   end
 
@@ -355,12 +471,21 @@ describe OpenFeature::GoFeatureFlag::Provider do
         config.set_provider(goff_provider, domain: test_name)
       end
       client = OpenFeature::SDK.build_client(domain: test_name)
-      value = client.fetch_object_value(
+      got = client.fetch_object_details(
         flag_key: "flag_key",
         default_value: {"fail" => true},
         evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: "9b9450f8-ab5c-4dcf-872f-feda3f6ccb16")
       )
-      expect(value).to eq({"test" => "test"})
+      want = OpenFeature::SDK::EvaluationDetails.new(
+        flag_key: "flag_key",
+        resolution_details: OpenFeature::SDK::Provider::ResolutionDetails.new(
+          value: {"test" => "test"},
+          variant: "variantA",
+          reason: OpenFeature::SDK::Provider::Reason::TARGETING_MATCH,
+          flag_metadata: {"website" => "https://gofeatureflag.org"}
+        )
+      )
+      expect(got).to eql(want)
     end
 
     it "should return the default value if flag is not the right type" do
@@ -379,12 +504,21 @@ describe OpenFeature::GoFeatureFlag::Provider do
         config.set_provider(goff_provider, domain: test_name)
       end
       client = OpenFeature::SDK.build_client(domain: test_name)
-      value = client.fetch_object_value(
+      got = client.fetch_object_details(
         flag_key: "flag_key",
         default_value: {"fail" => true},
         evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: "9b9450f8-ab5c-4dcf-872f-feda3f6ccb16")
       )
-      expect(value).to eq({"fail" => true})
+      want = OpenFeature::SDK::EvaluationDetails.new(
+        flag_key: "flag_key",
+        resolution_details: OpenFeature::SDK::Provider::ResolutionDetails.new(
+          value: {"fail" => true},
+          reason: OpenFeature::SDK::Provider::Reason::ERROR,
+          error_code: OpenFeature::SDK::Provider::ErrorCode::TYPE_MISMATCH,
+          error_message: "flag type String does not match allowed types [Array, Hash]"
+        )
+      )
+      expect(got).to eql(want)
     end
   end
 
