@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-require 'uri'
+
+require "uri"
 
 module OpenFeature
   module GoFeatureFlag
@@ -15,7 +16,7 @@ module OpenFeature
 
       private
 
-      def validate_endpoint(endpoint:nil)
+      def validate_endpoint(endpoint: nil)
         return if endpoint.nil?
 
         uri = URI.parse(endpoint)

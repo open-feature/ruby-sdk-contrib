@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "open_feature/sdk"
 require "net/http"
 require "json"

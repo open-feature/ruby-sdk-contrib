@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module OpenFeature
   module GoFeatureFlag
     # This class is the entry point for the GoFeatureFlagProvider
@@ -62,7 +63,6 @@ module OpenFeature
           variant: parsed_response.variant,
           flag_metadata: parsed_response.metadata
         )
-
       rescue OpenFeature::GoFeatureFlag::UnauthorizedError,
         OpenFeature::GoFeatureFlag::InvalidOptionError,
         OpenFeature::GoFeatureFlag::FlagNotFoundError,

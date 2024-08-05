@@ -161,7 +161,7 @@ describe OpenFeature::GoFeatureFlag::GoFeatureFlagApi do
             value: 1.15,
             metadata: {"website" => "https://gofeatureflag.org"},
             key: "double_key",
-            reason: "TARGETING_MATCH",
+            reason: "TARGETING_MATCH"
           }.to_json)
 
       expect {

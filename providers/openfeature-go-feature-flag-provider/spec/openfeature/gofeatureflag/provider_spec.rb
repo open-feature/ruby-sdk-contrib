@@ -402,8 +402,8 @@ describe OpenFeature::GoFeatureFlag::Provider do
 
     it "should return an error if evaluation context has empty string targetingKey" do
       eval = goff_provider.fetch_boolean_value(flag_key: "flag_key",
-                               default_value: true,
-                               evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: ""))
+        default_value: true,
+        evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: ""))
       want = OpenFeature::SDK::Provider::ResolutionDetails.new(
         value: true,
         error_code: OpenFeature::SDK::Provider::ErrorCode::INVALID_CONTEXT,
@@ -415,8 +415,8 @@ describe OpenFeature::GoFeatureFlag::Provider do
 
     it "should return an error if evaluation context has nil targetingKey" do
       eval = goff_provider.fetch_boolean_value(flag_key: "flag_key",
-                               default_value: true,
-                               evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: nil))
+        default_value: true,
+        evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: nil))
       want = OpenFeature::SDK::Provider::ResolutionDetails.new(
         value: true,
         error_code: OpenFeature::SDK::Provider::ErrorCode::INVALID_CONTEXT,
@@ -428,8 +428,8 @@ describe OpenFeature::GoFeatureFlag::Provider do
 
     it "should return an error if flag_key nil" do
       eval = goff_provider.fetch_boolean_value(flag_key: nil,
-                               default_value: true,
-                               evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: "9b9450f8-ab5c-4dcf-872f-feda3f6ccb16"))
+        default_value: true,
+        evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: "9b9450f8-ab5c-4dcf-872f-feda3f6ccb16"))
       want = OpenFeature::SDK::Provider::ResolutionDetails.new(
         value: true,
         error_code: OpenFeature::SDK::Provider::ErrorCode::GENERAL,
@@ -441,8 +441,8 @@ describe OpenFeature::GoFeatureFlag::Provider do
 
     it "should return an error if flag_key empty string" do
       eval = goff_provider.fetch_boolean_value(flag_key: "",
-                               default_value: true,
-                               evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: "9b9450f8-ab5c-4dcf-872f-feda3f6ccb16"))
+        default_value: true,
+        evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: "9b9450f8-ab5c-4dcf-872f-feda3f6ccb16"))
       want = OpenFeature::SDK::Provider::ResolutionDetails.new(
         value: true,
         error_code: OpenFeature::SDK::Provider::ErrorCode::GENERAL,
@@ -458,7 +458,8 @@ describe OpenFeature::GoFeatureFlag::Provider do
       eval = goff_provider.fetch_boolean_value(
         flag_key: "boolean_flag",
         default_value: true,
-        evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: "9b9450f8-ab5c-4dcf-872f-feda3f6ccb16"))
+        evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: "9b9450f8-ab5c-4dcf-872f-feda3f6ccb16")
+      )
       want = OpenFeature::SDK::Provider::ResolutionDetails.new(
         value: true,
         error_code: OpenFeature::SDK::Provider::ErrorCode::GENERAL,
@@ -474,7 +475,8 @@ describe OpenFeature::GoFeatureFlag::Provider do
       eval = goff_provider.fetch_boolean_value(
         flag_key: "boolean_flag",
         default_value: true,
-        evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: "9b9450f8-ab5c-4dcf-872f-feda3f6ccb16"))
+        evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: "9b9450f8-ab5c-4dcf-872f-feda3f6ccb16")
+      )
       want = OpenFeature::SDK::Provider::ResolutionDetails.new(
         value: true,
         error_code: OpenFeature::SDK::Provider::ErrorCode::GENERAL,
@@ -495,7 +497,8 @@ describe OpenFeature::GoFeatureFlag::Provider do
       eval = goff_provider.fetch_boolean_value(
         flag_key: "boolean_flag",
         default_value: false,
-        evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: "9b9450f8-ab5c-4dcf-872f-feda3f6ccb16"))
+        evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: "9b9450f8-ab5c-4dcf-872f-feda3f6ccb16")
+      )
       want = OpenFeature::SDK::Provider::ResolutionDetails.new(
         value: false,
         error_code: OpenFeature::SDK::Provider::ErrorCode::GENERAL,
@@ -516,7 +519,8 @@ describe OpenFeature::GoFeatureFlag::Provider do
       eval = goff_provider.fetch_boolean_value(
         flag_key: "boolean_flag",
         default_value: false,
-        evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: "9b9450f8-ab5c-4dcf-872f-feda3f6ccb16"))
+        evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: "9b9450f8-ab5c-4dcf-872f-feda3f6ccb16")
+      )
       want = OpenFeature::SDK::Provider::ResolutionDetails.new(
         value: false,
         error_code: OpenFeature::SDK::Provider::ErrorCode::FLAG_NOT_FOUND,
@@ -537,7 +541,8 @@ describe OpenFeature::GoFeatureFlag::Provider do
       eval = goff_provider.fetch_boolean_value(
         flag_key: "boolean_flag",
         default_value: false,
-        evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: "9b9450f8-ab5c-4dcf-872f-feda3f6ccb16"))
+        evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: "9b9450f8-ab5c-4dcf-872f-feda3f6ccb16")
+      )
       want = OpenFeature::SDK::Provider::ResolutionDetails.new(
         value: false,
         error_code: OpenFeature::SDK::Provider::ErrorCode::GENERAL,
