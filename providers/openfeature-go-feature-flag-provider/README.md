@@ -5,6 +5,7 @@
 
 # GO Feature Flag - OpenFeature Ruby provider
 <p align="center">
+   <a href="https://github.com/open-feature/ruby-sdk-contrib/tree/main/providers/openfeature-go-feature-flag-provider"><img src="https://img.shields.io/gem/v/openfeature-go-feature-flag-provider?color=blue&style=flat-square&logo=ruby" alt="gem"></a>
    <a href="https://gofeatureflag.org/"><img src="https://img.shields.io/badge/%F0%9F%93%92-Website-blue" alt="Documentation"></a>
    <a href="https://github.com/thomaspoignant/go-feature-flag/issues"><img src="https://img.shields.io/badge/%E2%9C%8F%EF%B8%8F-issues-red" alt="Issues"></a>
    <a href="https://gofeatureflag.org/slack"><img src="https://img.shields.io/badge/join-us%20on%20slack-gray.svg?longCache=true&logo=slack&colorB=green" alt="Join us on slack"></a>
@@ -89,7 +90,7 @@ The `targeting_key` is mandatory for GO Feature Flag to evaluate the feature fla
 The client is used to retrieve values for the current `EvaluationContext`. 
 For example, retrieving a boolean value for the flag **"my-flag"**:
 
-```swift
+```ruby
 client = OpenFeature::SDK.build_client()
 
 bool_value = client.fetch_boolean_value(
@@ -100,17 +101,17 @@ bool_value = client.fetch_boolean_value(
 ```
 
 GO Feature Flag supports different all OpenFeature supported types of feature flags, it means that you can use all the accessor directly
-```swift
-// Bool
+```ruby
+# Bool
 client.fetch_boolean_value(flag_key: 'my-flag', default_value: false, evaluation_context: evaluation_context)
 
-// String
+# String
 client.fetch_string_value(flag_key: 'my-flag', default_value: "default", evaluation_context: evaluation_context)
 
-// Number
+# Number
 client.fetch_number_value(flag_key: 'my-flag', default_value: 0, evaluation_context: evaluation_context)
 
-// Object
+# Object
 client.fetch_object_value(flag_key: 'my-flag', default_value: {"default" => true}, evaluation_context: evaluation_context)
 ```
 
