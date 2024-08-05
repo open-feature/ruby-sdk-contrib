@@ -346,7 +346,7 @@ describe OpenFeature::GoFeatureFlag::Provider do
           value: "aValue",
           variant: "variantA",
           reason: OpenFeature::SDK::Provider::Reason::TARGETING_MATCH,
-          flag_metadata: {"website" => "https://gofeatureflag.org"},
+          flag_metadata: {"website" => "https://gofeatureflag.org"}
         )
       )
       expect(got).to eql(want)
