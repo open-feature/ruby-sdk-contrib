@@ -78,7 +78,7 @@ describe OpenFeature::GoFeatureFlag::GoFeatureFlagApi do
         value: nil,
         reason: OpenFeature::SDK::Provider::Reason::ERROR,
         variant: nil,
-        error_code: "TYPE_MISMATCH",
+        error_code: OpenFeature::SDK::Provider::ErrorCode::TYPE_MISMATCH,
         error_details: "expected type: boolean, got: string",
         metadata: nil
       )
