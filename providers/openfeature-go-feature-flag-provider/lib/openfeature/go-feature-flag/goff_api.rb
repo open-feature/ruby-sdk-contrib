@@ -25,7 +25,7 @@ module OpenFeature
           end
         end
 
-        evaluation_context = OpenFeature::SDK::EvaluationContext.new unless evaluation_context.is_a?(OpenFeature::SDK::EvaluationContext)
+        evaluation_context = OpenFeature::SDK::EvaluationContext.new if evaluation_context.nil?
         # Format the URL to call the Go Feature Flag OFREP API
         base_uri = URI.parse(@options.endpoint)
         new_path = File.join(base_uri.path, "/ofrep/v1/evaluate/flags/#{flag_key}")

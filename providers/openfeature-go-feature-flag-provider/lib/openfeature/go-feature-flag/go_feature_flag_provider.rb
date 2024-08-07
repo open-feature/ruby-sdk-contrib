@@ -32,7 +32,7 @@ module OpenFeature
       private
 
       def evaluate(flag_key:, default_value:, allowed_classes:, evaluation_context: nil)
-        evaluation_context = OpenFeature::SDK::EvaluationContext.new unless evaluation_context.is_a?(OpenFeature::SDK::EvaluationContext)
+        evaluation_context = OpenFeature::SDK::EvaluationContext.new if evaluation_context.nil?
         validate_parameters(flag_key, evaluation_context)
 
         # do a http call to the go feature flag server

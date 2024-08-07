@@ -13,7 +13,7 @@
 
 This repository contains the official Ruby OpenFeature provider for accessing your feature flags with [GO Feature Flag](https://gofeatureflag.org).
 
-In conjuction with the [OpenFeature SDK](https://openfeature.dev/docs/reference/concepts/provider) you will be able
+In conjunction with the [OpenFeature SDK](https://openfeature.dev/docs/reference/concepts/provider) you will be able
 to evaluate your feature flags in your Ruby applications.
 
 For documentation related to flags management in GO Feature Flag,
@@ -53,11 +53,6 @@ The `OpenFeature::GoFeatureFlag::Provider` needs some options to be created and 
 The only required option to create a `GoFeatureFlagProvider` is the URL _(`endpoint`)_ to your GO Feature Flag relay-proxy instance.
 
 ```ruby
-import GOFeatureFlag
-import OpenFeature
-
-# ...
-
 options = OpenFeature::GoFeatureFlag::Options.new(endpoint: "http://localhost:1031")
 provider = OpenFeature::GoFeatureFlag::Provider.new(options: options)
 
@@ -123,7 +118,7 @@ client.fetch_object_value(flag_key: 'my-flag', default_value: {"default" => true
 | ❌      | Caching         | Mechanism is in place to refresh the cache in case of configuration change |
 | ❌      | Event Streaming | Not supported by the SDK                                                   |
 | ❌      | Logging         | Not supported by the SDK                                                   |
-| ✅      | Flag Metadata   | Not supported by the SDK                                                   |
+| ✅      | Flag Metadata   | You can retrieve your flag metadata directly in the evaluation details.    |
 
 
 <sub>**Implemented**: ✅ | In-progress: ⚠️ | Not implemented yet: ❌</sub>
