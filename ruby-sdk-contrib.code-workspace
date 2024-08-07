@@ -5,6 +5,9 @@
     },
     {
       "path": "providers/openfeature-meta_provider"
+    },
+    {
+      "path": "providers/openfeature-go-feature-flag-provider"
     }
   ]
 }

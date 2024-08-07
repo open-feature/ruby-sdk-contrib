@@ -37,7 +37,7 @@ jobs:
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
         working-directory: ./providers/openfeature-flagd-provider
     - name: Launch flagd instance
-      run: docker-compose up -d flagd
+      run: docker compose up -d flagd
       working-directory: ./providers/openfeature-flagd-provider/docker
     - name: Check linting
       run: bundle exec rubocop
@@ -64,3 +64,25 @@ jobs:
         working-directory: ./providers/openfeature-meta_provider
     - name: Lint and test
       run: bin/rake
+
+  test_go_feature_flag_provider:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./providers/openfeature-go-feature-flag-provider
+    strategy:
+      matrix:
+        ruby-version:
+          - "3.3"
+          - "3.2"
+          - "3.1"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+          working-directory: ./providers/openfeature-go-feature-flag-provider
+      - name: Lint and test
+        run: bin/rake
