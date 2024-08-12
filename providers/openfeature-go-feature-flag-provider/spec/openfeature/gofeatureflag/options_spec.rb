@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe OpenFeature::GoFeatureFlag::Options do
+RSpec.describe OpenFeature::GoFeatureFlag::Options do
   context "#endpoint" do
     it "should have a valid endpoint set" do
       options = OpenFeature::GoFeatureFlag::Options.new(endpoint: "http://localhost:1031")
