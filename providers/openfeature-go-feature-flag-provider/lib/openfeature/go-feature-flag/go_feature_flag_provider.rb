@@ -7,10 +7,10 @@ module OpenFeature
       PROVIDER_NAME = "GO Feature Flag Provider"
       attr_reader :metadata, :options
 
-      def initialize(options: OpenFeature::GoFeatureFlag::Options.new)
-        @metadata = OpenFeature::SDK::Provider::ProviderMetadata.new(name: PROVIDER_NAME)
+      def initialize(options: Options.new)
+        @metadata = SDK::Provider::ProviderMetadata.new(name: PROVIDER_NAME)
         @options = options
-        @goff_api = OpenFeature::GoFeatureFlag::GoFeatureFlagApi.new(options: options)
+        @goff_api = GoFeatureFlagApi.new(options: options)
       end
 
       def fetch_boolean_value(flag_key:, default_value:, evaluation_context: nil)
@@ -37,10 +37,10 @@ module OpenFeature
 
         # do a http call to the go feature flag server
         parsed_response = @goff_api.evaluate_ofrep_api(flag_key: flag_key, evaluation_context: evaluation_context)
-        parsed_response = OpenFeature::GoFeatureFlag::OfrepApiResponse unless parsed_response.is_a?(OpenFeature::GoFeatureFlag::OfrepApiResponse)
+        parsed_response = OfrepApiResponse unless parsed_response.is_a?(OfrepApiResponse)
 
         if parsed_response.has_error?
-          return OpenFeature::SDK::Provider::ResolutionDetails.new(
+          return SDK::Provider::ResolutionDetails.new(
             value: default_value,
             error_code: parsed_response.error_code,
             error_message: parsed_response.error_details,
@@ -49,39 +49,39 @@ module OpenFeature
         end
 
         unless allowed_classes.include?(parsed_response.value.class)
-          return OpenFeature::SDK::Provider::ResolutionDetails.new(
+          return SDK::Provider::ResolutionDetails.new(
             value: default_value,
-            error_code: OpenFeature::SDK::Provider::ErrorCode::TYPE_MISMATCH,
+            error_code: SDK::Provider::ErrorCode::TYPE_MISMATCH,
             error_message: "flag type #{parsed_response.value.class} does not match allowed types #{allowed_classes}",
-            reason: OpenFeature::SDK::Provider::Reason::ERROR
+            reason: SDK::Provider::Reason::ERROR
           )
         end
 
-        OpenFeature::SDK::Provider::ResolutionDetails.new(
+        SDK::Provider::ResolutionDetails.new(
           value: parsed_response.value,
           reason: parsed_response.reason,
           variant: parsed_response.variant,
           flag_metadata: parsed_response.metadata
         )
-      rescue OpenFeature::GoFeatureFlag::UnauthorizedError,
-        OpenFeature::GoFeatureFlag::InvalidOptionError,
-        OpenFeature::GoFeatureFlag::FlagNotFoundError,
-        OpenFeature::GoFeatureFlag::InternalServerError => e
-        OpenFeature::SDK::Provider::ResolutionDetails.new(
+      rescue UnauthorizedError,
+        InvalidOptionError,
+        FlagNotFoundError,
+        InternalServerError => e
+        SDK::Provider::ResolutionDetails.new(
           value: default_value,
           error_code: e.error_code,
           error_message: e.error_message,
-          reason: OpenFeature::SDK::Provider::Reason::ERROR
+          reason: SDK::Provider::Reason::ERROR
         )
       end
 
       def validate_parameters(flag_key, evaluation_context)
         if evaluation_context.nil? || evaluation_context.targeting_key.nil? || evaluation_context.targeting_key.empty?
-          raise OpenFeature::GoFeatureFlag::InvalidOptionError.new(OpenFeature::SDK::Provider::ErrorCode::INVALID_CONTEXT, "invalid evaluation context provided")
+          raise InvalidOptionError.new(SDK::Provider::ErrorCode::INVALID_CONTEXT, "invalid evaluation context provided")
         end
 
         if flag_key.nil? || flag_key.empty?
-          raise OpenFeature::GoFeatureFlag::InvalidOptionError.new(OpenFeature::SDK::Provider::ErrorCode::GENERAL, "invalid flag key provided")
+          raise InvalidOptionError.new(SDK::Provider::ErrorCode::GENERAL, "invalid flag key provided")
         end
       end
     end
