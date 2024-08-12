@@ -12,7 +12,6 @@ module OpenFeature
     class GoFeatureFlagApi
       attr_reader :options
       def initialize(options: {})
-        options = OpenFeature::GoFeatureFlag::Options.new unless options.is_a?(OpenFeature::GoFeatureFlag::Options)
         @options = options
       end
 
