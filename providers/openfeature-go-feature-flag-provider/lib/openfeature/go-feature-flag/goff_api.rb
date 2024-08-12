@@ -3,6 +3,7 @@
 require "open_feature/sdk"
 require "net/http"
 require "json"
+require "faraday"
 require_relative "error/errors"
 require_relative "model/ofrep_api_response"
 
@@ -13,6 +14,10 @@ module OpenFeature
       attr_reader :options
       def initialize(options: {})
         @options = options
+        @faraday_connection = Faraday.new(
+          url: @options.endpoint,
+          headers: {"Content-Type" => "application/json"}.merge(@options.custom_headers || {})
+        )
       end
 
       def evaluate_ofrep_api(flag_key:, evaluation_context:)
@@ -25,34 +30,15 @@ module OpenFeature
         end
 
         evaluation_context = OpenFeature::SDK::EvaluationContext.new if evaluation_context.nil?
-        # Format the URL to call the Go Feature Flag OFREP API
-        base_uri = URI.parse(@options.endpoint)
-        new_path = File.join(base_uri.path, "/ofrep/v1/evaluate/flags/#{flag_key}")
-        ofrep_uri = base_uri.dup
-        ofrep_uri.path = new_path
-
-        # Initialize the HTTP client
-        http = Net::HTTP.new(ofrep_uri.host, ofrep_uri.port)
-        http.use_ssl = (ofrep_uri.scheme == "https")
-
-        # Prepare the headers
-        headers = {
-          "Content-Type" => "application/json"
-        }
-        if @options.custom_headers.nil?
-          headers.merge!(@options.custom_headers)
-        end
-
-        request = Net::HTTP::Post.new(ofrep_uri.path, headers)
-
-        # replace targetingKey
+        # replace targeting_key by targetingKey
         evaluation_context.fields["targetingKey"] = evaluation_context.targeting_key
         evaluation_context.fields.delete("targeting_key")
 
-        request.body = {context: evaluation_context.fields}.to_json
-        response = http.request(request)
+        response = @faraday_connection.post("/ofrep/v1/evaluate/flags/#{flag_key}") do |req|
+          req.body = {context: evaluation_context.fields}.to_json
+        end
 
-        case response.code.to_i
+        case response.status
         when 200
           parse_success_response(response)
         when 400
