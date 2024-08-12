@@ -1,6 +1,4 @@
 require "spec_helper"
-require "open_feature/sdk"
-require "webmock/rspec"
 
 describe OpenFeature::GoFeatureFlag::Provider do
   subject(:goff_provider) do

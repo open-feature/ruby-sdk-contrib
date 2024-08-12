@@ -1,5 +1,4 @@
 require "spec_helper"
-require "open_feature/sdk"
 
 describe OpenFeature::GoFeatureFlag::Options do
   context "#endpoint" do

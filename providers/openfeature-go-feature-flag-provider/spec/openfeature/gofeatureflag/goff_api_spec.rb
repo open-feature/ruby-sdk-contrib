@@ -1,6 +1,4 @@
 require "spec_helper"
-require "open_feature/sdk"
-require "webmock/rspec"
 
 describe OpenFeature::GoFeatureFlag::GoFeatureFlagApi do
   subject(:goff_api) do
