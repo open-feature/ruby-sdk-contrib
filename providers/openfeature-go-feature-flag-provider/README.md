@@ -86,7 +86,7 @@ The client is used to retrieve values for the current `EvaluationContext`.
 For example, retrieving a boolean value for the flag **"my-flag"**:
 
 ```ruby
-client = OpenFeature::SDK.build_client()
+client = OpenFeature::SDK.build_client
 
 bool_value = client.fetch_boolean_value(
   flag_key: "my-boolean-flag",
@@ -98,16 +98,16 @@ bool_value = client.fetch_boolean_value(
 GO Feature Flag supports different all OpenFeature supported types of feature flags, it means that you can use all the accessor directly
 ```ruby
 # Bool
-client.fetch_boolean_value(flag_key: 'my-flag', default_value: false, evaluation_context: evaluation_context)
+client.fetch_boolean_value(flag_key: 'my-flag', default_value: false, evaluation_context:)
 
 # String
-client.fetch_string_value(flag_key: 'my-flag', default_value: "default", evaluation_context: evaluation_context)
+client.fetch_string_value(flag_key: 'my-flag', default_value: "default", evaluation_context:)
 
 # Number
-client.fetch_number_value(flag_key: 'my-flag', default_value: 0, evaluation_context: evaluation_context)
+client.fetch_number_value(flag_key: 'my-flag', default_value: 0, evaluation_context:)
 
 # Object
-client.fetch_object_value(flag_key: 'my-flag', default_value: {"default" => true}, evaluation_context: evaluation_context)
+client.fetch_object_value(flag_key: 'my-flag', default_value: {"default" => true}, evaluation_context:)
 ```
 
 ## Features status
