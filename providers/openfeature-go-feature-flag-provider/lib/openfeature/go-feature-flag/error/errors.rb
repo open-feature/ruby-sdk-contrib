@@ -8,10 +8,10 @@ module OpenFeature
 
       def initialize(response, flag_key)
         error_message = "Flag not found: #{flag_key}"
-        super(error_message)
         @response = response
         @error_code = SDK::Provider::ErrorCode::FLAG_NOT_FOUND
         @error_message = error_message
+        super(error_message)
       end
     end
 
@@ -20,10 +20,10 @@ module OpenFeature
 
       def initialize(response)
         error_message = "Internal Server Error"
-        super(error_message)
         @response = response
         @error_code = SDK::Provider::ErrorCode::GENERAL
         @error_message = error_message
+        super(error_message)
       end
     end
 
@@ -31,9 +31,9 @@ module OpenFeature
       attr_reader :error_code, :error_message
 
       def initialize(error_code, error_message)
-        super(error_message)
         @error_code = error_code
         @error_message = error_message
+        super(error_message)
       end
     end
 
@@ -42,10 +42,10 @@ module OpenFeature
 
       def initialize(response)
         error_message = "unauthorized"
-        super(error_message)
         @response = response
         @error_code = SDK::Provider::ErrorCode::GENERAL
         @error_message = error_message
+        super(error_message)
       end
     end
 
@@ -54,10 +54,10 @@ module OpenFeature
 
       def initialize(response)
         error_message = "Parse error"
-        super(error_message)
         @response = response
         @error_code = SDK::Provider::ErrorCode::PARSE_ERROR
         @error_message = error_message
+        super(error_message)
       end
     end
 
@@ -66,10 +66,10 @@ module OpenFeature
 
       def initialize(response)
         error_message = response.nil? ? "Rate limited" : "Rate limited: " + response["Retry-After"].to_s
-        super(error_message)
         @response = response
         @error_code = SDK::Provider::ErrorCode::GENERAL
         @error_message = error_message
+        super(error_message)
       end
     end
   end
