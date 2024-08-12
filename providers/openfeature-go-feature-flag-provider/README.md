@@ -54,19 +54,19 @@ The only required option to create a `GoFeatureFlagProvider` is the URL _(`endpo
 
 ```ruby
 options = OpenFeature::GoFeatureFlag::Options.new(endpoint: "http://localhost:1031")
-provider = OpenFeature::GoFeatureFlag::Provider.new(options: options)
+provider = OpenFeature::GoFeatureFlag::Provider.new(options:)
 
 evaluation_context = OpenFeature::SDK::EvaluationContext.new(targeting_key: "9b9450f8-ab5c-4dcf-872f-feda3f6ccb16")
 
 OpenFeature::SDK.configure do |config|
    config.set_provider(provider)
 end
-client = OpenFeature::SDK.build_client()
+client = OpenFeature::SDK.build_client
 
 bool_value = client.fetch_boolean_value(
   flag_key: "my-boolean-flag",
   default_value: false,
-  evaluation_context: evaluation_context
+  evaluation_context:
 )
 
 if bool_value 
