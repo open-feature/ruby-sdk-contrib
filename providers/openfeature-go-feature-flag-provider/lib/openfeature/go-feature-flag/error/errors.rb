@@ -10,7 +10,7 @@ module OpenFeature
         error_message = "Flag not found: #{flag_key}"
         super(error_message)
         @response = response
-        @error_code = OpenFeature::SDK::Provider::ErrorCode::FLAG_NOT_FOUND
+        @error_code = SDK::Provider::ErrorCode::FLAG_NOT_FOUND
         @error_message = error_message
       end
     end
@@ -22,7 +22,7 @@ module OpenFeature
         error_message = "Internal Server Error"
         super(error_message)
         @response = response
-        @error_code = OpenFeature::SDK::Provider::ErrorCode::GENERAL
+        @error_code = SDK::Provider::ErrorCode::GENERAL
         @error_message = error_message
       end
     end
@@ -44,7 +44,7 @@ module OpenFeature
         error_message = "unauthorized"
         super(error_message)
         @response = response
-        @error_code = OpenFeature::SDK::Provider::ErrorCode::GENERAL
+        @error_code = SDK::Provider::ErrorCode::GENERAL
         @error_message = error_message
       end
     end
@@ -56,7 +56,7 @@ module OpenFeature
         error_message = "Parse error"
         super(error_message)
         @response = response
-        @error_code = OpenFeature::SDK::Provider::ErrorCode::PARSE_ERROR
+        @error_code = SDK::Provider::ErrorCode::PARSE_ERROR
         @error_message = error_message
       end
     end
@@ -68,7 +68,7 @@ module OpenFeature
         error_message = response.nil? ? "Rate limited" : "Rate limited: " + response["Retry-After"].to_s
         super(error_message)
         @response = response
-        @error_code = OpenFeature::SDK::Provider::ErrorCode::GENERAL
+        @error_code = SDK::Provider::ErrorCode::GENERAL
         @error_message = error_message
       end
     end
