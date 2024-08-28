@@ -92,4 +92,26 @@ RSpec.describe OpenFeature::Flagd::Provider::Client do
       )
     end
   end
+
+  context "EvaluationContext transformation" do
+    subject { client.send(:prepare_evaluation_context, evaluation_context) }
+    let(:evaluation_context) { OpenFeature::SDK::EvaluationContext.new(**fields) }
+
+    context "No context" do
+      let(:evaluation_context) { nil }
+
+      it do
+        expect(subject).to be nil
+      end
+    end
+
+    context "targeting_key transformation to targetingKey" do
+      let(:fields) { {targeting_key: "example"} }
+      let(:expected) { Google::Protobuf::Struct.from_hash({targetingKey: "example"}.transform_keys(&:to_s)) }
+
+      it do
+        expect(subject).to eq(expected)
+      end
+    end
+  end
 end

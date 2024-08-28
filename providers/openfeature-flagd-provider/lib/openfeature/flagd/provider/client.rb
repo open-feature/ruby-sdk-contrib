@@ -98,7 +98,7 @@ module OpenFeature
           return nil unless evaluation_context
 
           fields = evaluation_context.fields
-          fields["targetingKey"] = fields.delete(:targeting_key)
+          fields["targetingKey"] = fields.delete("targeting_key")
           Google::Protobuf::Struct.from_hash(fields)
         end
 
