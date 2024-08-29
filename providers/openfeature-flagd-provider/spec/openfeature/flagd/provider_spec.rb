@@ -123,17 +123,17 @@ RSpec.describe OpenFeature::Flagd::Provider do
 
       it do
         fetch_value_with_targeting_key = ->(targeting_key) do
-          client.fetch_boolean_value(
+          client.fetch_string_value(
             flag_key: "color-palette-experiment",
             default_value: "#b91c1c",
             evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: targeting_key)
           )
         end
 
-        initial_value = fetch_value_with_targeting_key.call("123")
-        (0..2).to_a.each do # try with 1000
-          expect(fetch_value_with_targeting_key.call("123")).to eq(initial_value)
-        end
+        expect(fetch_value_with_targeting_key.call("1234")).to eq("#b91c1c")
+        expect(fetch_value_with_targeting_key.call("qwe")).to eq("#0284c7")
+        expect(fetch_value_with_targeting_key.call("abcd")).to eq("#16a34a")
+        expect(fetch_value_with_targeting_key.call("rfv")).to eq("#b91c1c")
       end
     end
 
