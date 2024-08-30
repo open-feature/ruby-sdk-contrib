@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-flagd-provider/v0.1.1...openfeature-flagd-provider/v0.1.2) (2024-08-29)
+
+
+### 🐛 Bug Fixes
+
+* Fractional evaluation ([#41](https://github.com/open-feature/ruby-sdk-contrib/issues/41)) ([5bb34f2](https://github.com/open-feature/ruby-sdk-contrib/commit/5bb34f2f1cd880e0bc77597594cb33a2dba092e6))
+
 ## [0.1.1](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-flagd-provider/v0.1.0...openfeature-flagd-provider/v0.1.1) (2024-07-11)
 
 
