@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    openfeature-go-feature-flag-provider (0.1.1)
+    openfeature-go-feature-flag-provider (0.1.2)
       faraday (~> 2.10)
       openfeature-sdk (~> 0.3.1)
 
