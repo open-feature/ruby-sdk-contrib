@@ -35,6 +35,11 @@ module OpenFeature
         evaluation_context = OpenFeature::SDK::EvaluationContext.new if evaluation_context.nil?
         validate_parameters(flag_key, evaluation_context)
 
+        # enrich the evaluation context with the exporter_metadata
+        @options.exporter_metadata ||= {}
+        @options.exporter_metadata.merge!({"openfeature" => true, "provider" => "ruby"})
+        evaluation_context.fields["gofeatureflag"] = {"exporterMetadata" => @options.exporter_metadata}
+
         # do a http call to the go feature flag server
         parsed_response = @goff_api.evaluate_ofrep_api(flag_key: flag_key, evaluation_context: evaluation_context)
         parsed_response = OfrepApiResponse unless parsed_response.is_a?(OfrepApiResponse)
