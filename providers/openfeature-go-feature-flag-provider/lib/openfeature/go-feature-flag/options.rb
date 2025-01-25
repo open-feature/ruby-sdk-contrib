@@ -6,12 +6,13 @@ module OpenFeature
   module GoFeatureFlag
     # This class is the configuration class for the GoFeatureFlagProvider
     class Options
-      attr_accessor :endpoint, :custom_headers
+      attr_accessor :endpoint, :custom_headers, :exporter_metadata
 
-      def initialize(endpoint: nil, headers: {})
+      def initialize(endpoint: nil, headers: {}, exporter_metadata: {})
         validate_endpoint(endpoint: endpoint)
         @endpoint = endpoint
         @custom_headers = headers
+        @exporter_metadata = exporter_metadata
       end
 
       private

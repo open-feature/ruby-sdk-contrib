@@ -684,4 +684,41 @@ RSpec.describe OpenFeature::GoFeatureFlag::Provider do
       expect(eval).to eql(want)
     end
   end
+
+  context "#exporter_metadata" do
+    it "should send exporter_metadata in the API if set in provider" do
+      test_name = RSpec.current_example.description
+      request_body = nil
+      stub_request(:post, "http://localhost:1031/ofrep/v1/evaluate/flags/boolean_flag")
+        .with { |req| request_body = req.body }
+        .to_return(status: 200, body:
+          {
+            key: "double_key",
+            metadata: {"website" => "https://gofeatureflag.org"},
+            value: true,
+            reason: "TARGETING_MATCH",
+            variant: "variantA"
+          }.to_json)
+
+      options = OpenFeature::GoFeatureFlag::Options.new(endpoint: "http://localhost:1031", exporter_metadata: {
+        "key1" => "value1",
+        "key2" => 123,
+        "key3" => 123.45
+      })
+      goff_test_provider = OpenFeature::GoFeatureFlag::Provider.new(options: options)
+
+      OpenFeature::SDK.configure do |config|
+        config.set_provider(goff_test_provider, domain: test_name)
+      end
+      client = OpenFeature::SDK.build_client(domain: test_name)
+      client.fetch_boolean_details(
+        flag_key: "boolean_flag",
+        default_value: false,
+        evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: "9b9450f8-ab5c-4dcf-872f-feda3f6ccb16")
+      )
+      got = JSON.parse(request_body)
+      want = JSON.parse('{"context":{"gofeatureflag":{"exporterMetadata":{"key1":"value1","openfeature":true,"provider":"ruby", "key2": 123, "key3":123.45}},"targetingKey":"9b9450f8-ab5c-4dcf-872f-feda3f6ccb16"}}')
+      expect(got).to eql(want)
+    end
+  end
 end
