@@ -8,7 +8,7 @@ module OpenFeature
     class Options
       attr_accessor :endpoint, :custom_headers, :exporter_metadata
 
-      def initialize(endpoint: nil, headers: {}, exporter_metadata: nil)
+      def initialize(endpoint: nil, headers: {}, exporter_metadata: {})
         validate_endpoint(endpoint: endpoint)
         @endpoint = endpoint
         @custom_headers = headers

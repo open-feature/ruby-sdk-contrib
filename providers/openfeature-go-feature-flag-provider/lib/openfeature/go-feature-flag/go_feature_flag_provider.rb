@@ -36,8 +36,7 @@ module OpenFeature
         validate_parameters(flag_key, evaluation_context)
 
         # enrich the evaluation context with the exporter_metadata
-        @options.exporter_metadata ||= {}
-        @options.exporter_metadata.merge!({"openfeature" => true, "provider" => "ruby"})
+        @options.exporter_metadata.merge!("openfeature" => true, "provider" => "ruby")
         evaluation_context.fields["gofeatureflag"] = {"exporterMetadata" => @options.exporter_metadata}
 
         # do a http call to the go feature flag server
