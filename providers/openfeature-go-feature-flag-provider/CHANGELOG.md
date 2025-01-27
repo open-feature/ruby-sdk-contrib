@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-go-feature-flag-provider/v0.1.2...openfeature-go-feature-flag-provider/v0.1.3) (2025-01-25)
+
+
+### ✨ New Features
+
+* **go-feature-flag:** Support exporter metadata ([#45](https://github.com/open-feature/ruby-sdk-contrib/issues/45)) ([04754fd](https://github.com/open-feature/ruby-sdk-contrib/commit/04754fd24e33ce993a9da3ddcaf84c34f9cb2342))
+
 ## [0.1.2](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-go-feature-flag-provider/v0.1.1...openfeature-go-feature-flag-provider/v0.1.2) (2024-12-02)
 
 
