@@ -56,7 +56,6 @@
     },
     {
       "type": "build",
-      "hidden": true,
       "section": "🛠️ Build"
     },
     {
