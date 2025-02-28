@@ -16,7 +16,7 @@ module OpenFeature
     end
 
     def init
-      providers.each { |provider| provider.init }
+      providers.each { |provider| provider.init if provider.respond_to?(:init) }
     end
 
     def shutdown
