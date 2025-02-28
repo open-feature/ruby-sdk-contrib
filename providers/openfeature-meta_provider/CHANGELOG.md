@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.4](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-meta_provider/v0.0.3...openfeature-meta_provider/v0.0.4) (2025-02-28)
+
+
+### 🛠️ Build
+
+* **meta-provider:** Support non-breaking versions of openfeature-sdk ([#47](https://github.com/open-feature/ruby-sdk-contrib/issues/47)) ([5a98cf4](https://github.com/open-feature/ruby-sdk-contrib/commit/5a98cf4d540da39c6963a69d2c0772acad434b4b))
+
 ## [0.0.3](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-meta_provider/v0.0.2...openfeature-meta_provider/v0.0.3) (2024-05-16)
 
 
