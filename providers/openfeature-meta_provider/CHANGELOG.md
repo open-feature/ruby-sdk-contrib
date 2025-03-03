@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.5](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-meta_provider/v0.0.4...openfeature-meta_provider/v0.0.5) (2025-03-03)
+
+
+### 🐛 Bug Fixes
+
+* don't init if provider doesn't have an init method ([#49](https://github.com/open-feature/ruby-sdk-contrib/issues/49)) ([d2479ed](https://github.com/open-feature/ruby-sdk-contrib/commit/d2479edb27234b201453bb5fad12cc56c6c750de))
+
 ## [0.0.4](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-meta_provider/v0.0.3...openfeature-meta_provider/v0.0.4) (2025-02-28)
 
 
