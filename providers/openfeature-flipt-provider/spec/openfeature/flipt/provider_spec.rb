@@ -3,12 +3,12 @@
 require "spec_helper"
 
 RSpec.describe OpenFeature::Flipt::Provider do
-  let(:provider) { described_class.new }
+  let(:provider) { described_class.new(namespace: "test-namespace") }
   let(:client_stub) { double(::Flipt::EvaluationClient) }
   let(:evaluation_context) { {"targeting_key" => "user123", "some_key" => "some_value"} }
 
   before do
-    allow(::Flipt::EvaluationClient).to receive(:new).and_return(client_stub)
+    allow(::Flipt::EvaluationClient).to receive(:new).with("test-namespace", {}).and_return(client_stub)
   end
 
   context "2.1 - Feature Provider Interface" do
