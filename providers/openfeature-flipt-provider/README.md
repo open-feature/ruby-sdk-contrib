@@ -31,9 +31,14 @@ require "openfeature/flipt/provider"
 
 OpenFeature::SDK.configure do |config|
   config.set_provider(
-    OpenFeature::Flipt::Provider.new(options: {
-      url: "http://url-to-flipt-server"
-    })
+    OpenFeature::Flipt::Provider.new(
+      namespace: "flipt-namespace",
+      options: {
+        url: "https://url-to-flipt-server",
+        update_interval: 60,
+        authentication: "token"
+      }
+    )
   )
 end
 client = OpenFeature::SDK.build_client
@@ -45,6 +50,8 @@ else
   puts "Feature is disabled"
 end
 ```
+
+For a complete list of configuration options, such as authentication and error strategies, refer to the [Flipt Client Ruby SDK documentation](https://github.com/flipt-io/flipt-client-sdks/tree/main/flipt-client-ruby#constructor-arguments).
 
 ## Contributing
 https://github.com/open-feature/ruby-sdk-contrib
