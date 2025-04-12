@@ -11,8 +11,7 @@ module OpenFeature
       # @param namespace [String] Namespace to use when fetching flags.
       # @param options [Hash] Options to pass to the Flipt client.
       def initialize(namespace: "default", options: {})
-        @namespace = namespace
-        @options = options
+        @client ||= ::Flipt::EvaluationClient.new(@namespace, @options)
       end
 
       def metadata
@@ -76,15 +75,11 @@ module OpenFeature
 
       private
 
-      def client
-        @_client ||= ::Flipt::EvaluationClient.new(@namespace, @options)
-      end
-
       def fetch_value(flag_key:, default_value:, evaluation_context:, evaluation_method:, result_key:)
         transformed_eval_context = transform_context(evaluation_context)
 
         begin
-          response = client.send(evaluation_method, {
+          response = @client.send(evaluation_method, {
             flag_key: flag_key,
             entity_id: evaluation_context&.fetch("targeting_key", nil) || "default",
             context: transformed_eval_context
