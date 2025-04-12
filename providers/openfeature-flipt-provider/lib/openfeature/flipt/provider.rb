@@ -11,7 +11,7 @@ module OpenFeature
       # @param namespace [String] Namespace to use when fetching flags.
       # @param options [Hash] Options to pass to the Flipt client.
       def initialize(namespace: "default", options: {})
-        @client ||= ::Flipt::EvaluationClient.new(@namespace, @options)
+        @client = ::Flipt::EvaluationClient.new(@namespace, @options)
       end
 
       def metadata
