@@ -8,6 +8,9 @@
     },
     {
       "path": "providers/openfeature-go-feature-flag-provider"
+    },
+    {
+      "path": "providers/openfeature-flipt-provider"
     }
   ]
 }
