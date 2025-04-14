@@ -1,5 +1,6 @@
 {
   "providers/openfeature-flagd-provider": "0.1.2",
+  "providers/openfeature-flagd-provider": "0.0.1",
   "providers/openfeature-meta_provider": "0.0.5",
   "providers/openfeature-go-feature-flag-provider": "0.1.3"
 }
