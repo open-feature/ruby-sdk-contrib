@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    openfeature-flipt-provider (0.1.0)
+    openfeature-flipt-provider (0.0.2)
       ffi (~> 1.17)
       flipt_client (~> 0.10.0)
       openfeature-sdk (~> 0.4.0)
