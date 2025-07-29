@@ -137,12 +137,12 @@ module OpenFeature
 
         begin
           @retry_after = if /^\d+$/.match?(retry_after)
-                           # Retry-After is in seconds
-                           Time.now + Integer(retry_after)
-                         else
-                           # Retry-After is an HTTP-date
-                           Time.httpdate(retry_after)
-                         end
+            # Retry-After is in seconds
+            Time.now + Integer(retry_after)
+          else
+            # Retry-After is an HTTP-date
+            Time.httpdate(retry_after)
+          end
         rescue ArgumentError
           # ignore invalid Retry-After header
           nil
