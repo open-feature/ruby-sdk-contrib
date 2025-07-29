@@ -10,7 +10,7 @@ module OpenFeature
       def initialize(options: Options.new)
         @metadata = SDK::Provider::ProviderMetadata.new(name: PROVIDER_NAME)
         @options = options
-        @goff_api = GoFeatureFlagApi.new(options: options)
+        @goff_api = GoFeatureFlagApi.new(endpoint: options.endpoint, custom_headers: options.custom_headers)
       end
 
       def fetch_boolean_value(flag_key:, default_value:, evaluation_context: nil)
