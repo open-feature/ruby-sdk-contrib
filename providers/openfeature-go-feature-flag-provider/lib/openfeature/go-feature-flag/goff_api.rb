@@ -4,6 +4,7 @@ require "open_feature/sdk"
 require "net/http"
 require "json"
 require "faraday"
+require "faraday/net_http_persistent"
 require_relative "error/errors"
 require_relative "model/ofrep_api_response"
 
@@ -17,7 +18,11 @@ module OpenFeature
         @faraday_connection = Faraday.new(
           url: @options.endpoint,
           headers: {"Content-Type" => "application/json"}.merge(@options.custom_headers || {})
-        )
+        ) do |f|
+          f.adapter :net_http_persistent do |http|
+            http.idle_timeout = 30
+          end
+        end
       end
 
       def evaluate_ofrep_api(flag_key:, evaluation_context:)
