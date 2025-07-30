@@ -12,7 +12,7 @@ module OpenFeature
     # This class is the entry point for the GoFeatureFlagProvider
     class GoFeatureFlagApi
       def initialize(endpoint: nil, custom_headers: nil)
-        @faraday_connection = Faraday.new(url: endpoint, headers: custom_headers) do |f|
+        @faraday_connection = Faraday.new(url: endpoint, headers: headers(custom_headers)) do |f|
           f.adapter :net_http_persistent do |http|
             http.idle_timeout = 30
           end
