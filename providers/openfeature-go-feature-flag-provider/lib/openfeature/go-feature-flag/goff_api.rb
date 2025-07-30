@@ -3,7 +3,6 @@
 require "open_feature/sdk"
 require "net/http"
 require "json"
-require "faraday"
 require "faraday/net_http_persistent"
 require_relative "error/errors"
 require_relative "model/ofrep_api_response"
