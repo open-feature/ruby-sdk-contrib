@@ -3,7 +3,7 @@
 require "open_feature/sdk"
 require "net/http"
 require "json"
-require "faraday"
+require "faraday/net_http_persistent"
 require_relative "error/errors"
 require_relative "model/ofrep_api_response"
 
@@ -11,13 +11,12 @@ module OpenFeature
   module GoFeatureFlag
     # This class is the entry point for the GoFeatureFlagProvider
     class GoFeatureFlagApi
-      attr_reader :options
-      def initialize(options: {})
-        @options = options
-        @faraday_connection = Faraday.new(
-          url: @options.endpoint,
-          headers: {"Content-Type" => "application/json"}.merge(@options.custom_headers || {})
-        )
+      def initialize(endpoint: nil, custom_headers: nil)
+        @faraday_connection = Faraday.new(url: endpoint, headers: headers(custom_headers)) do |f|
+          f.adapter :net_http_persistent do |http|
+            http.idle_timeout = 30
+          end
+        end
       end
 
       def evaluate_ofrep_api(flag_key:, evaluation_context:)
@@ -56,6 +55,10 @@ module OpenFeature
       end
 
       private
+
+      def headers(custom_headers)
+        {"Content-Type" => "application/json"}.merge(custom_headers || {})
+      end
 
       def parse_error_response(response)
         required_keys = %w[key error_code]

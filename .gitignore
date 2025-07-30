@@ -10,6 +10,9 @@
 /test/version_tmp/
 /tmp/
 
+#rspec
+**/spec/examples.txt
+
 # Used by dotenv library to load environment variables.
 # .env
 
