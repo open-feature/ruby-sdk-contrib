@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.4](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-go-feature-flag-provider/v0.1.3...openfeature-go-feature-flag-provider/v0.1.4) (2025-07-30)
+
+
+### ✨ New Features
+
+* connection persistance ([#59](https://github.com/open-feature/ruby-sdk-contrib/issues/59)) ([3a01a5e](https://github.com/open-feature/ruby-sdk-contrib/commit/3a01a5e4cc597aa0bc223e71f3e165f63c66f296))
+
 ## [0.1.3](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-go-feature-flag-provider/v0.1.2...openfeature-go-feature-flag-provider/v0.1.3) (2025-01-25)
 
 
