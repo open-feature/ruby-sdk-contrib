@@ -14,5 +14,14 @@ RSpec.describe OpenFeature::GoFeatureFlag::Options do
     it "should raise if endpoint is not http" do
       expect { OpenFeature::GoFeatureFlag::Options.new(endpoint: "ftp://gofeatureflag.org") }.to raise_error(ArgumentError, "Invalid URL for endpoint: ftp://gofeatureflag.org")
     end
+
+    it "should return instrumentation if configured" do
+      options = OpenFeature::GoFeatureFlag::Options.new(endpoint: "http://localhost:1031", instrumentation: {name: "custom_name"})
+      expect(options.instrumentation).to eql(name: "custom_name")
+    end
+
+    it "should raise if instrumentation is not hash" do
+      expect { OpenFeature::GoFeatureFlag::Options.new(instrumentation: "custom_name") }.to raise_error(ArgumentError, "Invalid type for instrumentation: String")
+    end
   end
 end

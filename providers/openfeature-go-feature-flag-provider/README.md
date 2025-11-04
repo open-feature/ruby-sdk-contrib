@@ -45,11 +45,11 @@ gem install openfeature-go-feature-flag-provider
 
 The `OpenFeature::GoFeatureFlag::Provider` needs some options to be created and then set in the OpenFeature SDK.
 
-| **Option** | **Description**                                                                                                                             |
-|------------|---------------------------------------------------------------------------------------------------------------------------------------------|
-| `endpoint` | **(mandatory)** The URL to access to the relay-proxy.<br />*(example: `https://relay.proxy.gofeatureflag.org/`)*                            |
-| `headers`  | A `Hash` object containing the headers to send to the relay-proxy.<br/>*(example to send APIKey: `{"Authorization" => "Bearer my-api-key"}` |
-
+| **Option**        | **Description**                                                                                                                             |
+|-------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
+| `endpoint`        | **(mandatory)** The URL to access to the relay-proxy.<br />*(example: `https://relay.proxy.gofeatureflag.org/`)*                            |
+| `headers`         | A `Hash` object containing the headers to send to the relay-proxy.<br/>*(example to send APIKey: `{"Authorization" => "Bearer my-api-key"}` |
+| `instrumentation` | [Faraday instrumentation](https://github.com/lostisland/faraday/blob/main/docs/middleware/included/instrumentation.md) hash                 |
 The only required option to create a `GoFeatureFlagProvider` is the URL _(`endpoint`)_ to your GO Feature Flag relay-proxy instance.
 
 ```ruby
