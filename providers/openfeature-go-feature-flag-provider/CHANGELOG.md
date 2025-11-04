@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.5](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-go-feature-flag-provider/v0.1.4...openfeature-go-feature-flag-provider/v0.1.5) (2025-11-04)
+
+
+### ✨ New Features
+
+* **goff:** add Faraday instrumentation ([#62](https://github.com/open-feature/ruby-sdk-contrib/issues/62)) ([6ae223f](https://github.com/open-feature/ruby-sdk-contrib/commit/6ae223f3ffa076a45581f454cffbc49a0394d871))
+
 ## [0.1.4](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-go-feature-flag-provider/v0.1.3...openfeature-go-feature-flag-provider/v0.1.4) (2025-07-30)
 
 
