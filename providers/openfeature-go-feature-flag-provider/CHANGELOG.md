@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.6](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-go-feature-flag-provider/v0.1.5...openfeature-go-feature-flag-provider/v0.1.6) (2025-11-11)
+
+
+### 🐛 Bug Fixes
+
+* **openfeature-go-feature-flag-provider:** fallback to sdkDefault if reason is DISABLED ([#64](https://github.com/open-feature/ruby-sdk-contrib/issues/64)) ([6cb08c0](https://github.com/open-feature/ruby-sdk-contrib/commit/6cb08c0156ce1ee4ea17278937e6da8904a15d04))
+
 ## [0.1.5](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-go-feature-flag-provider/v0.1.4...openfeature-go-feature-flag-provider/v0.1.5) (2025-11-04)
 
 
