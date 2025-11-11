@@ -52,6 +52,13 @@ module OpenFeature
           )
         end
 
+        if parsed_response.reason == SDK::Provider::Reason::DISABLED
+          return SDK::Provider::ResolutionDetails.new(
+            value: default_value,
+            reason: SDK::Provider::Reason::DISABLED
+          )
+        end
+
         unless allowed_classes.include?(parsed_response.value.class)
           return SDK::Provider::ResolutionDetails.new(
             value: default_value,
