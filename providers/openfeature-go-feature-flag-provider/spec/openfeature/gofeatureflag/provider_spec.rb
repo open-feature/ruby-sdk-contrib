@@ -314,6 +314,36 @@ RSpec.describe OpenFeature::GoFeatureFlag::Provider do
       )
       expect(got).to eql(want)
     end
+
+    it "should return the default value if the reason is DISABLED" do
+      test_name = RSpec.current_example.description
+      stub_request(:post, "http://localhost:1031/ofrep/v1/evaluate/flags/boolean_flag")
+        .to_return(status: 200, body:
+          {
+            key: "boolean_flag",
+            metadata: {"website" => "https://gofeatureflag.org"},
+            value: true,
+            reason: "DISABLED",
+            variant: "variantA"
+          }.to_json)
+      OpenFeature::SDK.configure do |config|
+        config.set_provider(goff_provider, domain: test_name)
+      end
+      client = OpenFeature::SDK.build_client(domain: test_name)
+      got = client.fetch_boolean_details(
+        flag_key: "boolean_flag",
+        default_value: false,
+        evaluation_context: OpenFeature::SDK::EvaluationContext.new(targeting_key: "1234")
+      )
+      want = OpenFeature::SDK::EvaluationDetails.new(
+        flag_key: "boolean_flag",
+        resolution_details: OpenFeature::SDK::Provider::ResolutionDetails.new(
+          value: false,
+          reason: OpenFeature::SDK::Provider::Reason::DISABLED
+        )
+      )
+      expect(got).to eql(want)
+    end
   end
 
   context "#fetch_string_value with openfeature" do
