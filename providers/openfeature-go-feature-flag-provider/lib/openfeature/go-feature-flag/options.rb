@@ -27,7 +27,7 @@ module OpenFeature
         when "http"
           uri = URI.parse(endpoint)
           raise ArgumentError, "Invalid URL for endpoint: #{endpoint}" unless uri.is_a?(URI::HTTP) || uri.is_a?(URI::HTTPS)
-        when type == "unix"
+        when "unix"
           raise ArgumentError, "File not found: #{endpoint}" unless File.exist?(endpoint)
         else
           raise ArgumentError, "Invalid Type: #{type}"
