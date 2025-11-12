@@ -1,21 +1,17 @@
 # frozen_string_literal: true
 
+require_relative "common"
 require_relative "../internal/http_unix"
 
 module OpenFeature
   module GoFeatureFlag
     module Client
       class UnixApi < Common
+        attr_accessor :socket
+
         def initialize(endpoint: nil, custom_headers: nil)
           @custom_headers = custom_headers
           @socket = HttpUnix.new(endpoint)
-        end
-
-        def post(url, body)
-          request = Net::HTTP::Post.new(url, init_header = headers)
-          request["host"] = "localhost" # required to form correct HTTP request
-          request.body = body.to_json
-          @socket.request(request)
         end
 
         def evaluate_ofrep_api(flag_key:, evaluation_context:)
@@ -32,7 +28,7 @@ module OpenFeature
           evaluation_context.fields["targetingKey"] = evaluation_context.targeting_key
           evaluation_context.fields.delete("targeting_key")
 
-          response = post("/ofrep/v1/evaluate/flags/#{flag_key}", { context: evaluation_context.fields })
+          response = @socket.post("/ofrep/v1/evaluate/flags/#{flag_key}", {context: evaluation_context.fields})
 
           case response.code
           when "200"

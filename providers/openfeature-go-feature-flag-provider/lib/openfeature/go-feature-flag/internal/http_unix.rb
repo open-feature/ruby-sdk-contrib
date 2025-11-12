@@ -23,4 +23,11 @@ class HttpUnix < Net::HTTP
       debug_output: @debug_output)
     on_connect
   end
+
+  def post(url, body)
+    request = Net::HTTP::Post.new(url, headers)
+    request["host"] = "localhost" # required to form correct HTTP request
+    request.body = body.to_json
+    request(request)
+  end
 end

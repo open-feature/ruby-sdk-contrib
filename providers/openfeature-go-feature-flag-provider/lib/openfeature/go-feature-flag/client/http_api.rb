@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative "common"
 require "faraday/net_http_persistent"
 
 module OpenFeature
@@ -31,7 +32,7 @@ module OpenFeature
           evaluation_context.fields.delete("targeting_key")
 
           response = @faraday_connection.post("/ofrep/v1/evaluate/flags/#{flag_key}") do |req|
-            req.body = { context: evaluation_context.fields }.to_json
+            req.body = {context: evaluation_context.fields}.to_json
           end
 
           case response.status

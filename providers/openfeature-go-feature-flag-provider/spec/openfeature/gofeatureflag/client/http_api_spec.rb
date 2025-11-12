@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe OpenFeature::GoFeatureFlag::GoFeatureFlagApi do
+RSpec.describe OpenFeature::GoFeatureFlag::Client::HttpApi do
   subject(:goff_api) do
     described_class.new(endpoint: "http://localhost:1031")
   end

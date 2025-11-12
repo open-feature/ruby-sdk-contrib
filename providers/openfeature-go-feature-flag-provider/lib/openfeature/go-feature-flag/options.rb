@@ -23,13 +23,14 @@ module OpenFeature
       def validate_endpoint(endpoint, type)
         return if endpoint.nil?
 
-        if type == "http"
+        case type
+        when "http"
           uri = URI.parse(endpoint)
           raise ArgumentError, "Invalid URL for endpoint: #{endpoint}" unless uri.is_a?(URI::HTTP) || uri.is_a?(URI::HTTPS)
-        elsif type == "unix"
+        when type == "unix"
           raise ArgumentError, "File not found: #{endpoint}" unless File.exist?(endpoint)
         else
-          raise ArgumentError, "Invalid Type: #{type}" unless type == "http" || type == "unix"
+          raise ArgumentError, "Invalid Type: #{type}"
         end
       rescue URI::InvalidURIError
         raise ArgumentError, "Invalid URL for endpoint: #{endpoint}"

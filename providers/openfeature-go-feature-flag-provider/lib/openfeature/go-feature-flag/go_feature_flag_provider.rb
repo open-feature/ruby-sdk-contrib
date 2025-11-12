@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require "openfeature/go-feature-flag/client/http_api"
+require "openfeature/go-feature-flag/client/unix_api"
+
 module OpenFeature
   module GoFeatureFlag
     # This class is the entry point for the GoFeatureFlagProvider
