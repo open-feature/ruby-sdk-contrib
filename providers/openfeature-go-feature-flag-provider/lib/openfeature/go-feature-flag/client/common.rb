@@ -24,6 +24,16 @@ module OpenFeature
           {"Content-Type" => "application/json"}.merge(@custom_headers || {})
         end
 
+        def check_retry_after
+          unless @retry_after.nil?
+            if Time.now < @retry_after
+              raise OpenFeature::GoFeatureFlag::RateLimited.new(nil)
+            else
+              @retry_after = nil
+            end
+          end
+        end
+
         def parse_error_response(response)
           required_keys = %w[key error_code]
           parsed = JSON.parse(response.body)

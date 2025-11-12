@@ -18,14 +18,7 @@ module OpenFeature
         end
 
         def evaluate_ofrep_api(flag_key:, evaluation_context:)
-          unless @retry_after.nil?
-            if Time.now < @retry_after
-              raise OpenFeature::GoFeatureFlag::RateLimited.new(nil)
-            else
-              @retry_after = nil
-            end
-          end
-
+          check_retry_after
           evaluation_context = OpenFeature::SDK::EvaluationContext.new if evaluation_context.nil?
           # replace targeting_key by targetingKey
           evaluation_context.fields["targetingKey"] = evaluation_context.targeting_key
