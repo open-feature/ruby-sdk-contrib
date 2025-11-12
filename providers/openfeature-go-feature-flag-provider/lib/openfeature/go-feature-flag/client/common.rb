@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "net/http"
+require "json"
 require "open_feature/sdk"
 require_relative "../error/errors"
 require_relative "../model/ofrep_api_response"

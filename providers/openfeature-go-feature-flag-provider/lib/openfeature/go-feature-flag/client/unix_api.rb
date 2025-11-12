@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "net/http"
-require "json"
 require_relative "../internal/http_unix"
 
 module OpenFeature

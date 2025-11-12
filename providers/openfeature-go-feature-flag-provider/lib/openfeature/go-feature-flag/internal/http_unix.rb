@@ -18,9 +18,9 @@ class HttpUnix < Net::HTTP
     s = UNIXSocket.open(@socket_path)
     D "opened"
     @socket = BufferedIO.new(s,
-                             read_timeout: @read_timeout,
-                             continue_timeout: @continue_timeout,
-                             debug_output: @debug_output)
+      read_timeout: @read_timeout,
+      continue_timeout: @continue_timeout,
+      debug_output: @debug_output)
     on_connect
   end
 end

@@ -5,12 +5,13 @@ module OpenFeature
     # This class is the entry point for the GoFeatureFlagProvider
     class Provider
       PROVIDER_NAME = "GO Feature Flag Provider"
+      Client = OpenFeature::GoFeatureFlag::Client
       attr_reader :metadata, :options
 
       def initialize(options: Options.new)
         @metadata = SDK::Provider::ProviderMetadata.new(name: PROVIDER_NAME)
         @options = options
-        @goff_api = GoFeatureFlagApi.new(endpoint: options.endpoint, custom_headers: options.custom_headers, instrumentation: options.instrumentation)
+        @goff_api = build_client(options)
       end
 
       def fetch_boolean_value(flag_key:, default_value:, evaluation_context: nil)
@@ -93,6 +94,17 @@ module OpenFeature
 
         if flag_key.nil? || flag_key.empty?
           raise InvalidOptionError.new(SDK::Provider::ErrorCode::GENERAL, "invalid flag key provided")
+        end
+      end
+
+      def build_client(options)
+        case options.type
+        when "http"
+          Client::HttpApi.new(endpoint: options.endpoint, custom_headers: options.custom_headers, instrumentation: options.instrumentation)
+        when "unix"
+          Client::UnixApi.new(endpoint: options.endpoint, custom_headers: options.custom_headers)
+        else
+          raise InvalidOptionError.new(type, "Invalid type client #{type}")
         end
       end
     end

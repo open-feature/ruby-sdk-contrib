@@ -1,17 +1,15 @@
 # frozen_string_literal: true
 
-require "net/http"
-require "json"
-require "faraday"
 require "faraday/net_http_persistent"
 
 module OpenFeature
   module GoFeatureFlag
     module Client
       class HttpApi < Common
-        def initialize(endpoint: nil, custom_headers: nil)
+        def initialize(endpoint: nil, custom_headers: nil, instrumentation: nil)
           @custom_headers = custom_headers
           @faraday_connection = Faraday.new(url: endpoint, headers: headers) do |f|
+            f.request :instrumentation, instrumentation if instrumentation
             f.adapter :net_http_persistent do |http|
               http.idle_timeout = 30
             end
