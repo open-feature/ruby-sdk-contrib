@@ -11,17 +11,17 @@ module OpenFeature
     module Client
       class Common
         def initialize(endpoint: nil, custom_headers: nil)
-          raise 'This should be overwritten by implementations'
+          raise "This should be overwritten by implementations"
         end
 
         def evaluate_ofrep_api(flag_key:, evaluation_context:)
-          raise 'This should be overwritten by implementations'
+          raise "This should be overwritten by implementations"
         end
 
         private
 
         def headers
-          { "Content-Type" => "application/json" }.merge(@custom_headers || {})
+          {"Content-Type" => "application/json"}.merge(@custom_headers || {})
         end
 
         def parse_error_response(response)
@@ -100,12 +100,12 @@ module OpenFeature
 
           begin
             @retry_after = if /^\d+$/.match?(retry_after)
-                             # Retry-After is in seconds
-                             Time.now + Integer(retry_after)
-                           else
-                             # Retry-After is an HTTP-date
-                             Time.httpdate(retry_after)
-                           end
+              # Retry-After is in seconds
+              Time.now + Integer(retry_after)
+            else
+              # Retry-After is an HTTP-date
+              Time.httpdate(retry_after)
+            end
           rescue ArgumentError
             # ignore invalid Retry-After header
             nil
