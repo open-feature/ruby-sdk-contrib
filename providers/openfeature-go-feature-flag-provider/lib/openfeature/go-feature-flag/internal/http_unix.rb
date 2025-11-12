@@ -1,0 +1,26 @@
+require "net/http"
+
+class HttpUnix < Net::HTTP
+  BufferedIO = ::Net::BufferedIO
+  UNIX_REGEXP = %r{^unix://}i
+
+  def initialize(address, port = nil)
+    super(address, port)
+    @socket_type = "unix"
+    @socket_path = address.sub(UNIX_REGEXP, "")
+
+    @host = "localhost"
+    @port = 1031
+  end
+
+  def connect
+    D "opening connection to #{@socket_path}..."
+    s = UNIXSocket.open(@socket_path)
+    D "opened"
+    @socket = BufferedIO.new(s,
+                             read_timeout: @read_timeout,
+                             continue_timeout: @continue_timeout,
+                             debug_output: @debug_output)
+    on_connect
+  end
+end
