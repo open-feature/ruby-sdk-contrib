@@ -28,7 +28,7 @@ module OpenFeature
           evaluation_context.fields["targetingKey"] = evaluation_context.targeting_key
           evaluation_context.fields.delete("targeting_key")
 
-          response = @socket.post("/ofrep/v1/evaluate/flags/#{flag_key}", {context: evaluation_context.fields})
+          response = @socket.post("/ofrep/v1/evaluate/flags/#{flag_key}", {context: evaluation_context.fields}, headers)
 
           case response.code
           when "200"
