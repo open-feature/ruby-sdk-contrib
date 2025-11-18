@@ -41,6 +41,16 @@
       "extra-files": [
         "README.md"
       ]
+    },
+    "providers/openfeature-flagsmith-provider": {
+      "package-name": "openfeature-flagsmith-provider",
+      "version-file": "lib/openfeature/flagsmith/version.rb",
+      "bump-minor-pre-major": true,
+      "bump-patch-for-minor-pre-major": true,
+      "versioning": "default",
+      "extra-files": [
+        "README.md"
+      ]
     }
   },
   "changelog-sections": [
