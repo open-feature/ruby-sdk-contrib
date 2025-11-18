@@ -183,7 +183,7 @@ module OpenFeature
         if targeting_key.nil? || targeting_key.to_s.strip.empty?
           @flagsmith_client.get_environment_flags
         else
-          traits = evaluation_context.fields.reject { |k, _v| k == :targeting_key || k == "targeting_key" }
+          traits = evaluation_context.fields.transform_keys(&:to_sym).reject { |k, _v| k == :targeting_key }
           @flagsmith_client.get_identity_flags(targeting_key.to_s, **traits)
         end
       rescue => e
