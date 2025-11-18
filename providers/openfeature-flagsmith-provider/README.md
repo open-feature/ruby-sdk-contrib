@@ -1,7 +1,5 @@
 # OpenFeature Flagsmith Provider for Ruby
 
-[![Project Status: WIP](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
-
 This is the Ruby provider for [Flagsmith](https://www.flagsmith.com/) feature flags, implementing the [OpenFeature](https://openfeature.dev/) standard.
 
 ## Features
@@ -20,7 +18,6 @@ This is the Ruby provider for [Flagsmith](https://www.flagsmith.com/) feature fl
 | ✅ | Local Evaluation | Optional local evaluation mode |
 | ✅ | Error Handling | Comprehensive error handling |
 | ✅ | Type Validation | Strict type checking |
-| 🚧 | Flagsmith Integration | Pending Flagsmith gem version |
 
 ## Installation
 
