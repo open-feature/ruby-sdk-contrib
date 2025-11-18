@@ -1,5 +1,10 @@
 # OpenFeature Flagsmith Provider for Ruby
 
+<<<<<<< HEAD
+=======
+[![Project Status: WIP](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+
+>>>>>>> 03b456d (feat: implemented-flagsmith-provider)
 This is the Ruby provider for [Flagsmith](https://www.flagsmith.com/) feature flags, implementing the [OpenFeature](https://openfeature.dev/) standard.
 
 ## Features
@@ -18,6 +23,10 @@ This is the Ruby provider for [Flagsmith](https://www.flagsmith.com/) feature fl
 | ✅ | Local Evaluation | Optional local evaluation mode |
 | ✅ | Error Handling | Comprehensive error handling |
 | ✅ | Type Validation | Strict type checking |
+<<<<<<< HEAD
+=======
+| 🚧 | Flagsmith Integration | Pending Flagsmith gem version |
+>>>>>>> 03b456d (feat: implemented-flagsmith-provider)
 
 ## Installation
 
@@ -266,6 +275,7 @@ The provider returns appropriate reasons for flag evaluations:
 
 | Reason | Description |
 |--------|-------------|
+<<<<<<< HEAD
 | `TARGETING_MATCH` | Flag evaluated with user identity (targeting_key provided) |
 | `STATIC` | Flag evaluated at environment level (no targeting_key) |
 | `DEFAULT` | Default value returned due to flag not found |
@@ -273,6 +283,13 @@ The provider returns appropriate reasons for flag evaluations:
 | `DISABLED` | The flag was disabled, and the default value was returned |
 
 **Note**: Both remote and local evaluation modes use the same reason mapping (STATIC/TARGETING_MATCH). Local evaluation performs flag evaluation locally but still evaluates the flag state, it doesn't return cached results.
+=======
+| `TARGETING_MATCH` | Flag evaluated with user identity and targeting rules |
+| `STATIC` | Flag evaluated at environment level (no user context) |
+| `DEFAULT` | Default value returned (flag not found or disabled) |
+| `ERROR` | An error occurred during evaluation |
+| `CACHED` | Value returned from local cache (local evaluation mode) |
+>>>>>>> 03b456d (feat: implemented-flagsmith-provider)
 
 ## Development
 

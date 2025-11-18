@@ -98,7 +98,11 @@ module OpenFeature
           environment_refresh_interval_seconds: @options.environment_refresh_interval_seconds
         )
       rescue => e
+<<<<<<< HEAD
         raise ProviderNotReadyError, "Failed to create Flagsmith client: #{e.class}: #{e.message}"
+=======
+        raise ProviderNotReadyError, "Failed to create Flagsmith client: #{e.message}"
+>>>>>>> 03b456d (feat: implemented-flagsmith-provider)
       end
 
       def evaluate(flag_key:, default_value:, evaluation_context:, allowed_type_classes:)
@@ -112,6 +116,7 @@ module OpenFeature
           )
         end
 
+<<<<<<< HEAD
         # Check for invalid flag keys
         if flag_key.nil? || flag_key.to_s.empty?
           return SDK::Provider::ResolutionDetails.new(
@@ -122,12 +127,15 @@ module OpenFeature
           )
         end
 
+=======
+>>>>>>> 03b456d (feat: implemented-flagsmith-provider)
         evaluation_context ||= SDK::EvaluationContext.new
 
         begin
           # Get flags from Flagsmith
           flags = get_flags(evaluation_context)
 
+<<<<<<< HEAD
           is_boolean_flag = (allowed_type_classes.sort == [FalseClass, TrueClass])
 
           if is_boolean_flag
@@ -159,6 +167,21 @@ module OpenFeature
                     end
           end
 
+=======
+          # Check if flag exists
+          unless flag_exists?(flags, flag_key)
+            return SDK::Provider::ResolutionDetails.new(
+              value: default_value,
+              reason: SDK::Provider::Reason::DEFAULT,
+              error_code: SDK::Provider::ErrorCode::FLAG_NOT_FOUND,
+              error_message: "Flag '#{flag_key}' not found"
+            )
+          end
+
+          # Get flag value
+          value = get_flag_value(flags, flag_key, allowed_type_classes)
+
+>>>>>>> 03b456d (feat: implemented-flagsmith-provider)
           # Validate type
           unless type_matches?(value, allowed_type_classes)
             return SDK::Provider::ResolutionDetails.new(
@@ -173,7 +196,11 @@ module OpenFeature
           SDK::Provider::ResolutionDetails.new(
             value: value,
             reason: determine_reason(evaluation_context),
+<<<<<<< HEAD
             variant: nil, # Flagsmith doesn't have explicit variants
+=======
+            variant: nil,  # Flagsmith doesn't have explicit variants
+>>>>>>> 03b456d (feat: implemented-flagsmith-provider)
             flag_metadata: {}
           )
         rescue FlagsmithError => e
@@ -188,7 +215,11 @@ module OpenFeature
             value: default_value,
             reason: SDK::Provider::Reason::ERROR,
             error_code: SDK::Provider::ErrorCode::GENERAL,
+<<<<<<< HEAD
             error_message: "Unexpected error: #{e.class}: #{e.message}"
+=======
+            error_message: "Unexpected error: #{e.message}"
+>>>>>>> 03b456d (feat: implemented-flagsmith-provider)
           )
         end
       end
@@ -200,11 +231,57 @@ module OpenFeature
         if targeting_key.nil? || targeting_key.to_s.strip.empty?
           @flagsmith_client.get_environment_flags
         else
+<<<<<<< HEAD
           traits = evaluation_context.fields.transform_keys(&:to_sym).reject { |k, _v| k == :targeting_key }
           @flagsmith_client.get_identity_flags(targeting_key.to_s, **traits)
         end
       rescue => e
         raise FlagsmithClientError, "#{e.class}: #{e.message}"
+=======
+          traits = evaluation_context.fields.reject { |k, _v| k == :targeting_key || k == "targeting_key" }
+          @flagsmith_client.get_identity_flags(targeting_key.to_s, **traits)
+        end
+      rescue => e
+        raise FlagsmithClientError, e.message
+      end
+
+      def flag_exists?(flags, flag_key)
+        # Try to get the flag value - if it returns nil and feature is not enabled, flag doesn't exist
+
+        value = flags.get_feature_value(flag_key)
+        # Flag exists if value is not nil OR if is_feature_enabled returns true (for boolean flags)
+        !value.nil? || flags.is_feature_enabled(flag_key)
+      rescue NoMethodError
+        # Handle case where flags object doesn't respond to expected methods
+        false
+
+        # Note: Let other exceptions bubble up to be caught by evaluate's rescue block
+        # This ensures network errors, API errors, etc. are properly reported as ERROR
+        # rather than being treated as "flag not found"
+      end
+
+      def get_flag_value(flags, flag_key, allowed_type_classes)
+        # For boolean flags, use is_feature_enabled
+        if allowed_type_classes == [TrueClass, FalseClass]
+          return flags.is_feature_enabled(flag_key)
+        end
+
+        # For other types, get the feature value
+        value = flags.get_feature_value(flag_key)
+
+        # Handle JSON objects/arrays
+        if [Hash, Array].any? { |klass| allowed_type_classes.include?(klass) }
+          return parse_json_value(value)
+        end
+
+        # Handle numeric types
+        if [Integer, Float, Numeric].any? { |klass| allowed_type_classes.include?(klass) }
+          return parse_numeric_value(value, allowed_type_classes)
+        end
+
+        # Return as-is for strings
+        value
+>>>>>>> 03b456d (feat: implemented-flagsmith-provider)
       end
 
       def parse_json_value(value)
@@ -223,17 +300,28 @@ module OpenFeature
 
         # Try to parse string to numeric
         if value.is_a?(String)
+<<<<<<< HEAD
           if allowed_type_classes.include?(Numeric)
+=======
+          if allowed_type_classes.include?(Integer)
+            return Integer(value)
+          elsif allowed_type_classes.include?(Float)
+            return Float(value)
+          else
+>>>>>>> 03b456d (feat: implemented-flagsmith-provider)
             # For Numeric, try Integer first, then Float
             begin
               return Integer(value)
             rescue ArgumentError, TypeError
               return Float(value)
             end
+<<<<<<< HEAD
           elsif allowed_type_classes.include?(Integer)
             return Integer(value)
           elsif allowed_type_classes.include?(Float)
             return Float(value)
+=======
+>>>>>>> 03b456d (feat: implemented-flagsmith-provider)
           end
         end
 

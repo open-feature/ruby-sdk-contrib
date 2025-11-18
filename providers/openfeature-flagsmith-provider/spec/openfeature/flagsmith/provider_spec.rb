@@ -93,19 +93,32 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
         expect(result.error_code).to be_nil
       end
 
+<<<<<<< HEAD
       it "should return false for disabled boolean flags" do
+=======
+      it "should return default value when flag not found" do
+>>>>>>> 03b456d (feat: implemented-flagsmith-provider)
         allow(mock_flagsmith_client).to receive(:get_identity_flags).and_return(mock_flags)
         allow(mock_flags).to receive(:get_feature_value).with(flag_key).and_return(nil)
         allow(mock_flags).to receive(:is_feature_enabled).with(flag_key).and_return(false)
 
         result = provider.fetch_boolean_value(
           flag_key: flag_key,
+<<<<<<< HEAD
           default_value: true,
           evaluation_context: evaluation_context
         )
         expect(result.value).to eq(false)
         expect(result.reason).to eq(OpenFeature::SDK::Provider::Reason::TARGETING_MATCH)
         expect(result.error_code).to be_nil
+=======
+          default_value: false,
+          evaluation_context: evaluation_context
+        )
+        expect(result.value).to eq(false)
+        expect(result.reason).to eq(OpenFeature::SDK::Provider::Reason::DEFAULT)
+        expect(result.error_code).to eq(OpenFeature::SDK::Provider::ErrorCode::FLAG_NOT_FOUND)
+>>>>>>> 03b456d (feat: implemented-flagsmith-provider)
       end
 
       it "should work without evaluation context" do
@@ -118,8 +131,12 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
           default_value: true
         )
         expect(result).to be_a(OpenFeature::SDK::Provider::ResolutionDetails)
+<<<<<<< HEAD
         expect(result.value).to eq(false)
         expect(result.reason).to eq(OpenFeature::SDK::Provider::Reason::STATIC)
+=======
+        expect(result.value).to eq(true)
+>>>>>>> 03b456d (feat: implemented-flagsmith-provider)
       end
 
       it "should handle non-string targeting_key gracefully" do
@@ -333,12 +350,20 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
       evaluation_context = OpenFeature::SDK::EvaluationContext.new
       result = provider.fetch_boolean_value(
         flag_key: "test",
+<<<<<<< HEAD
         default_value: true,
         evaluation_context: evaluation_context
       )
       # Boolean flags always return their value with STATIC/TARGETING_MATCH reason
       expect(result.value).to eq(false)
       expect(result.reason).to eq(OpenFeature::SDK::Provider::Reason::STATIC)
+=======
+        default_value: false,
+        evaluation_context: evaluation_context
+      )
+      # Returns DEFAULT because flag doesn't exist
+      expect(result.reason).to eq(OpenFeature::SDK::Provider::Reason::DEFAULT)
+>>>>>>> 03b456d (feat: implemented-flagsmith-provider)
     end
 
     it "should use TARGETING_MATCH reason for identity-specific flags" do
@@ -347,12 +372,20 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
       evaluation_context = OpenFeature::SDK::EvaluationContext.new(targeting_key: "user_123")
       result = provider.fetch_boolean_value(
         flag_key: "test",
+<<<<<<< HEAD
         default_value: true,
         evaluation_context: evaluation_context
       )
       # Flagsmith treats non-existent flags as disabled flags
       expect(result.value).to eq(false)
       expect(result.reason).to eq(OpenFeature::SDK::Provider::Reason::TARGETING_MATCH)
+=======
+        default_value: false,
+        evaluation_context: evaluation_context
+      )
+      # Returns DEFAULT because flag doesn't exist
+      expect(result.reason).to eq(OpenFeature::SDK::Provider::Reason::DEFAULT)
+>>>>>>> 03b456d (feat: implemented-flagsmith-provider)
     end
   end
 
@@ -515,11 +548,19 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
 
         result = provider.fetch_boolean_value(
           flag_key: "",
+<<<<<<< HEAD
           default_value: true,
           evaluation_context: evaluation_context
         )
 
         expect(result.value).to eq(true)
+=======
+          default_value: false,
+          evaluation_context: evaluation_context
+        )
+
+        expect(result.value).to eq(false)
+>>>>>>> 03b456d (feat: implemented-flagsmith-provider)
         expect(result.reason).to eq(OpenFeature::SDK::Provider::Reason::DEFAULT)
       end
     end
@@ -540,6 +581,23 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
         expect(result.value).to eq("value")
       end
 
+<<<<<<< HEAD
+=======
+      it "should handle unicode in flag keys" do
+        unicode_key = "flag_with_émojis_🚀"
+        allow(mock_flagsmith_client).to receive(:get_identity_flags).and_return(mock_flags)
+        allow(mock_flags).to receive(:get_feature_value).with(unicode_key).and_return(nil)
+        allow(mock_flags).to receive(:is_feature_enabled).with(unicode_key).and_return(false)
+
+        result = provider.fetch_boolean_value(
+          flag_key: unicode_key,
+          default_value: true,
+          evaluation_context: evaluation_context
+        )
+
+        expect(result.value).to eq(true)
+      end
+>>>>>>> 03b456d (feat: implemented-flagsmith-provider)
     end
 
     describe "evaluation context edge cases" do
@@ -594,7 +652,14 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
       end
 
       it "should handle unicode in trait values" do
+<<<<<<< HEAD
         allow(mock_flagsmith_client).to receive(:get_identity_flags).and_return(mock_flags)
+=======
+        # OpenFeature SDK uses string keys for evaluation context fields
+        allow(mock_flagsmith_client).to receive(:get_identity_flags)
+          .with("user_123", {"name" => "François", "location" => "Montréal 🇨🇦"})
+          .and_return(mock_flags)
+>>>>>>> 03b456d (feat: implemented-flagsmith-provider)
         allow(mock_flags).to receive(:get_feature_value).and_return("value")
         allow(mock_flags).to receive(:is_feature_enabled).and_return(true)
 
