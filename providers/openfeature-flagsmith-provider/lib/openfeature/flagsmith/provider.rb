@@ -112,14 +112,28 @@ module OpenFeature
           )
         end
 
+        # Check for invalid flag keys
+        if flag_key.nil? || flag_key.to_s.empty?
+          return SDK::Provider::ResolutionDetails.new(
+            value: default_value,
+            reason: SDK::Provider::Reason::DEFAULT,
+            error_code: SDK::Provider::ErrorCode::FLAG_NOT_FOUND,
+            error_message: "Flag key cannot be empty or nil"
+          )
+        end
+
         evaluation_context ||= SDK::EvaluationContext.new
 
         begin
           # Get flags from Flagsmith
           flags = get_flags(evaluation_context)
 
-          # Check if flag exists
-          unless flag_exists?(flags, flag_key)
+          # Get flag value
+          value = get_flag_value(flags, flag_key, allowed_type_classes)
+
+          # Check if flag exists (but skip for boolean flags since false is a valid value)
+          is_boolean_flag = allowed_type_classes == [TrueClass, FalseClass]
+          if !is_boolean_flag && value.nil?
             return SDK::Provider::ResolutionDetails.new(
               value: default_value,
               reason: SDK::Provider::Reason::DEFAULT,
@@ -127,9 +141,6 @@ module OpenFeature
               error_message: "Flag '#{flag_key}' not found"
             )
           end
-
-          # Get flag value
-          value = get_flag_value(flags, flag_key, allowed_type_classes)
 
           # Validate type
           unless type_matches?(value, allowed_type_classes)
@@ -177,21 +188,6 @@ module OpenFeature
         end
       rescue => e
         raise FlagsmithClientError, e.message
-      end
-
-      def flag_exists?(flags, flag_key)
-        # Try to get the flag value - if it returns nil and feature is not enabled, flag doesn't exist
-
-        value = flags.get_feature_value(flag_key)
-        # Flag exists if value is not nil OR if is_feature_enabled returns true (for boolean flags)
-        !value.nil? || flags.is_feature_enabled(flag_key)
-      rescue NoMethodError
-        # Handle case where flags object doesn't respond to expected methods
-        false
-
-        # Note: Let other exceptions bubble up to be caught by evaluate's rescue block
-        # This ensures network errors, API errors, etc. are properly reported as ERROR
-        # rather than being treated as "flag not found"
       end
 
       def get_flag_value(flags, flag_key, allowed_type_classes)
