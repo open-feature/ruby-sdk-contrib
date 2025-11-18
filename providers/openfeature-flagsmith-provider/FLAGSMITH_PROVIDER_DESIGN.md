@@ -122,10 +122,6 @@ OpenFeature::SDK::Provider::ResolutionDetails.new(
 - `DISABLED` - Feature is disabled
 - `ERROR` - Error during evaluation
 - `STATIC` - Static value
-<<<<<<< HEAD
-=======
-- `CACHED` - Value from cache
->>>>>>> 03b456d (feat: implemented-flagsmith-provider)
 
 #### OpenFeature ErrorCode Constants
 - `PROVIDER_NOT_READY`
@@ -281,17 +277,10 @@ end
 | Flagsmith State | OpenFeature Reason |
 |-----------------|-------------------|
 | Flag evaluated with identity | `TARGETING_MATCH` |
-<<<<<<< HEAD
 | Flag evaluated at environment level | `STATIC` |
 | Flag not found | `DEFAULT` |
 | Flag disabled | `DISABLED` |
 | Error occurred | `ERROR` |
-=======
-| Flag not found | `DEFAULT` |
-| Flag disabled | `DISABLED` |
-| Error occurred | `ERROR` |
-| Local evaluation | `CACHED` |
->>>>>>> 03b456d (feat: implemented-flagsmith-provider)
 
 ---
 
