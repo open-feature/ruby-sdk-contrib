@@ -107,7 +107,7 @@ module OpenFeature
         when "unix"
           Client::UnixApi.new(endpoint: options.endpoint, custom_headers: options.custom_headers)
         else
-          raise InvalidOptionError.new(SDK::Provider::ErrorCode::GENERAL, "Invalid type client #{options.type}")
+          raise InvalidOptionError.new(SDK::Provider::ErrorCode::GENERAL, "Invalid client type: '#{options.type}'. Supported types are: 'http', 'unix'")
         end
       end
     end
