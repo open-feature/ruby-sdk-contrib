@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.7](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-go-feature-flag-provider/v0.1.6...openfeature-go-feature-flag-provider/v0.1.7) (2025-11-19)
+
+
+### ✨ New Features
+
+* **GoFeatureFlag:** unix client ([#66](https://github.com/open-feature/ruby-sdk-contrib/issues/66)) ([3f68ce8](https://github.com/open-feature/ruby-sdk-contrib/commit/3f68ce8691646779755affb2c86edf51ae21b40b))
+
 ## [0.1.6](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-go-feature-flag-provider/v0.1.5...openfeature-go-feature-flag-provider/v0.1.6) (2025-11-11)
 
 
