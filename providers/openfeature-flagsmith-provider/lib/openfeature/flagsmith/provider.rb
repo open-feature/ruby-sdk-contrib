@@ -98,7 +98,7 @@ module OpenFeature
           environment_refresh_interval_seconds: @options.environment_refresh_interval_seconds
         )
       rescue => e
-        raise ProviderNotReadyError, "Failed to create Flagsmith client: #{e.message}"
+        raise ProviderNotReadyError, "Failed to create Flagsmith client: #{e.class}: #{e.message}"
       end
 
       def evaluate(flag_key:, default_value:, evaluation_context:, allowed_type_classes:)
@@ -188,7 +188,7 @@ module OpenFeature
             value: default_value,
             reason: SDK::Provider::Reason::ERROR,
             error_code: SDK::Provider::ErrorCode::GENERAL,
-            error_message: "Unexpected error: #{e.message}"
+            error_message: "Unexpected error: #{e.class}: #{e.message}"
           )
         end
       end
@@ -204,7 +204,7 @@ module OpenFeature
           @flagsmith_client.get_identity_flags(targeting_key.to_s, **traits)
         end
       rescue => e
-        raise FlagsmithClientError, e.message
+        raise FlagsmithClientError, "#{e.class}: #{e.message}"
       end
 
       def parse_json_value(value)
