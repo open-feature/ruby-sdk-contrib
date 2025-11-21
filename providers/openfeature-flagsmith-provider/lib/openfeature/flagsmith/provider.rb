@@ -2,6 +2,7 @@
 
 require "open_feature/sdk"
 require "json"
+require "set"
 require_relative "options"
 require_relative "error/errors"
 
@@ -128,7 +129,7 @@ module OpenFeature
           # Get flags from Flagsmith
           flags = get_flags(evaluation_context)
 
-          is_boolean_flag = (allowed_type_classes.sort == [FalseClass, TrueClass])
+          is_boolean_flag = allowed_type_classes.to_set == Set[TrueClass, FalseClass]
 
           if is_boolean_flag
             value = flags.is_feature_enabled(flag_key)
