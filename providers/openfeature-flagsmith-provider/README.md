@@ -270,6 +270,7 @@ The provider returns appropriate reasons for flag evaluations:
 | `STATIC` | Flag evaluated at environment level (no targeting_key) |
 | `DEFAULT` | Default value returned due to flag not found |
 | `ERROR` | An error occurred during evaluation |
+| `DISABLED` | The flag was disabled, and the default value was returned |
 
 **Note**: Both remote and local evaluation modes use the same reason mapping (STATIC/TARGETING_MATCH). Local evaluation performs flag evaluation locally but still evaluates the flag state, it doesn't return cached results.
 
