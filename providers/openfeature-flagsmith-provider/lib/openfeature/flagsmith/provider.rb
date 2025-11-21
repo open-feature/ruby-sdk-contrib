@@ -128,18 +128,35 @@ module OpenFeature
           # Get flags from Flagsmith
           flags = get_flags(evaluation_context)
 
-          # Get flag value
-          value = get_flag_value(flags, flag_key, allowed_type_classes)
+          is_boolean_flag = (allowed_type_classes.sort == [FalseClass, TrueClass])
 
-          # Check if flag exists (but skip for boolean flags since false is a valid value)
-          is_boolean_flag = allowed_type_classes == [TrueClass, FalseClass]
-          if !is_boolean_flag && value.nil?
-            return SDK::Provider::ResolutionDetails.new(
-              value: default_value,
-              reason: SDK::Provider::Reason::DEFAULT,
-              error_code: SDK::Provider::ErrorCode::FLAG_NOT_FOUND,
-              error_message: "Flag '#{flag_key}' not found"
-            )
+          if is_boolean_flag
+            value = flags.is_feature_enabled(flag_key)
+          else
+            found_flag = flags.all_flags.find { |f| f.feature_name == flag_key }
+
+            if found_flag.nil?
+              return SDK::Provider::ResolutionDetails.new(
+                value: default_value, reason: SDK::Provider::Reason::DEFAULT,
+                error_code: SDK::Provider::ErrorCode::FLAG_NOT_FOUND, error_message: "Flag '#{flag_key}' not found"
+              )
+            end
+
+            unless found_flag.enabled
+              return SDK::Provider::ResolutionDetails.new(
+                value: default_value, reason: SDK::Provider::Reason::DISABLED,
+                error_message: "Flag '#{flag_key}' is disabled"
+              )
+            end
+
+            raw_value = found_flag.value
+            value = if [Hash, Array].any? { |klass| allowed_type_classes.include?(klass) }
+                      parse_json_value(raw_value)
+                    elsif [Integer, Float, Numeric].any? { |klass| allowed_type_classes.include?(klass) }
+                      parse_numeric_value(raw_value, allowed_type_classes)
+                    else
+                      raw_value
+                    end
           end
 
           # Validate type
@@ -156,7 +173,7 @@ module OpenFeature
           SDK::Provider::ResolutionDetails.new(
             value: value,
             reason: determine_reason(evaluation_context),
-            variant: nil,  # Flagsmith doesn't have explicit variants
+            variant: nil, # Flagsmith doesn't have explicit variants
             flag_metadata: {}
           )
         rescue FlagsmithError => e
@@ -190,29 +207,6 @@ module OpenFeature
         raise FlagsmithClientError, e.message
       end
 
-      def get_flag_value(flags, flag_key, allowed_type_classes)
-        # For boolean flags, use is_feature_enabled
-        if allowed_type_classes == [TrueClass, FalseClass]
-          return flags.is_feature_enabled(flag_key)
-        end
-
-        # For other types, get the feature value
-        value = flags.get_feature_value(flag_key)
-
-        # Handle JSON objects/arrays
-        if [Hash, Array].any? { |klass| allowed_type_classes.include?(klass) }
-          return parse_json_value(value)
-        end
-
-        # Handle numeric types
-        if [Integer, Float, Numeric].any? { |klass| allowed_type_classes.include?(klass) }
-          return parse_numeric_value(value, allowed_type_classes)
-        end
-
-        # Return as-is for strings
-        value
-      end
-
       def parse_json_value(value)
         return value if value.is_a?(Hash) || value.is_a?(Array)
         return nil if value.nil?
@@ -229,17 +223,17 @@ module OpenFeature
 
         # Try to parse string to numeric
         if value.is_a?(String)
-          if allowed_type_classes.include?(Integer)
-            return Integer(value)
-          elsif allowed_type_classes.include?(Float)
-            return Float(value)
-          else
+          if allowed_type_classes.include?(Numeric)
             # For Numeric, try Integer first, then Float
             begin
               return Integer(value)
             rescue ArgumentError, TypeError
               return Float(value)
             end
+          elsif allowed_type_classes.include?(Integer)
+            return Integer(value)
+          elsif allowed_type_classes.include?(Float)
+            return Float(value)
           end
         end
 
