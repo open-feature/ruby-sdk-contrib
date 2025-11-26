@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "open_feature/sdk"
+require "flagsmith"
 require "json"
 require_relative "options"
 require_relative "error/errors"
@@ -57,8 +58,6 @@ module OpenFeature
       private
 
       def create_flagsmith_client
-        require "flagsmith"
-
         ::Flagsmith::Client.new(
           environment_key: @options.environment_key,
           api_url: @options.api_url,
