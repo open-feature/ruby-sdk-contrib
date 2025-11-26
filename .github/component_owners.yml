@@ -1,0 +1,14 @@
+# Keep all in alphabetical order
+components:
+  providers/openfeature-flagd-provider:
+    - toddbaert
+    - josecolella
+  providers/openfeature-flipt-provider:
+    - falghi
+  providers/openfeature-go-feature-flag-provider:
+    - thomaspoignant
+  providers/openfeature-meta_provider:
+    - maxveldink
+
+ignored-authors:
+  - renovate-bot
