@@ -31,57 +31,27 @@ module OpenFeature
       end
 
       def fetch_boolean_value(flag_key:, default_value:, evaluation_context: nil)
-        evaluate(
-          flag_key: flag_key,
-          default_value: default_value,
-          evaluation_context: evaluation_context,
-          allowed_type_classes: [TrueClass, FalseClass]
-        )
+        evaluate_boolean(flag_key, default_value, evaluation_context)
       end
 
       def fetch_string_value(flag_key:, default_value:, evaluation_context: nil)
-        evaluate(
-          flag_key: flag_key,
-          default_value: default_value,
-          evaluation_context: evaluation_context,
-          allowed_type_classes: [String]
-        )
+        evaluate_value(flag_key, default_value, evaluation_context, [String])
       end
 
       def fetch_number_value(flag_key:, default_value:, evaluation_context: nil)
-        evaluate(
-          flag_key: flag_key,
-          default_value: default_value,
-          evaluation_context: evaluation_context,
-          allowed_type_classes: [Integer, Float, Numeric]
-        )
+        evaluate_value(flag_key, default_value, evaluation_context, [Integer, Float, Numeric])
       end
 
       def fetch_integer_value(flag_key:, default_value:, evaluation_context: nil)
-        evaluate(
-          flag_key: flag_key,
-          default_value: default_value,
-          evaluation_context: evaluation_context,
-          allowed_type_classes: [Integer]
-        )
+        evaluate_value(flag_key, default_value, evaluation_context, [Integer])
       end
 
       def fetch_float_value(flag_key:, default_value:, evaluation_context: nil)
-        evaluate(
-          flag_key: flag_key,
-          default_value: default_value,
-          evaluation_context: evaluation_context,
-          allowed_type_classes: [Float]
-        )
+        evaluate_value(flag_key, default_value, evaluation_context, [Float])
       end
 
       def fetch_object_value(flag_key:, default_value:, evaluation_context: nil)
-        evaluate(
-          flag_key: flag_key,
-          default_value: default_value,
-          evaluation_context: evaluation_context,
-          allowed_type_classes: [Hash, Array]
-        )
+        evaluate_value(flag_key, default_value, evaluation_context, [Hash, Array])
       end
 
       private
@@ -101,96 +71,110 @@ module OpenFeature
         raise ProviderNotReadyError, "Failed to create Flagsmith client: #{e.class}: #{e.message}"
       end
 
-      def evaluate(flag_key:, default_value:, evaluation_context:, allowed_type_classes:)
-        # Check if provider is initialized
-        if @flagsmith_client.nil?
-          return SDK::Provider::ResolutionDetails.new(
-            value: default_value,
-            reason: SDK::Provider::Reason::ERROR,
-            error_code: SDK::Provider::ErrorCode::PROVIDER_NOT_READY,
-            error_message: "Provider not initialized. Call init() first."
-          )
-        end
-
-        # Check for invalid flag keys
-        if flag_key.nil? || flag_key.to_s.empty?
-          return SDK::Provider::ResolutionDetails.new(
-            value: default_value,
-            reason: SDK::Provider::Reason::DEFAULT,
-            error_code: SDK::Provider::ErrorCode::FLAG_NOT_FOUND,
-            error_message: "Flag key cannot be empty or nil"
-          )
-        end
+      def evaluate_boolean(flag_key, default_value, evaluation_context)
+        return provider_not_ready_result(default_value) if @flagsmith_client.nil?
+        return invalid_flag_key_result(default_value) if flag_key.nil? || flag_key.to_s.empty?
 
         evaluation_context ||= SDK::EvaluationContext.new
+        flags = get_flags(evaluation_context)
+        value = flags.is_feature_enabled(flag_key)
 
-        begin
-          # Get flags from Flagsmith
-          flags = get_flags(evaluation_context)
+        success_result(value, evaluation_context)
+      rescue FlagsmithError => e
+        error_result(default_value, e.error_code, e.error_message)
+      rescue => e
+        error_result(default_value, SDK::Provider::ErrorCode::GENERAL, "Unexpected error: #{e.class}: #{e.message}")
+      end
 
-          is_boolean_flag = (allowed_type_classes.sort == [FalseClass, TrueClass])
+      def evaluate_value(flag_key, default_value, evaluation_context, allowed_type_classes)
+        return provider_not_ready_result(default_value) if @flagsmith_client.nil?
+        return invalid_flag_key_result(default_value) if flag_key.nil? || flag_key.to_s.empty?
 
-          if is_boolean_flag
-            value = flags.is_feature_enabled(flag_key)
-          else
-            found_flag = flags.all_flags.find { |f| f.feature_name == flag_key }
+        evaluation_context ||= SDK::EvaluationContext.new
+        flags = get_flags(evaluation_context)
+        found_flag = flags.all_flags.find { |f| f.feature_name == flag_key }
 
-            if found_flag.nil?
-              return SDK::Provider::ResolutionDetails.new(
-                value: default_value, reason: SDK::Provider::Reason::DEFAULT,
-                error_code: SDK::Provider::ErrorCode::FLAG_NOT_FOUND, error_message: "Flag '#{flag_key}' not found"
-              )
-            end
+        return flag_not_found_result(default_value, flag_key) if found_flag.nil?
+        return flag_disabled_result(default_value, flag_key) unless found_flag.enabled
 
-            unless found_flag.enabled
-              return SDK::Provider::ResolutionDetails.new(
-                value: default_value, reason: SDK::Provider::Reason::DISABLED,
-                error_message: "Flag '#{flag_key}' is disabled"
-              )
-            end
+        raw_value = found_flag.value
+        value = if [Hash, Array].any? { |klass| allowed_type_classes.include?(klass) }
+                  parse_json_value(raw_value)
+                elsif [Integer, Float, Numeric].any? { |klass| allowed_type_classes.include?(klass) }
+                  parse_numeric_value(raw_value, allowed_type_classes)
+                else
+                  raw_value
+                end
 
-            raw_value = found_flag.value
-            value = if [Hash, Array].any? { |klass| allowed_type_classes.include?(klass) }
-                      parse_json_value(raw_value)
-                    elsif [Integer, Float, Numeric].any? { |klass| allowed_type_classes.include?(klass) }
-                      parse_numeric_value(raw_value, allowed_type_classes)
-                    else
-                      raw_value
-                    end
-          end
+        return type_mismatch_result(default_value, value, allowed_type_classes) unless type_matches?(value, allowed_type_classes)
 
-          # Validate type
-          unless type_matches?(value, allowed_type_classes)
-            return SDK::Provider::ResolutionDetails.new(
-              value: default_value,
-              reason: SDK::Provider::Reason::ERROR,
-              error_code: SDK::Provider::ErrorCode::TYPE_MISMATCH,
-              error_message: "Expected type #{allowed_type_classes}, got #{value.class}"
-            )
-          end
+        success_result(value, evaluation_context)
+      rescue FlagsmithError => e
+        error_result(default_value, e.error_code, e.error_message)
+      rescue => e
+        error_result(default_value, SDK::Provider::ErrorCode::GENERAL, "Unexpected error: #{e.class}: #{e.message}")
+      end
 
-          # Return successful resolution
-          SDK::Provider::ResolutionDetails.new(
-            value: value,
-            reason: determine_reason(evaluation_context),
-            variant: nil, # Flagsmith doesn't have explicit variants
-            flag_metadata: {}
-          )
-        rescue FlagsmithError => e
-          SDK::Provider::ResolutionDetails.new(
-            value: default_value,
-            reason: SDK::Provider::Reason::ERROR,
-            error_code: e.error_code,
-            error_message: e.error_message
-          )
-        rescue => e
-          SDK::Provider::ResolutionDetails.new(
-            value: default_value,
-            reason: SDK::Provider::Reason::ERROR,
-            error_code: SDK::Provider::ErrorCode::GENERAL,
-            error_message: "Unexpected error: #{e.class}: #{e.message}"
-          )
-        end
+      def provider_not_ready_result(default_value)
+        SDK::Provider::ResolutionDetails.new(
+          value: default_value,
+          reason: SDK::Provider::Reason::ERROR,
+          error_code: SDK::Provider::ErrorCode::PROVIDER_NOT_READY,
+          error_message: "Provider not initialized. Call init() first."
+        )
+      end
+
+      def invalid_flag_key_result(default_value)
+        SDK::Provider::ResolutionDetails.new(
+          value: default_value,
+          reason: SDK::Provider::Reason::DEFAULT,
+          error_code: SDK::Provider::ErrorCode::FLAG_NOT_FOUND,
+          error_message: "Flag key cannot be empty or nil"
+        )
+      end
+
+      def flag_not_found_result(default_value, flag_key)
+        SDK::Provider::ResolutionDetails.new(
+          value: default_value,
+          reason: SDK::Provider::Reason::DEFAULT,
+          error_code: SDK::Provider::ErrorCode::FLAG_NOT_FOUND,
+          error_message: "Flag '#{flag_key}' not found"
+        )
+      end
+
+      def flag_disabled_result(default_value, flag_key)
+        SDK::Provider::ResolutionDetails.new(
+          value: default_value,
+          reason: SDK::Provider::Reason::DISABLED,
+          error_message: "Flag '#{flag_key}' is disabled"
+        )
+      end
+
+      def type_mismatch_result(default_value, value, allowed_type_classes)
+        SDK::Provider::ResolutionDetails.new(
+          value: default_value,
+          reason: SDK::Provider::Reason::ERROR,
+          error_code: SDK::Provider::ErrorCode::TYPE_MISMATCH,
+          error_message: "Expected type #{allowed_type_classes}, got #{value.class}"
+        )
+      end
+
+      def error_result(default_value, error_code, error_message)
+        SDK::Provider::ResolutionDetails.new(
+          value: default_value,
+          reason: SDK::Provider::Reason::ERROR,
+          error_code: error_code,
+          error_message: error_message
+        )
+      end
+
+      def success_result(value, evaluation_context)
+        SDK::Provider::ResolutionDetails.new(
+          value: value,
+          reason: determine_reason(evaluation_context),
+          variant: nil,
+          flag_metadata: {}
+        )
       end
 
       def get_flags(evaluation_context)

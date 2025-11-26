@@ -11,6 +11,11 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
   let(:mock_flagsmith_client) { instance_double("Flagsmith::Client") }
   let(:mock_flags) { double("Flags") }
 
+  # Helper to create a mock flag object for all_flags
+  def mock_flag(feature_name:, enabled:, value:)
+    double("Flag", feature_name: feature_name, enabled: enabled, value: value)
+  end
+
   before do
     # Mock Flagsmith::Client creation
     allow(::Flagsmith::Client).to receive(:new).and_return(mock_flagsmith_client)
@@ -140,8 +145,7 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
     describe "#fetch_string_value" do
       it "should return ResolutionDetails" do
         allow(mock_flagsmith_client).to receive(:get_identity_flags).and_return(mock_flags)
-        allow(mock_flags).to receive(:get_feature_value).with(flag_key).and_return(nil)
-        allow(mock_flags).to receive(:is_feature_enabled).with(flag_key).and_return(false)
+        allow(mock_flags).to receive(:all_flags).and_return([])
 
         result = provider.fetch_string_value(
           flag_key: flag_key,
@@ -153,8 +157,9 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
 
       it "should return actual string value when flag exists" do
         allow(mock_flagsmith_client).to receive(:get_identity_flags).and_return(mock_flags)
-        allow(mock_flags).to receive(:get_feature_value).with(flag_key).and_return("hello_world")
-        allow(mock_flags).to receive(:is_feature_enabled).with(flag_key).and_return(true)
+        allow(mock_flags).to receive(:all_flags).and_return([
+          mock_flag(feature_name: flag_key, enabled: true, value: "hello_world")
+        ])
 
         result = provider.fetch_string_value(
           flag_key: flag_key,
@@ -167,8 +172,7 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
 
       it "should return default value when flag not found" do
         allow(mock_flagsmith_client).to receive(:get_identity_flags).and_return(mock_flags)
-        allow(mock_flags).to receive(:get_feature_value).with(flag_key).and_return(nil)
-        allow(mock_flags).to receive(:is_feature_enabled).with(flag_key).and_return(false)
+        allow(mock_flags).to receive(:all_flags).and_return([])
 
         result = provider.fetch_string_value(
           flag_key: flag_key,
@@ -182,8 +186,7 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
     describe "#fetch_number_value" do
       it "should return ResolutionDetails" do
         allow(mock_flagsmith_client).to receive(:get_identity_flags).and_return(mock_flags)
-        allow(mock_flags).to receive(:get_feature_value).with(flag_key).and_return(nil)
-        allow(mock_flags).to receive(:is_feature_enabled).with(flag_key).and_return(false)
+        allow(mock_flags).to receive(:all_flags).and_return([])
 
         result = provider.fetch_number_value(
           flag_key: flag_key,
@@ -195,8 +198,9 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
 
       it "should parse numeric string value" do
         allow(mock_flagsmith_client).to receive(:get_identity_flags).and_return(mock_flags)
-        allow(mock_flags).to receive(:get_feature_value).with(flag_key).and_return("123")
-        allow(mock_flags).to receive(:is_feature_enabled).with(flag_key).and_return(true)
+        allow(mock_flags).to receive(:all_flags).and_return([
+          mock_flag(feature_name: flag_key, enabled: true, value: "123")
+        ])
 
         result = provider.fetch_number_value(
           flag_key: flag_key,
@@ -209,8 +213,9 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
 
       it "should return actual numeric value" do
         allow(mock_flagsmith_client).to receive(:get_identity_flags).and_return(mock_flags)
-        allow(mock_flags).to receive(:get_feature_value).with(flag_key).and_return(456)
-        allow(mock_flags).to receive(:is_feature_enabled).with(flag_key).and_return(true)
+        allow(mock_flags).to receive(:all_flags).and_return([
+          mock_flag(feature_name: flag_key, enabled: true, value: 456)
+        ])
 
         result = provider.fetch_number_value(
           flag_key: flag_key,
@@ -222,8 +227,7 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
 
       it "should return default value when flag not found" do
         allow(mock_flagsmith_client).to receive(:get_identity_flags).and_return(mock_flags)
-        allow(mock_flags).to receive(:get_feature_value).with(flag_key).and_return(nil)
-        allow(mock_flags).to receive(:is_feature_enabled).with(flag_key).and_return(false)
+        allow(mock_flags).to receive(:all_flags).and_return([])
 
         result = provider.fetch_number_value(
           flag_key: flag_key,
@@ -237,8 +241,7 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
     describe "#fetch_integer_value" do
       it "should return ResolutionDetails" do
         allow(mock_flagsmith_client).to receive(:get_identity_flags).and_return(mock_flags)
-        allow(mock_flags).to receive(:get_feature_value).with(flag_key).and_return(nil)
-        allow(mock_flags).to receive(:is_feature_enabled).with(flag_key).and_return(false)
+        allow(mock_flags).to receive(:all_flags).and_return([])
 
         result = provider.fetch_integer_value(
           flag_key: flag_key,
@@ -252,8 +255,7 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
     describe "#fetch_float_value" do
       it "should return ResolutionDetails" do
         allow(mock_flagsmith_client).to receive(:get_identity_flags).and_return(mock_flags)
-        allow(mock_flags).to receive(:get_feature_value).with(flag_key).and_return(nil)
-        allow(mock_flags).to receive(:is_feature_enabled).with(flag_key).and_return(false)
+        allow(mock_flags).to receive(:all_flags).and_return([])
 
         result = provider.fetch_float_value(
           flag_key: flag_key,
@@ -267,8 +269,7 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
     describe "#fetch_object_value" do
       it "should return ResolutionDetails" do
         allow(mock_flagsmith_client).to receive(:get_identity_flags).and_return(mock_flags)
-        allow(mock_flags).to receive(:get_feature_value).with(flag_key).and_return(nil)
-        allow(mock_flags).to receive(:is_feature_enabled).with(flag_key).and_return(false)
+        allow(mock_flags).to receive(:all_flags).and_return([])
 
         result = provider.fetch_object_value(
           flag_key: flag_key,
@@ -280,8 +281,9 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
 
       it "should parse JSON string to hash" do
         allow(mock_flagsmith_client).to receive(:get_identity_flags).and_return(mock_flags)
-        allow(mock_flags).to receive(:get_feature_value).with(flag_key).and_return('{"color":"red","size":42}')
-        allow(mock_flags).to receive(:is_feature_enabled).with(flag_key).and_return(true)
+        allow(mock_flags).to receive(:all_flags).and_return([
+          mock_flag(feature_name: flag_key, enabled: true, value: '{"color":"red","size":42}')
+        ])
 
         result = provider.fetch_object_value(
           flag_key: flag_key,
@@ -294,8 +296,9 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
 
       it "should return hash value directly" do
         allow(mock_flagsmith_client).to receive(:get_identity_flags).and_return(mock_flags)
-        allow(mock_flags).to receive(:get_feature_value).with(flag_key).and_return({foo: "bar"})
-        allow(mock_flags).to receive(:is_feature_enabled).with(flag_key).and_return(true)
+        allow(mock_flags).to receive(:all_flags).and_return([
+          mock_flag(feature_name: flag_key, enabled: true, value: {foo: "bar"})
+        ])
 
         result = provider.fetch_object_value(
           flag_key: flag_key,
@@ -307,8 +310,7 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
 
       it "should return default value when flag not found" do
         allow(mock_flagsmith_client).to receive(:get_identity_flags).and_return(mock_flags)
-        allow(mock_flags).to receive(:get_feature_value).with(flag_key).and_return(nil)
-        allow(mock_flags).to receive(:is_feature_enabled).with(flag_key).and_return(false)
+        allow(mock_flags).to receive(:all_flags).and_return([])
 
         result = provider.fetch_object_value(
           flag_key: flag_key,
@@ -436,8 +438,9 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
     describe "JSON parsing errors" do
       it "should handle malformed JSON in object values" do
         allow(mock_flagsmith_client).to receive(:get_identity_flags).and_return(mock_flags)
-        allow(mock_flags).to receive(:get_feature_value).and_return("{invalid json")
-        allow(mock_flags).to receive(:is_feature_enabled).and_return(true)
+        allow(mock_flags).to receive(:all_flags).and_return([
+          mock_flag(feature_name: flag_key, enabled: true, value: "{invalid json")
+        ])
 
         result = provider.fetch_object_value(
           flag_key: flag_key,
@@ -454,9 +457,9 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
     describe "type mismatch errors" do
       it "should return error when boolean flag returns non-boolean value" do
         allow(mock_flagsmith_client).to receive(:get_identity_flags).and_return(mock_flags)
-        # is_feature_enabled should return boolean, but let's test type validation
-        allow(mock_flags).to receive(:get_feature_value).and_return("not_a_boolean")
-        allow(mock_flags).to receive(:is_feature_enabled).and_return(true)
+        allow(mock_flags).to receive(:all_flags).and_return([
+          mock_flag(feature_name: flag_key, enabled: true, value: "not_a_boolean")
+        ])
 
         result = provider.fetch_string_value(
           flag_key: flag_key,
@@ -470,8 +473,9 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
 
       it "should return error when string value cannot be converted to integer" do
         allow(mock_flagsmith_client).to receive(:get_identity_flags).and_return(mock_flags)
-        allow(mock_flags).to receive(:get_feature_value).and_return("not_a_number")
-        allow(mock_flags).to receive(:is_feature_enabled).and_return(true)
+        allow(mock_flags).to receive(:all_flags).and_return([
+          mock_flag(feature_name: flag_key, enabled: true, value: "not_a_number")
+        ])
 
         result = provider.fetch_integer_value(
           flag_key: flag_key,
@@ -528,8 +532,9 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
       it "should handle flag keys with special characters" do
         special_key = "flag-with-dashes_and_underscores.and.dots"
         allow(mock_flagsmith_client).to receive(:get_identity_flags).and_return(mock_flags)
-        allow(mock_flags).to receive(:get_feature_value).with(special_key).and_return("value")
-        allow(mock_flags).to receive(:is_feature_enabled).with(special_key).and_return(true)
+        allow(mock_flags).to receive(:all_flags).and_return([
+          mock_flag(feature_name: special_key, enabled: true, value: "value")
+        ])
 
         result = provider.fetch_string_value(
           flag_key: special_key,
@@ -545,7 +550,6 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
     describe "evaluation context edge cases" do
       it "should handle empty string targeting_key" do
         allow(mock_flagsmith_client).to receive(:get_environment_flags).and_return(mock_flags)
-        allow(mock_flags).to receive(:get_feature_value).and_return(nil)
         allow(mock_flags).to receive(:is_feature_enabled).and_return(false)
 
         context = OpenFeature::SDK::EvaluationContext.new(targeting_key: "")
@@ -560,7 +564,6 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
 
       it "should handle whitespace-only targeting_key" do
         allow(mock_flagsmith_client).to receive(:get_environment_flags).and_return(mock_flags)
-        allow(mock_flags).to receive(:get_feature_value).and_return(nil)
         allow(mock_flags).to receive(:is_feature_enabled).and_return(false)
 
         context = OpenFeature::SDK::EvaluationContext.new(targeting_key: "   ")
@@ -575,7 +578,6 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
 
       it "should handle nil values in context fields (traits)" do
         allow(mock_flagsmith_client).to receive(:get_identity_flags).and_return(mock_flags)
-        allow(mock_flags).to receive(:get_feature_value).and_return(nil)
         allow(mock_flags).to receive(:is_feature_enabled).and_return(false)
 
         context = OpenFeature::SDK::EvaluationContext.new(
@@ -595,8 +597,9 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
 
       it "should handle unicode in trait values" do
         allow(mock_flagsmith_client).to receive(:get_identity_flags).and_return(mock_flags)
-        allow(mock_flags).to receive(:get_feature_value).and_return("value")
-        allow(mock_flags).to receive(:is_feature_enabled).and_return(true)
+        allow(mock_flags).to receive(:all_flags).and_return([
+          mock_flag(feature_name: "test", enabled: true, value: "value")
+        ])
 
         context = OpenFeature::SDK::EvaluationContext.new(
           targeting_key: "user_123",
@@ -617,8 +620,9 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
     describe "numeric type edge cases" do
       it "should handle zero values" do
         allow(mock_flagsmith_client).to receive(:get_identity_flags).and_return(mock_flags)
-        allow(mock_flags).to receive(:get_feature_value).and_return(0)
-        allow(mock_flags).to receive(:is_feature_enabled).and_return(true)
+        allow(mock_flags).to receive(:all_flags).and_return([
+          mock_flag(feature_name: "test", enabled: true, value: 0)
+        ])
 
         result = provider.fetch_integer_value(
           flag_key: "test",
@@ -631,8 +635,9 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
 
       it "should handle negative numbers" do
         allow(mock_flagsmith_client).to receive(:get_identity_flags).and_return(mock_flags)
-        allow(mock_flags).to receive(:get_feature_value).and_return(-999)
-        allow(mock_flags).to receive(:is_feature_enabled).and_return(true)
+        allow(mock_flags).to receive(:all_flags).and_return([
+          mock_flag(feature_name: "test", enabled: true, value: -999)
+        ])
 
         result = provider.fetch_integer_value(
           flag_key: "test",
@@ -646,8 +651,9 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
       it "should handle very large numbers" do
         large_num = 999_999_999_999
         allow(mock_flagsmith_client).to receive(:get_identity_flags).and_return(mock_flags)
-        allow(mock_flags).to receive(:get_feature_value).and_return(large_num)
-        allow(mock_flags).to receive(:is_feature_enabled).and_return(true)
+        allow(mock_flags).to receive(:all_flags).and_return([
+          mock_flag(feature_name: "test", enabled: true, value: large_num)
+        ])
 
         result = provider.fetch_integer_value(
           flag_key: "test",
@@ -660,8 +666,9 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
 
       it "should handle scientific notation in strings" do
         allow(mock_flagsmith_client).to receive(:get_identity_flags).and_return(mock_flags)
-        allow(mock_flags).to receive(:get_feature_value).and_return("1.5e2")
-        allow(mock_flags).to receive(:is_feature_enabled).and_return(true)
+        allow(mock_flags).to receive(:all_flags).and_return([
+          mock_flag(feature_name: "test", enabled: true, value: "1.5e2")
+        ])
 
         result = provider.fetch_float_value(
           flag_key: "test",
@@ -676,8 +683,9 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
     describe "object/array edge cases" do
       it "should handle empty objects" do
         allow(mock_flagsmith_client).to receive(:get_identity_flags).and_return(mock_flags)
-        allow(mock_flags).to receive(:get_feature_value).and_return({})
-        allow(mock_flags).to receive(:is_feature_enabled).and_return(true)
+        allow(mock_flags).to receive(:all_flags).and_return([
+          mock_flag(feature_name: "test", enabled: true, value: {})
+        ])
 
         result = provider.fetch_object_value(
           flag_key: "test",
@@ -690,8 +698,9 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
 
       it "should handle empty arrays" do
         allow(mock_flagsmith_client).to receive(:get_identity_flags).and_return(mock_flags)
-        allow(mock_flags).to receive(:get_feature_value).and_return([])
-        allow(mock_flags).to receive(:is_feature_enabled).and_return(true)
+        allow(mock_flags).to receive(:all_flags).and_return([
+          mock_flag(feature_name: "test", enabled: true, value: [])
+        ])
 
         result = provider.fetch_object_value(
           flag_key: "test",
@@ -705,8 +714,9 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
       it "should handle nested objects" do
         nested = {outer: {inner: {deep: "value"}}}
         allow(mock_flagsmith_client).to receive(:get_identity_flags).and_return(mock_flags)
-        allow(mock_flags).to receive(:get_feature_value).and_return(nested)
-        allow(mock_flags).to receive(:is_feature_enabled).and_return(true)
+        allow(mock_flags).to receive(:all_flags).and_return([
+          mock_flag(feature_name: "test", enabled: true, value: nested)
+        ])
 
         result = provider.fetch_object_value(
           flag_key: "test",
