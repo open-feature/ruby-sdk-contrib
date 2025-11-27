@@ -74,7 +74,6 @@ module OpenFeature
         return provider_not_ready_result(default_value) if @flagsmith_client.nil?
         return invalid_flag_key_result(default_value) if flag_key.nil? || flag_key.to_s.empty?
 
-        evaluation_context ||= SDK::EvaluationContext.new
         flags = get_flags(evaluation_context)
         value = flags.is_feature_enabled(flag_key)
 
@@ -89,7 +88,6 @@ module OpenFeature
         return provider_not_ready_result(default_value) if @flagsmith_client.nil?
         return invalid_flag_key_result(default_value) if flag_key.nil? || flag_key.to_s.empty?
 
-        evaluation_context ||= SDK::EvaluationContext.new
         flags = get_flags(evaluation_context)
         found_flag = flags.all_flags.find { |f| f.feature_name == flag_key }
 
@@ -179,6 +177,10 @@ module OpenFeature
       def get_flags(evaluation_context)
         raise ProviderNotReadyError, "Flagsmith client not initialized" if @flagsmith_client.nil?
 
+        if evaluation_context.nil?
+          return @flagsmith_client.get_environment_flags
+        end
+
         targeting_key = evaluation_context.targeting_key
         if targeting_key.nil? || targeting_key.to_s.strip.empty?
           @flagsmith_client.get_environment_flags
@@ -249,6 +251,8 @@ module OpenFeature
       def determine_reason(evaluation_context)
         # Use TARGETING_MATCH if we have targeting_key (identity-specific)
         # Use STATIC for environment-level flags
+        return SDK::Provider::Reason::STATIC if evaluation_context.nil?
+
         targeting_key = evaluation_context.targeting_key
         if targeting_key.nil? || targeting_key.to_s.strip.empty?
           SDK::Provider::Reason::STATIC
