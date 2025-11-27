@@ -182,7 +182,7 @@ The provider supports OpenFeature evaluation contexts to pass user information a
 
 ### Targeting Key → Identity
 
-The `targeting_key` maps to Flagsmith's identity identifier:
+The `targeting_key` maps to Flagsmith's identity identifier. **Note:** Flagsmith requires an identity to evaluate traits, so if you provide traits without a `targeting_key`, they will be ignored and evaluation falls back to environment-level flags.
 
 ```ruby
 evaluation_context = OpenFeature::SDK::EvaluationContext.new(
