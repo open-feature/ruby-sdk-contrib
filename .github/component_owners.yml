@@ -9,6 +9,8 @@ components:
     - thomaspoignant
   providers/openfeature-meta_provider:
     - maxveldink
+  providers/openfeature-flagsmith-provider:
+    - zaimwa9
 
 ignored-authors:
   - renovate-bot
