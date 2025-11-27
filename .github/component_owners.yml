@@ -10,6 +10,8 @@ components:
   providers/openfeature-meta_provider:
     - maxveldink
   providers/openfeature-flagsmith-provider:
+    - dabeeeenster
+    - matthewelwell
     - zaimwa9
 
 ignored-authors:
