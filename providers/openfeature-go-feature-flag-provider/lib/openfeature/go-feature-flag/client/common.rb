@@ -25,7 +25,9 @@ module OpenFeature
         end
 
         def check_retry_after
-          unless @retry_after.nil?
+          lock = (@retry_lock ||= Mutex.new)
+          lock.synchronize do
+            return if @retry_after.nil?
             if Time.now < @retry_after
               raise OpenFeature::GoFeatureFlag::RateLimited.new(nil)
             else
@@ -109,12 +111,18 @@ module OpenFeature
           return nil if retry_after.nil?
 
           begin
-            @retry_after = if /^\d+$/.match?(retry_after)
-              # Retry-After is in seconds
-              Time.now + Integer(retry_after)
-            else
-              # Retry-After is an HTTP-date
-              Time.httpdate(retry_after)
+            next_retry_time =
+              if /^\d+$/.match?(retry_after)
+                # Retry-After is in seconds
+                Time.now + Integer(retry_after)
+              else
+                # Retry-After is an HTTP-date
+                Time.httpdate(retry_after)
+              end
+            # Protect updates and never shorten an existing backoff window
+            lock = (@retry_lock ||= Mutex.new)
+            lock.synchronize do
+              @retry_after = [@retry_after, next_retry_time].compact.max
             end
           rescue ArgumentError
             # ignore invalid Retry-After header
