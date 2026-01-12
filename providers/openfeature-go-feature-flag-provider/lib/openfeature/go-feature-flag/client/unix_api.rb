@@ -43,7 +43,7 @@ module OpenFeature
         private
 
         def thread_local_socket
-          key = :"openfeature_goff_unix_socket_#{object_id}"
+          key = "openfeature_goff_unix_socket_#{object_id}"
           Thread.current[key] ||= @unix_socket_client_factory.call(@endpoint)
         end
       end
