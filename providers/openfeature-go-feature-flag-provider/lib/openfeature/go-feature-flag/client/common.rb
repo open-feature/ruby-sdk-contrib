@@ -24,6 +24,16 @@ module OpenFeature
           {"Content-Type" => "application/json"}.merge(@custom_headers || {})
         end
 
+        def evaluation_request(evaluation_context)
+          ctx = evaluation_context || OpenFeature::SDK::EvaluationContext.new
+          fields = ctx.fields.dup
+          # replace targeting_key by targetingKey without mutating original fields
+          fields["targetingKey"] = ctx.targeting_key
+          fields.delete("targeting_key")
+
+          {context: fields}
+        end
+
         def check_retry_after
           lock = (@retry_lock ||= Mutex.new)
           lock.synchronize do

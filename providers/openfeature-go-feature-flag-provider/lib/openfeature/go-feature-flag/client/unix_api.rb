@@ -16,12 +16,9 @@ module OpenFeature
 
         def evaluate_ofrep_api(flag_key:, evaluation_context:)
           check_retry_after
-          evaluation_context = OpenFeature::SDK::EvaluationContext.new if evaluation_context.nil?
-          # replace targeting_key by targetingKey
-          evaluation_context.fields["targetingKey"] = evaluation_context.targeting_key
-          evaluation_context.fields.delete("targeting_key")
 
-          response = thread_local_socket.post("/ofrep/v1/evaluate/flags/#{flag_key}", {context: evaluation_context.fields}, headers)
+          request = evaluation_request(evaluation_context)
+          response = thread_local_socket.post("/ofrep/v1/evaluate/flags/#{flag_key}", request, headers)
 
           case response.code
           when "200"
