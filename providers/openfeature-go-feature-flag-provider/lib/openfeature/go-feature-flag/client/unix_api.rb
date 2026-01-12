@@ -7,11 +7,11 @@ module OpenFeature
   module GoFeatureFlag
     module Client
       class UnixApi < Common
-        attr_accessor :socket
 
-        def initialize(endpoint: nil, custom_headers: nil)
+        def initialize(endpoint: nil, custom_headers: nil, unix_socket_client_factory: nil)
           @custom_headers = custom_headers
-          @socket = HttpUnix.new(endpoint)
+          @endpoint = endpoint
+          @unix_socket_client_factory = unix_socket_client_factory || ->(ep) { HttpUnix.new(ep) }
         end
 
         def evaluate_ofrep_api(flag_key:, evaluation_context:)
@@ -21,7 +21,7 @@ module OpenFeature
           evaluation_context.fields["targetingKey"] = evaluation_context.targeting_key
           evaluation_context.fields.delete("targeting_key")
 
-          response = @socket.post("/ofrep/v1/evaluate/flags/#{flag_key}", {context: evaluation_context.fields}, headers)
+          response = thread_local_socket.post("/ofrep/v1/evaluate/flags/#{flag_key}", {context: evaluation_context.fields}, headers)
 
           case response.code
           when "200"
@@ -38,6 +38,13 @@ module OpenFeature
           else
             raise OpenFeature::GoFeatureFlag::InternalServerError.new(response)
           end
+        end
+
+        private
+
+        def thread_local_socket
+          key = :"openfeature_goff_unix_socket_#{object_id}"
+          Thread.current[key] ||= @unix_socket_client_factory.call(@endpoint)
         end
       end
     end
