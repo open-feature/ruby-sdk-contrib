@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.8](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-go-feature-flag-provider/v0.1.7...openfeature-go-feature-flag-provider/v0.1.8) (2026-01-13)
+
+
+### 🐛 Bug Fixes
+
+* Make goff unix socket client thread safe ([#74](https://github.com/open-feature/ruby-sdk-contrib/issues/74)) ([ec25c37](https://github.com/open-feature/ruby-sdk-contrib/commit/ec25c3787b108ed2af8d7f1c9efbd6a258870a21))
+
 ## [0.1.7](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-go-feature-flag-provider/v0.1.6...openfeature-go-feature-flag-provider/v0.1.7) (2025-11-19)
 
 
