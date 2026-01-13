@@ -7,7 +7,6 @@ module OpenFeature
   module GoFeatureFlag
     module Client
       class UnixApi < Common
-
         def initialize(endpoint: nil, custom_headers: nil, unix_socket_client_factory: nil)
           @custom_headers = custom_headers
           @endpoint = endpoint
