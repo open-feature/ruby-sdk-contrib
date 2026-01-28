@@ -9,7 +9,7 @@ module OpenFeature
       class HttpApi < Common
         def initialize(endpoint: nil, custom_headers: nil, instrumentation: nil, timeout: nil)
           @custom_headers = custom_headers
-          request_options = {timeout: timeout, open_timeout: 30}
+          request_options = {timeout: timeout}
           @faraday_connection = Faraday.new(url: endpoint, headers: headers, request: request_options) do |f|
             f.request :instrumentation, instrumentation if instrumentation
             f.adapter :net_http_persistent do |http|

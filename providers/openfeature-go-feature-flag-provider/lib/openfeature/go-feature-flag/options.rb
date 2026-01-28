@@ -8,7 +8,7 @@ module OpenFeature
     class Options
       attr_accessor :endpoint, :custom_headers, :exporter_metadata, :instrumentation, :type, :timeout
 
-      def initialize(endpoint: nil, headers: {}, exporter_metadata: {}, instrumentation: nil, type: "http", timeout: 1)
+      def initialize(endpoint: nil, headers: {}, exporter_metadata: {}, instrumentation: nil, type: "http", timeout: nil)
         validate_endpoint(endpoint, type)
         validate_instrumentation(instrumentation: instrumentation)
         @type = type
