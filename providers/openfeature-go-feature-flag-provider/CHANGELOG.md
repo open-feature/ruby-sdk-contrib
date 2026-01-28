@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.9](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-go-feature-flag-provider/v0.1.8...openfeature-go-feature-flag-provider/v0.1.9) (2026-01-28)
+
+
+### ✨ New Features
+
+* Timeout option for http client ([#76](https://github.com/open-feature/ruby-sdk-contrib/issues/76)) ([11e0de2](https://github.com/open-feature/ruby-sdk-contrib/commit/11e0de297527e90ee3dfcabf9d6bc35ff3149b9b))
+
 ## [0.1.8](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-go-feature-flag-provider/v0.1.7...openfeature-go-feature-flag-provider/v0.1.8) (2026-01-13)
 
 
