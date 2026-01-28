@@ -20,13 +20,10 @@ module OpenFeature
 
         def evaluate_ofrep_api(flag_key:, evaluation_context:)
           check_retry_after
-          evaluation_context = OpenFeature::SDK::EvaluationContext.new if evaluation_context.nil?
-          # replace targeting_key by targetingKey
-          evaluation_context.fields["targetingKey"] = evaluation_context.targeting_key
-          evaluation_context.fields.delete("targeting_key")
+          request = evaluation_request(evaluation_context)
 
           response = @faraday_connection.post("/ofrep/v1/evaluate/flags/#{flag_key}") do |req|
-            req.body = {context: evaluation_context.fields}.to_json
+            req.body = request.to_json
           end
 
           case response.status

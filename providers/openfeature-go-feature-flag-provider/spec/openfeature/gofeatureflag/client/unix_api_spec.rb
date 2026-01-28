@@ -2,8 +2,10 @@ require "spec_helper"
 
 RSpec.describe OpenFeature::GoFeatureFlag::Client::UnixApi do
   subject(:unix_api) do
-    described_class.new(endpoint: "/tmp/http.sock")
+    described_class.new(endpoint: "/tmp/http.sock", unix_socket_client_factory: unix_socket_client_factory)
   end
+  let(:unix_socket_client) { instance_double(HttpUnix) }
+  let(:unix_socket_client_factory) { ->(_endpoint) { unix_socket_client } }
 
   let(:default_evaluation_context) do
     OpenFeature::SDK::EvaluationContext.new(
@@ -20,7 +22,7 @@ RSpec.describe OpenFeature::GoFeatureFlag::Client::UnixApi do
     it "should raise an error if rate limited" do
       allow(response).to receive(:code).and_return("429")
       allow(response).to receive(:[]).with("Retry-After").and_return(nil)
-      allow(unix_api.socket).to receive(:post).and_return(response)
+      allow(unix_socket_client).to receive(:post).and_return(response)
 
       expect {
         unix_api.evaluate_ofrep_api(flag_key: "double_key", evaluation_context: default_evaluation_context)
@@ -29,7 +31,7 @@ RSpec.describe OpenFeature::GoFeatureFlag::Client::UnixApi do
 
     it "should raise an error if not authorized (401)" do
       allow(response).to receive(:code).and_return("401")
-      allow(unix_api.socket).to receive(:post).and_return(response)
+      allow(unix_socket_client).to receive(:post).and_return(response)
 
       expect {
         unix_api.evaluate_ofrep_api(flag_key: "double_key", evaluation_context: default_evaluation_context)
@@ -38,7 +40,7 @@ RSpec.describe OpenFeature::GoFeatureFlag::Client::UnixApi do
 
     it "should raise an error if not authorized (403)" do
       allow(response).to receive(:code).and_return("403")
-      allow(unix_api.socket).to receive(:post).and_return(response)
+      allow(unix_socket_client).to receive(:post).and_return(response)
 
       expect {
         unix_api.evaluate_ofrep_api(flag_key: "double_key", evaluation_context: default_evaluation_context)
@@ -47,7 +49,7 @@ RSpec.describe OpenFeature::GoFeatureFlag::Client::UnixApi do
 
     it "should raise an error if flag not found (404)" do
       allow(response).to receive(:code).and_return("404")
-      allow(unix_api.socket).to receive(:post).and_return(response)
+      allow(unix_socket_client).to receive(:post).and_return(response)
 
       expect {
         unix_api.evaluate_ofrep_api(flag_key: "does-not-exists", evaluation_context: default_evaluation_context)
@@ -56,7 +58,7 @@ RSpec.describe OpenFeature::GoFeatureFlag::Client::UnixApi do
 
     it "should raise an error if unknown http code (500)" do
       allow(response).to receive(:code).and_return("500")
-      allow(unix_api.socket).to receive(:post).and_return(response)
+      allow(unix_socket_client).to receive(:post).and_return(response)
 
       expect {
         unix_api.evaluate_ofrep_api(flag_key: "double_key", evaluation_context: default_evaluation_context)
@@ -71,7 +73,7 @@ RSpec.describe OpenFeature::GoFeatureFlag::Client::UnixApi do
       }
       allow(response).to receive(:code).and_return("400")
       allow(response).to receive(:body).and_return(body.to_json)
-      allow(unix_api.socket).to receive(:post).and_return(response)
+      allow(unix_socket_client).to receive(:post).and_return(response)
 
       got = unix_api.evaluate_ofrep_api(flag_key: "double_key", evaluation_context: default_evaluation_context)
       want = OpenFeature::GoFeatureFlag::OfrepApiResponse.new(
@@ -96,7 +98,7 @@ RSpec.describe OpenFeature::GoFeatureFlag::Client::UnixApi do
       }
       allow(response).to receive(:code).and_return("200")
       allow(response).to receive(:body).and_return(body.to_json)
-      allow(unix_api.socket).to receive(:post).and_return(response)
+      allow(unix_socket_client).to receive(:post).and_return(response)
 
       got = unix_api.evaluate_ofrep_api(flag_key: "double_key", evaluation_context: default_evaluation_context)
       want = OpenFeature::GoFeatureFlag::OfrepApiResponse.new(
@@ -120,7 +122,7 @@ RSpec.describe OpenFeature::GoFeatureFlag::Client::UnixApi do
       }
       allow(response).to receive(:code).and_return("200")
       allow(response).to receive(:body).and_return(body.to_json)
-      allow(unix_api.socket).to receive(:post).and_return(response)
+      allow(unix_socket_client).to receive(:post).and_return(response)
 
       expect {
         unix_api.evaluate_ofrep_api(flag_key: "double_key", evaluation_context: default_evaluation_context)
@@ -136,7 +138,7 @@ RSpec.describe OpenFeature::GoFeatureFlag::Client::UnixApi do
       }
       allow(response).to receive(:code).and_return("200")
       allow(response).to receive(:body).and_return(body.to_json)
-      allow(unix_api.socket).to receive(:post).and_return(response)
+      allow(unix_socket_client).to receive(:post).and_return(response)
 
       expect {
         unix_api.evaluate_ofrep_api(flag_key: "double_key", evaluation_context: default_evaluation_context)
@@ -152,7 +154,7 @@ RSpec.describe OpenFeature::GoFeatureFlag::Client::UnixApi do
       }
       allow(response).to receive(:code).and_return("200")
       allow(response).to receive(:body).and_return(body.to_json)
-      allow(unix_api.socket).to receive(:post).and_return(response)
+      allow(unix_socket_client).to receive(:post).and_return(response)
 
       expect {
         unix_api.evaluate_ofrep_api(flag_key: "double_key", evaluation_context: default_evaluation_context)
@@ -168,7 +170,7 @@ RSpec.describe OpenFeature::GoFeatureFlag::Client::UnixApi do
       }
       allow(response).to receive(:code).and_return("200")
       allow(response).to receive(:body).and_return(body.to_json)
-      allow(unix_api.socket).to receive(:post).and_return(response)
+      allow(unix_socket_client).to receive(:post).and_return(response)
 
       expect {
         unix_api.evaluate_ofrep_api(flag_key: "double_key", evaluation_context: default_evaluation_context)
@@ -181,7 +183,7 @@ RSpec.describe OpenFeature::GoFeatureFlag::Client::UnixApi do
       }
       allow(response).to receive(:code).and_return("400")
       allow(response).to receive(:body).and_return(body.to_json)
-      allow(unix_api.socket).to receive(:post).and_return(response)
+      allow(unix_socket_client).to receive(:post).and_return(response)
 
       expect {
         unix_api.evaluate_ofrep_api(flag_key: "double_key", evaluation_context: default_evaluation_context)
@@ -192,7 +194,7 @@ RSpec.describe OpenFeature::GoFeatureFlag::Client::UnixApi do
       body = {key: "double_key"}
       allow(response).to receive(:code).and_return("400")
       allow(response).to receive(:body).and_return(body.to_json)
-      allow(unix_api.socket).to receive(:post).and_return(response)
+      allow(unix_socket_client).to receive(:post).and_return(response)
 
       expect {
         unix_api.evaluate_ofrep_api(flag_key: "double_key", evaluation_context: default_evaluation_context)
@@ -202,7 +204,7 @@ RSpec.describe OpenFeature::GoFeatureFlag::Client::UnixApi do
     it "should not be able to call the API again if rate-limited (with retry-after int)" do
       allow(response).to receive(:code).and_return("429")
       allow(response).to receive(:[]).with("Retry-After").and_return("10")
-      allow(unix_api.socket).to receive(:post).and_return(response)
+      allow(unix_socket_client).to receive(:post).and_return(response)
 
       expect {
         unix_api.evaluate_ofrep_api(flag_key: "double_key", evaluation_context: default_evaluation_context)
@@ -224,7 +226,7 @@ RSpec.describe OpenFeature::GoFeatureFlag::Client::UnixApi do
       allow(response).to receive(:code).and_return("429", "200")
       allow(response).to receive(:[]).with("Retry-After").and_return("1")
       allow(response).to receive(:body).and_return(body.to_json)
-      allow(unix_api.socket).to receive(:post).and_return(response)
+      allow(unix_socket_client).to receive(:post).and_return(response)
 
       expect {
         unix_api.evaluate_ofrep_api(flag_key: "double_key", evaluation_context: default_evaluation_context)
@@ -240,7 +242,7 @@ RSpec.describe OpenFeature::GoFeatureFlag::Client::UnixApi do
     it "should not be able to call the API again if rate-limited (with retry-after date)" do
       allow(response).to receive(:code).and_return("429")
       allow(response).to receive(:[]).with("Retry-After").and_return((Time.now + 1).httpdate)
-      allow(unix_api.socket).to receive(:post).and_return(response)
+      allow(unix_socket_client).to receive(:post).and_return(response)
 
       expect {
         unix_api.evaluate_ofrep_api(flag_key: "double_key", evaluation_context: default_evaluation_context)
@@ -262,7 +264,7 @@ RSpec.describe OpenFeature::GoFeatureFlag::Client::UnixApi do
       allow(response).to receive(:code).and_return("429", "200")
       allow(response).to receive(:[]).with("Retry-After").and_return((Time.now + 1).httpdate)
       allow(response).to receive(:body).and_return(body.to_json)
-      allow(unix_api.socket).to receive(:post).and_return(response)
+      allow(unix_socket_client).to receive(:post).and_return(response)
 
       expect {
         unix_api.evaluate_ofrep_api(flag_key: "double_key", evaluation_context: default_evaluation_context)
