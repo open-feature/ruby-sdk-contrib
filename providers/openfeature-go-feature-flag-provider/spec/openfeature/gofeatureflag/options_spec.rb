@@ -23,5 +23,10 @@ RSpec.describe OpenFeature::GoFeatureFlag::Options do
     it "should raise if instrumentation is not hash" do
       expect { OpenFeature::GoFeatureFlag::Options.new(instrumentation: "custom_name") }.to raise_error(ArgumentError, "Invalid type for instrumentation: String")
     end
+
+    it "should allow custom timeout" do
+      options = OpenFeature::GoFeatureFlag::Options.new(endpoint: "http://localhost:1031", timeout: 5)
+      expect(options.timeout).to eq(5)
+    end
   end
 end

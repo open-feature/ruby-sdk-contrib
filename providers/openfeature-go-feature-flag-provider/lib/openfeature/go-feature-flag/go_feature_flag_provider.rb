@@ -103,7 +103,7 @@ module OpenFeature
       def build_client(options)
         case options.type
         when "http"
-          Client::HttpApi.new(endpoint: options.endpoint, custom_headers: options.custom_headers, instrumentation: options.instrumentation)
+          Client::HttpApi.new(endpoint: options.endpoint, custom_headers: options.custom_headers, instrumentation: options.instrumentation, timeout: options.timeout)
         when "unix"
           Client::UnixApi.new(endpoint: options.endpoint, custom_headers: options.custom_headers)
         else
