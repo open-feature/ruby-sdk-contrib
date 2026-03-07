@@ -3,6 +3,9 @@ require:
   - standard-performance
   - rubocop-performance
 
+AllCops:
+  TargetRubyVersion: 3.4
+
 inherit_gem:
   standard: config/base.yml
   standard-performance: config/base.yml

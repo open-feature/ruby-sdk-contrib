@@ -5,7 +5,7 @@ class HttpUnix < Net::HTTP
   UNIX_REGEXP = %r{^unix://}i
 
   def initialize(address, port = nil)
-    super(address, port)
+    super
     @socket_type = "unix"
     @socket_path = address.sub(UNIX_REGEXP, "")
 

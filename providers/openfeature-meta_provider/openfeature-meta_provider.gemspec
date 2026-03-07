@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description = "The MetaProvider wraps multiple other providers and uses a given strategy to resolve flags using all of them."
   spec.homepage = "https://github.com/open-feature/ruby-sdk-contrib/providers/openfeature-meta_provider"
   spec.license = "Apache-2.0"
-  spec.required_ruby_version = ">= 3.1"
+  spec.required_ruby_version = ">= 3.4"
 
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = "https://github.com/open-feature/ruby-sdk-contrib/providers/openfeature-meta_provider"
