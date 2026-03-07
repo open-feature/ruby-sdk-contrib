@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "spec_helper"
+require_relative "../../../../../shared_config/conformance/provider_shared_examples"
 
 RSpec.describe OpenFeature::Flipt::Provider do
   let(:provider) { described_class.new(namespace: "test-namespace") }
@@ -10,6 +11,9 @@ RSpec.describe OpenFeature::Flipt::Provider do
   before do
     allow(::Flipt::EvaluationClient).to receive(:new).with("test-namespace", {}).and_return(client_stub)
   end
+
+  it_behaves_like "an OpenFeature provider"
+  it_behaves_like "an OpenFeature provider with integer and float support"
 
   context "2.1 - Feature Provider Interface" do
     describe "#metadata" do
