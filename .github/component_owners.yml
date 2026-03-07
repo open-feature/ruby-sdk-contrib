@@ -9,6 +9,8 @@ components:
     - thomaspoignant
   providers/openfeature-meta_provider:
     - maxveldink
+  providers/openfeature-ofrep-provider:
+    - josecolella
   providers/openfeature-flagsmith-provider:
     - dabeeeenster
     - matthewelwell
