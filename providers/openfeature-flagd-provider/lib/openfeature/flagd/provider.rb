@@ -65,6 +65,8 @@ module OpenFeature
         def configure(**kwargs, &block)
           kwargs.each { |key, value| explicit_configuration[key] = value }
           block&.call(explicit_configuration)
+          @configuration = nil
+          @client = nil
         end
 
         private

@@ -2,6 +2,7 @@
 
 require "spec_helper"
 require "open_feature/sdk"
+require "tempfile"
 
 # https://openfeature.dev/docs/specification/sections/providers
 
@@ -90,11 +91,12 @@ RSpec.describe OpenFeature::Flagd::Provider do
 
   context "Configuration#root_cert" do
     it "lazily reads root cert contents from root_cert_path" do
-      config = OpenFeature::Flagd::Provider::Configuration.new(root_cert_path: "/tmp/test_root_cert.pem")
-      File.write("/tmp/test_root_cert.pem", "fake-cert-contents")
-      expect(config.root_cert).to eq("fake-cert-contents")
-    ensure
-      File.delete("/tmp/test_root_cert.pem") if File.exist?("/tmp/test_root_cert.pem")
+      Tempfile.create("test_root_cert.pem") do |file|
+        file.write("fake-cert-contents")
+        file.flush
+        config = OpenFeature::Flagd::Provider::Configuration.new(root_cert_path: file.path)
+        expect(config.root_cert).to eq("fake-cert-contents")
+      end
     end
 
     it "returns nil when root_cert_path is nil" do
