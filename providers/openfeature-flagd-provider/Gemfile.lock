@@ -11,6 +11,9 @@ GEM
     ast (2.4.3)
     bigdecimal (4.0.1)
     diff-lcs (1.5.1)
+    google-protobuf (4.33.5)
+      bigdecimal
+      rake (>= 13)
     google-protobuf (4.33.5-arm64-darwin)
       bigdecimal
       rake (>= 13)
@@ -19,6 +22,9 @@ GEM
       rake (>= 13)
     googleapis-common-protos-types (1.22.0)
       google-protobuf (~> 4.26)
+    grpc (1.78.1)
+      google-protobuf (>= 3.25, < 5.0)
+      googleapis-common-protos-types (~> 1.0)
     grpc (1.78.1-arm64-darwin)
       google-protobuf (>= 3.25, < 5.0)
       googleapis-common-protos-types (~> 1.0)
@@ -89,6 +95,7 @@ GEM
 PLATFORMS
   arm64-darwin-21
   arm64-darwin-24
+  ruby
   x86_64-linux
 
 DEPENDENCIES

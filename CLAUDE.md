@@ -74,4 +74,4 @@ Provider code lives under `lib/openfeature/<provider_name>/` with a `provider.rb
 
 ## CI
 
-GitHub Actions runs tests for each provider independently across Ruby 3.4 and head. The workflow is defined in `.github/workflows/ruby.yml`.
+GitHub Actions runs tests for each provider independently across Ruby 3.4 and 4.0. The workflow is defined in `.github/workflows/ruby.yml`.

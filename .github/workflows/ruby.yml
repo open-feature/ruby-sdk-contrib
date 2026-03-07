@@ -23,10 +23,11 @@ jobs:
       run:
         working-directory: ./providers/openfeature-flagd-provider
     strategy:
+      fail-fast: false
       matrix:
         ruby-version:
           - "3.4"
-          - "head"
+          - "4.0"
     steps:
     - uses: actions/checkout@v4
     - name: Set up Ruby
@@ -48,10 +49,11 @@ jobs:
       run:
         working-directory: ./providers/openfeature-meta_provider
     strategy:
+      fail-fast: false
       matrix:
         ruby-version:
           - "3.4"
-          - "head"
+          - "4.0"
     steps:
     - uses: actions/checkout@v4
     - name: Set up Ruby
@@ -69,10 +71,11 @@ jobs:
       run:
         working-directory: ./providers/openfeature-go-feature-flag-provider
     strategy:
+      fail-fast: false
       matrix:
         ruby-version:
           - "3.4"
-          - "head"
+          - "4.0"
     steps:
       - uses: actions/checkout@v4
       - name: Set up Ruby
@@ -90,10 +93,11 @@ jobs:
       run:
         working-directory: ./providers/openfeature-flipt-provider
     strategy:
+      fail-fast: false
       matrix:
         ruby-version:
           - "3.4"
-          - "head"
+          - "4.0"
     steps:
       - uses: actions/checkout@v4
       - name: Set up Ruby
