@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "spec_helper"
+require_relative "../../../../shared_config/conformance/provider_shared_examples"
 
 RSpec.shared_examples "meta resolution" do |type, default_value, first_matched_value, second_matched_value|
   context "when strategy is first_match" do
@@ -82,6 +83,12 @@ RSpec.describe OpenFeature::MetaProvider do
         "second_match_object" => {two: 2}
       }
     )
+  end
+
+  describe "conformance" do
+    let(:provider) { meta_provider }
+
+    it_behaves_like "an OpenFeature provider"
   end
 
   describe "#metadata" do

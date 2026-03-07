@@ -1,9 +1,16 @@
 require "spec_helper"
+require_relative "../../../../../shared_config/conformance/provider_shared_examples"
 
 RSpec.describe OpenFeature::GoFeatureFlag::Provider do
   subject(:goff_provider) do
     options = OpenFeature::GoFeatureFlag::Options.new(endpoint: "http://localhost:1031")
     described_class.new(options: options)
+  end
+
+  describe "conformance" do
+    let(:provider) { goff_provider }
+
+    it_behaves_like "an OpenFeature provider"
   end
 
   context "#metadata" do

@@ -1,5 +1,6 @@
 require "spec_helper"
 require "openfeature/flagsmith/provider"
+require_relative "../../../../../shared_config/conformance/provider_shared_examples"
 
 RSpec.describe OpenFeature::Flagsmith::Provider do
   let(:options) do
@@ -20,6 +21,9 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
     # Mock Flagsmith::Client creation
     allow(::Flagsmith::Client).to receive(:new).and_return(mock_flagsmith_client)
   end
+
+  it_behaves_like "an OpenFeature provider"
+  it_behaves_like "an OpenFeature provider with integer and float support"
 
   describe "#initialize" do
     it "should create provider with options" do

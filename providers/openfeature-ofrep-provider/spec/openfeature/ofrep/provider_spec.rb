@@ -1,11 +1,19 @@
 # frozen_string_literal: true
 
 require "spec_helper"
+require_relative "../../../../../shared_config/conformance/provider_shared_examples"
 
 RSpec.describe OpenFeature::OFREP::Provider do
   subject(:ofrep_provider) do
     configuration = OpenFeature::OFREP::Configuration.new(base_url: "http://localhost:8080")
     described_class.new(configuration: configuration)
+  end
+
+  describe "conformance" do
+    let(:provider) { ofrep_provider }
+
+    it_behaves_like "an OpenFeature provider"
+    it_behaves_like "an OpenFeature provider with integer and float support"
   end
 
   context "#metadata" do
