@@ -66,7 +66,7 @@ git submodule update
 
 ### Regenerating Protobuf Code
 
-Generated protobuf files live in `lib/openfeature/flagd/provider/flagd/` and are excluded from RuboCop. Regenerating them requires `grpc_tools_ruby_protoc`.
+Generated protobuf files live in `lib/openfeature/flagd/provider/flagd/` and are excluded from RuboCop. Regenerating them requires `grpc_tools_ruby_protoc` (from the `grpc-tools` gem).
 
 ### Running Integration Tests
 
