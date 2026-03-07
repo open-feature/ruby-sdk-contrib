@@ -11,6 +11,7 @@ module OpenFeature
     class Client
       def initialize(configuration:)
         @configuration = configuration
+        @retry_lock = Mutex.new
         request_options = {timeout: configuration.timeout}
         @faraday_connection = Faraday.new(
           url: configuration.base_url,
@@ -64,8 +65,7 @@ module OpenFeature
       end
 
       def check_retry_after
-        lock = (@retry_lock ||= Mutex.new)
-        lock.synchronize do
+        @retry_lock.synchronize do
           return if @retry_after.nil?
           if Time.now < @retry_after
             raise OpenFeature::OFREP::RateLimited.new(nil)
@@ -116,6 +116,7 @@ module OpenFeature
       end
 
       def reason_mapper(reason_str)
+        return SDK::Provider::Reason::UNKNOWN if reason_str.nil?
         reason_str = reason_str.upcase
         reason_map = {
           "STATIC" => SDK::Provider::Reason::STATIC,
@@ -132,6 +133,7 @@ module OpenFeature
       end
 
       def error_code_mapper(error_code_str)
+        return SDK::Provider::ErrorCode::GENERAL if error_code_str.nil?
         error_code_str = error_code_str.upcase
         error_code_map = {
           "PROVIDER_NOT_READY" => SDK::Provider::ErrorCode::PROVIDER_NOT_READY,
@@ -156,8 +158,7 @@ module OpenFeature
             else
               Time.httpdate(retry_after)
             end
-          lock = (@retry_lock ||= Mutex.new)
-          lock.synchronize do
+          @retry_lock.synchronize do
             @retry_after = [@retry_after, next_retry_time].compact.max
           end
         rescue ArgumentError
