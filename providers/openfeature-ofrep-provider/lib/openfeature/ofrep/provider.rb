@@ -94,7 +94,7 @@ module OpenFeature
       end
 
       def validate_parameters(flag_key, evaluation_context)
-        if evaluation_context.nil? || evaluation_context.targeting_key.nil? || evaluation_context.targeting_key.empty?
+        if evaluation_context.targeting_key.nil? || evaluation_context.targeting_key.empty?
           raise InvalidOptionError.new(SDK::Provider::ErrorCode::INVALID_CONTEXT, "invalid evaluation context provided")
         end
 
