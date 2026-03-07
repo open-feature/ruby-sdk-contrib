@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "cgi"
 require "json"
 require "open_feature/sdk"
 require "faraday/net_http_persistent"
@@ -9,6 +10,28 @@ require_relative "response"
 module OpenFeature
   module OFREP
     class Client
+      REASON_MAP = {
+        "STATIC" => SDK::Provider::Reason::STATIC,
+        "DEFAULT" => SDK::Provider::Reason::DEFAULT,
+        "TARGETING_MATCH" => SDK::Provider::Reason::TARGETING_MATCH,
+        "SPLIT" => SDK::Provider::Reason::SPLIT,
+        "CACHED" => SDK::Provider::Reason::CACHED,
+        "DISABLED" => SDK::Provider::Reason::DISABLED,
+        "UNKNOWN" => SDK::Provider::Reason::UNKNOWN,
+        "STALE" => SDK::Provider::Reason::STALE,
+        "ERROR" => SDK::Provider::Reason::ERROR
+      }.freeze
+
+      ERROR_CODE_MAP = {
+        "PROVIDER_NOT_READY" => SDK::Provider::ErrorCode::PROVIDER_NOT_READY,
+        "FLAG_NOT_FOUND" => SDK::Provider::ErrorCode::FLAG_NOT_FOUND,
+        "PARSE_ERROR" => SDK::Provider::ErrorCode::PARSE_ERROR,
+        "TYPE_MISMATCH" => SDK::Provider::ErrorCode::TYPE_MISMATCH,
+        "TARGETING_KEY_MISSING" => SDK::Provider::ErrorCode::TARGETING_KEY_MISSING,
+        "INVALID_CONTEXT" => SDK::Provider::ErrorCode::INVALID_CONTEXT,
+        "GENERAL" => SDK::Provider::ErrorCode::GENERAL
+      }.freeze
+
       def initialize(configuration:)
         @configuration = configuration
         @retry_lock = Mutex.new
@@ -28,7 +51,7 @@ module OpenFeature
         check_retry_after
         request = evaluation_request(evaluation_context)
 
-        response = @faraday_connection.post("/ofrep/v1/evaluate/flags/#{flag_key}") do |req|
+        response = @faraday_connection.post("/ofrep/v1/evaluate/flags/#{CGI.escape(flag_key)}") do |req|
           req.body = request.to_json
         end
 
@@ -56,7 +79,7 @@ module OpenFeature
       end
 
       def evaluation_request(evaluation_context)
-        ctx = evaluation_context || OpenFeature::SDK::EvaluationContext.new
+        ctx = evaluation_context
         fields = ctx.fields.dup
         fields["targetingKey"] = ctx.targeting_key
         fields.delete("targeting_key")
@@ -117,34 +140,12 @@ module OpenFeature
 
       def reason_mapper(reason_str)
         return SDK::Provider::Reason::UNKNOWN if reason_str.nil?
-        reason_str = reason_str.upcase
-        reason_map = {
-          "STATIC" => SDK::Provider::Reason::STATIC,
-          "DEFAULT" => SDK::Provider::Reason::DEFAULT,
-          "TARGETING_MATCH" => SDK::Provider::Reason::TARGETING_MATCH,
-          "SPLIT" => SDK::Provider::Reason::SPLIT,
-          "CACHED" => SDK::Provider::Reason::CACHED,
-          "DISABLED" => SDK::Provider::Reason::DISABLED,
-          "UNKNOWN" => SDK::Provider::Reason::UNKNOWN,
-          "STALE" => SDK::Provider::Reason::STALE,
-          "ERROR" => SDK::Provider::Reason::ERROR
-        }
-        reason_map[reason_str] || SDK::Provider::Reason::UNKNOWN
+        REASON_MAP[reason_str.upcase] || SDK::Provider::Reason::UNKNOWN
       end
 
       def error_code_mapper(error_code_str)
         return SDK::Provider::ErrorCode::GENERAL if error_code_str.nil?
-        error_code_str = error_code_str.upcase
-        error_code_map = {
-          "PROVIDER_NOT_READY" => SDK::Provider::ErrorCode::PROVIDER_NOT_READY,
-          "FLAG_NOT_FOUND" => SDK::Provider::ErrorCode::FLAG_NOT_FOUND,
-          "PARSE_ERROR" => SDK::Provider::ErrorCode::PARSE_ERROR,
-          "TYPE_MISMATCH" => SDK::Provider::ErrorCode::TYPE_MISMATCH,
-          "TARGETING_KEY_MISSING" => SDK::Provider::ErrorCode::TARGETING_KEY_MISSING,
-          "INVALID_CONTEXT" => SDK::Provider::ErrorCode::INVALID_CONTEXT,
-          "GENERAL" => SDK::Provider::ErrorCode::GENERAL
-        }
-        error_code_map[error_code_str] || SDK::Provider::ErrorCode::GENERAL
+        ERROR_CODE_MAP[error_code_str.upcase] || SDK::Provider::ErrorCode::GENERAL
       end
 
       def parse_retry_later_header(response)

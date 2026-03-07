@@ -66,7 +66,8 @@ module OpenFeature
       attr_reader :response, :error_code, :error_message
 
       def initialize(response)
-        error_message = response.nil? ? "Rate limited" : "Rate limited: " + response["Retry-After"].to_s
+        error_message = "Rate limited"
+        error_message += ": #{response["Retry-After"]}" if response&.[]("Retry-After")
         @response = response
         @error_code = SDK::Provider::ErrorCode::GENERAL
         @error_message = error_message
