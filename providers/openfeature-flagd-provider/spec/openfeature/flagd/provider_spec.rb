@@ -51,6 +51,23 @@ RSpec.describe OpenFeature::Flagd::Provider do
       end
     end
 
+    context "when using kwargs-style configuration" do
+      subject(:kwargs_configuration) do
+        flagd_client.configure(host: kwargs_host, port: kwargs_port, tls: kwargs_tls)
+      end
+
+      let(:kwargs_host) { "kwargs_host" }
+      let(:kwargs_port) { 9090 }
+      let(:kwargs_tls) { true }
+
+      it "expects configuration to be values set from kwargs" do
+        kwargs_configuration
+        expect(flagd_client.configuration.host).to eq(kwargs_host)
+        expect(flagd_client.configuration.port).to eq(kwargs_port)
+        expect(flagd_client.configuration.tls).to eq(kwargs_tls)
+      end
+    end
+
     context "when defining environment variables" do
       let(:env_host) { "172.16.1.2" }
       let(:env_port) { "8014" }
@@ -68,6 +85,21 @@ RSpec.describe OpenFeature::Flagd::Provider do
         expect(env_configuration.port).to eq(env_port.to_i)
         expect(env_configuration.tls).to eq(env_tls == "true")
       end
+    end
+  end
+
+  context "Configuration#root_cert" do
+    it "lazily reads root cert contents from root_cert_path" do
+      config = OpenFeature::Flagd::Provider::Configuration.new(root_cert_path: "/tmp/test_root_cert.pem")
+      File.write("/tmp/test_root_cert.pem", "fake-cert-contents")
+      expect(config.root_cert).to eq("fake-cert-contents")
+    ensure
+      File.delete("/tmp/test_root_cert.pem") if File.exist?("/tmp/test_root_cert.pem")
+    end
+
+    it "returns nil when root_cert_path is nil" do
+      config = OpenFeature::Flagd::Provider::Configuration.new(root_cert_path: nil)
+      expect(config.root_cert).to be_nil
     end
   end
 

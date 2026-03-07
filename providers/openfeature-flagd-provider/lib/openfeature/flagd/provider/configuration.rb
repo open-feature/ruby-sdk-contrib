@@ -31,6 +31,10 @@ module OpenFeature
           end
         end
 
+        def root_cert
+          @root_cert ||= root_cert_path && File.read(root_cert_path)
+        end
+
         def merge(other_configuration)
           return self if other_configuration.nil?
 

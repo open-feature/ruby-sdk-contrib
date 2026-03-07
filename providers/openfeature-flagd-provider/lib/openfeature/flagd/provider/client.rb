@@ -117,7 +117,7 @@ module OpenFeature
           options = :this_channel_is_insecure
           if configuration.tls
             options = GRPC::Core::ChannelCredentials.new(
-              configuration.root_cert_path
+              configuration.root_cert
             )
           end
 

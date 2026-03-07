@@ -62,10 +62,9 @@ module OpenFeature
             .merge(explicit_configuration)
         end
 
-        def configure(&block)
-          return unless block
-
-          block.call(explicit_configuration)
+        def configure(**kwargs, &block)
+          kwargs.each { |key, value| explicit_configuration[key] = value }
+          block&.call(explicit_configuration)
         end
 
         private
