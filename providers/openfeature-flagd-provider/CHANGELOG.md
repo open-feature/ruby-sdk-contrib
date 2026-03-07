@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-flagd-provider/v0.1.2...openfeature-flagd-provider/v0.1.3) (2026-03-07)
+
+
+### ✨ New Features
+
+* **flagd:** support kwargs configuration and add lazy root_cert reader ([#78](https://github.com/open-feature/ruby-sdk-contrib/issues/78)) ([981f6fc](https://github.com/open-feature/ruby-sdk-contrib/commit/981f6fc95160cda80df87e062f5bfbbb73e770b5))
+
 ## [0.1.2](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-flagd-provider/v0.1.1...openfeature-flagd-provider/v0.1.2) (2024-08-29)
 
 
