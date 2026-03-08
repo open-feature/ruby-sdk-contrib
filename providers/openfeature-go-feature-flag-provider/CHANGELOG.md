@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.10](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-go-feature-flag-provider/v0.1.9...openfeature-go-feature-flag-provider/v0.1.10) (2026-03-08)
+
+
+### 🧹 Chore
+
+* update minimum Ruby version to &gt;= 3.4 ([#83](https://github.com/open-feature/ruby-sdk-contrib/issues/83)) ([ccf689a](https://github.com/open-feature/ruby-sdk-contrib/commit/ccf689a097de8d7db86fffd84b2127ac75687d4c))
+
 ## [0.1.9](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-go-feature-flag-provider/v0.1.8...openfeature-go-feature-flag-provider/v0.1.9) (2026-01-28)
 
 
