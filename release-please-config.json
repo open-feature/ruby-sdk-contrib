@@ -51,6 +51,16 @@
       "extra-files": [
         "README.md"
       ]
+    },
+    "hooks/openfeature-otel-hook": {
+      "package-name": "openfeature-otel-hook",
+      "version-file": "lib/openfeature/otel/hook/version.rb",
+      "bump-minor-pre-major": true,
+      "bump-patch-for-minor-pre-major": true,
+      "versioning": "default",
+      "extra-files": [
+        "README.md"
+      ]
     }
   },
   "changelog-sections": [
