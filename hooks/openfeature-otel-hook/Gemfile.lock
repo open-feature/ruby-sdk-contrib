@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     openfeature-otel-hook (0.1.0)
+      logger
       openfeature-sdk (~> 0.6)
       opentelemetry-api (~> 1.0)
 
@@ -20,6 +21,7 @@ GEM
       bigdecimal (>= 3.1, < 5)
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
+    logger (1.7.0)
     mcp (0.8.0)
       json-schema (>= 4.1)
     openfeature-sdk (0.6.4)
