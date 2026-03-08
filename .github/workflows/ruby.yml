@@ -108,3 +108,26 @@ jobs:
           working-directory: ./providers/openfeature-flipt-provider
       - name: Lint and test
         run: bin/rake
+
+  test_otel_hook:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./hooks/openfeature-otel-hook
+    strategy:
+      matrix:
+        ruby-version:
+          - "3.4"
+          - "head"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+          bundler-cache: true
+          working-directory: ./hooks/openfeature-otel-hook
+      - name: Check linting
+        run: bundle exec rubocop
+      - name: Run tests
+        run: bundle exec rspec
