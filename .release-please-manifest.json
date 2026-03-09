@@ -4,6 +4,6 @@
   "providers/openfeature-meta_provider": "0.0.5",
   "providers/openfeature-go-feature-flag-provider": "0.1.10",
   "providers/openfeature-flagsmith-provider": "0.1.1",
-  "providers/openfeature-ofrep-provider": "0.1.0",
+  "providers/openfeature-ofrep-provider": "0.1.1",
   "hooks/openfeature-otel-hook": "0.1.0"
 }
