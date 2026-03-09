@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.7](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-meta_provider/v0.0.6...openfeature-meta_provider/v0.0.7) (2026-03-09)
+
+
+### ✨ New Features
+
+* add OFREP provider ([#80](https://github.com/open-feature/ruby-sdk-contrib/issues/80)) ([e33e0ab](https://github.com/open-feature/ruby-sdk-contrib/commit/e33e0ab340193eee4434df65bb33e1002a69eaad))
+
 ## [0.0.6](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-meta_provider/v0.0.5...openfeature-meta_provider/v0.0.6) (2026-03-09)
 
 
