@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.11](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-go-feature-flag-provider/v0.1.10...openfeature-go-feature-flag-provider/v0.1.11) (2026-03-09)
+
+
+### 🧹 Chore
+
+* add conformance tests, SimpleCov, version standardization, and README improvements ([#95](https://github.com/open-feature/ruby-sdk-contrib/issues/95)) ([1c430a9](https://github.com/open-feature/ruby-sdk-contrib/commit/1c430a92041a7841ac01a2642a66376b8259acd2))
+* improve repository maturity and contributor experience ([#91](https://github.com/open-feature/ruby-sdk-contrib/issues/91)) ([7e28025](https://github.com/open-feature/ruby-sdk-contrib/commit/7e280257e6f543bc46537f43aeac302be003b47b))
+
 ## [0.1.10](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-go-feature-flag-provider/v0.1.9...openfeature-go-feature-flag-provider/v0.1.10) (2026-03-08)
 
 
