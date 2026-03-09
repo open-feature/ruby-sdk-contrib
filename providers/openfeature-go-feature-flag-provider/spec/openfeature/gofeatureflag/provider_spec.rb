@@ -10,6 +10,12 @@ RSpec.describe OpenFeature::GoFeatureFlag::Provider do
 
   it_behaves_like "an OpenFeature provider"
 
+  describe "conformance" do
+    let(:provider) { goff_provider }
+
+    it_behaves_like "an OpenFeature provider"
+  end
+
   context "#metadata" do
     it "metadata name is defined" do
       expect(goff_provider).to respond_to(:metadata)

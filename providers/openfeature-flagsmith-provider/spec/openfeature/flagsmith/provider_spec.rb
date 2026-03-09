@@ -25,6 +25,9 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
     allow(::Flagsmith::Client).to receive(:new).and_return(mock_flagsmith_client)
   end
 
+  it_behaves_like "an OpenFeature provider"
+  it_behaves_like "an OpenFeature provider with integer and float support"
+
   describe "#initialize" do
     it "should create provider with options" do
       expect(provider.options).to eq(options)

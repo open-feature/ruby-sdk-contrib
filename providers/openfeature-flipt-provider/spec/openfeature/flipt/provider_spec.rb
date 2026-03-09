@@ -15,6 +15,9 @@ RSpec.describe OpenFeature::Flipt::Provider do
     allow(::Flipt::EvaluationClient).to receive(:new).with("test-namespace", {}).and_return(client_stub)
   end
 
+  it_behaves_like "an OpenFeature provider"
+  it_behaves_like "an OpenFeature provider with integer and float support"
+
   context "2.1 - Feature Provider Interface" do
     describe "#metadata" do
       it "returns a name field which identifies the provider implementation" do

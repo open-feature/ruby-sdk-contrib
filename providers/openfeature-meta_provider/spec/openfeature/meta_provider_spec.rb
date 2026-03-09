@@ -90,6 +90,12 @@ RSpec.describe OpenFeature::MetaProvider do
     )
   end
 
+  describe "conformance" do
+    let(:provider) { meta_provider }
+
+    it_behaves_like "an OpenFeature provider"
+  end
+
   describe "#metadata" do
     it "combines all metadata names" do
       expect(meta_provider.metadata.name).to eq("MetaProvider: In-memory Provider, In-memory Provider")
