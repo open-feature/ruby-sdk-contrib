@@ -56,6 +56,14 @@ module OpenFeature
           client.respond_to?(method_name, include_private) || super
         end
 
+        def method(name)
+          if client.respond_to?(name)
+            client.method(name)
+          else
+            super
+          end
+        end
+
         def configuration
           @configuration ||= Configuration.default_config
             .merge(Configuration.environment_variables_config)
