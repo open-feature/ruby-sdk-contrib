@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.6](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-flagd-provider/v0.1.5...openfeature-flagd-provider/v0.1.6) (2026-03-09)
+
+
+### 🐛 Bug Fixes
+
+* **flagd:** delegate method() through ConfiguredClient for conformance ([51fcb5b](https://github.com/open-feature/ruby-sdk-contrib/commit/51fcb5bd4e22d249cd18ef6bd13b37572e6c1d94))
+
 ## [0.1.5](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-flagd-provider/v0.1.4...openfeature-flagd-provider/v0.1.5) (2026-03-09)
 
 
