@@ -4,7 +4,7 @@ require_relative "lib/openfeature/ofrep/provider/version"
 
 Gem::Specification.new do |spec|
   spec.name = "openfeature-ofrep-provider"
-  spec.version = OpenFeature::OFREP::OFREP_PROVIDER_VERSION
+  spec.version = OpenFeature::OFREP::VERSION
   spec.authors = ["OpenFeature Contributors"]
   spec.email = ["cncf-openfeature-contributors@lists.cncf.io"]
 
@@ -38,5 +38,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "standard", ">= 1.35.1"
   spec.add_development_dependency "rubocop"
   spec.add_development_dependency "standard-performance"
+  spec.add_development_dependency "simplecov", "~> 0.22"
   spec.add_development_dependency "webmock"
 end

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "spec_helper"
+require_relative "../../../../shared_config/conformance/provider_shared_examples"
 
 RSpec.shared_examples "meta resolution" do |type, default_value, first_matched_value, second_matched_value|
   context "when strategy is first_match" do
@@ -42,7 +43,8 @@ RSpec.shared_examples "meta resolution" do |type, default_value, first_matched_v
       it "returns default" do
         result = meta_provider.send(:"fetch_#{type}_value", flag_key:, default_value:)
 
-        expect(result).to eq(OpenFeature::SDK::Provider::ResolutionDetails.new(value: default_value, reason: OpenFeature::SDK::Provider::Reason::ERROR, error_code: OpenFeature::SDK::Provider::ErrorCode::GENERAL))
+        expect(result).to eq(OpenFeature::SDK::Provider::ResolutionDetails.new(value: default_value,
+          reason: OpenFeature::SDK::Provider::Reason::ERROR, error_code: OpenFeature::SDK::Provider::ErrorCode::GENERAL))
       end
     end
 
@@ -54,7 +56,8 @@ RSpec.shared_examples "meta resolution" do |type, default_value, first_matched_v
       it "returns default" do
         result = meta_provider.send(:"fetch_#{type}_value", flag_key:, default_value:)
 
-        expect(result).to eq(OpenFeature::SDK::Provider::ResolutionDetails.new(value: default_value, reason: OpenFeature::SDK::Provider::Reason::ERROR, error_code: OpenFeature::SDK::Provider::ErrorCode::GENERAL))
+        expect(result).to eq(OpenFeature::SDK::Provider::ResolutionDetails.new(value: default_value,
+          reason: OpenFeature::SDK::Provider::Reason::ERROR, error_code: OpenFeature::SDK::Provider::ErrorCode::GENERAL))
       end
     end
   end
@@ -62,6 +65,9 @@ end
 
 RSpec.describe OpenFeature::MetaProvider do
   subject(:meta_provider) { described_class.new(providers: [provider_one, provider_two]) }
+  let(:provider) { meta_provider }
+
+  it_behaves_like "an OpenFeature provider"
 
   let(:provider_one) do
     OpenFeature::SDK::Provider::InMemoryProvider.new(
