@@ -11,6 +11,9 @@ providers/
   openfeature-flipt-provider/              # Flipt provider
   openfeature-go-feature-flag-provider/    # GO Feature Flag provider
   openfeature-meta_provider/               # Meta provider (combines multiple providers)
+  openfeature-ofrep-provider/              # OFREP provider
+hooks/
+  openfeature-otel-hook/                   # OpenTelemetry traces and metrics hook
 shared_config/
   .rubocop.yml                             # Shared RuboCop config
 ```
@@ -21,7 +24,7 @@ Shared linting configuration lives in `shared_config/`, and each provider's `.ru
 
 ## Prerequisites
 
-- **Ruby** >= 3.1
+- **Ruby** >= 3.4
 - **Bundler**
 - **Docker** (only required for flagd provider integration tests)
 
@@ -124,6 +127,14 @@ docs: add CONTRIBUTING.md
 ```
 
 This convention is enforced by the PR title linter and drives Release Please automation for versioning and changelogs.
+
+### DCO Sign-Off
+
+All commits must be signed off to comply with the [Developer Certificate of Origin (DCO)](https://developercertificate.org/). Use the `-s` flag when committing:
+
+```bash
+git commit -s -m "feat(flagd): add streaming evaluation support"
+```
 
 ## Pull Request Process
 

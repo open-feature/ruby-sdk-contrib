@@ -1,18 +1,22 @@
 # Keep all in alphabetical order
 components:
+  hooks/openfeature-otel-hook:
+    - josecolella
   providers/openfeature-flagd-provider:
     - toddbaert
     - josecolella
+  providers/openfeature-flagsmith-provider:
+    - dabeeeenster
+    - matthewelwell
+    - zaimwa9
   providers/openfeature-flipt-provider:
     - falghi
   providers/openfeature-go-feature-flag-provider:
     - thomaspoignant
   providers/openfeature-meta_provider:
     - maxveldink
-  providers/openfeature-flagsmith-provider:
-    - dabeeeenster
-    - matthewelwell
-    - zaimwa9
+  providers/openfeature-ofrep-provider:
+    - josecolella
 
 ignored-authors:
   - renovate-bot

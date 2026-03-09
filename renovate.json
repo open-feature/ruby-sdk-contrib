@@ -1,0 +1,22 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "labels": ["dependencies"],
+  "packageRules": [
+    {
+      "matchManagers": ["bundler"],
+      "groupName": "ruby dependencies",
+      "matchFileNames": [
+        "providers/openfeature-flagd-provider/**",
+        "providers/openfeature-flagsmith-provider/**",
+        "providers/openfeature-flipt-provider/**",
+        "providers/openfeature-go-feature-flag-provider/**",
+        "providers/openfeature-meta_provider/**",
+        "providers/openfeature-ofrep-provider/**",
+        "hooks/openfeature-otel-hook/**"
+      ]
+    }
+  ]
+}
