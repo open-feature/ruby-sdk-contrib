@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.12](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-go-feature-flag-provider/v0.1.11...openfeature-go-feature-flag-provider/v0.1.12) (2026-03-09)
+
+
+### 🐛 Bug Fixes
+
+* resolve flaky rate-limit date test and correct flipt version-file path ([f9fecc4](https://github.com/open-feature/ruby-sdk-contrib/commit/f9fecc4f303b9eee0b58216ca50073611af8e9ad))
+
+
+### ✨ New Features
+
+* add OFREP provider ([#80](https://github.com/open-feature/ruby-sdk-contrib/issues/80)) ([e33e0ab](https://github.com/open-feature/ruby-sdk-contrib/commit/e33e0ab340193eee4434df65bb33e1002a69eaad))
+
 ## [0.1.11](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-go-feature-flag-provider/v0.1.10...openfeature-go-feature-flag-provider/v0.1.11) (2026-03-09)
 
 

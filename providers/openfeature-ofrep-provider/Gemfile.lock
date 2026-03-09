@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    openfeature-ofrep-provider (0.1.0)
+    openfeature-ofrep-provider (0.1.1)
       faraday-net_http_persistent (~> 2.3)
       openfeature-sdk (~> 0.3.1)
 
@@ -139,7 +139,7 @@ CHECKSUMS
   logger (1.7.0) sha256=196edec7cc44b66cfb40f9755ce11b392f21f7967696af15d274dde7edff0203
   net-http (0.9.1) sha256=25ba0b67c63e89df626ed8fac771d0ad24ad151a858af2cc8e6a716ca4336996
   net-http-persistent (4.0.8) sha256=ef3de8319d691537b329053fae3a33195f8b070bbbfae8bf1a58c796081960e6
-  openfeature-ofrep-provider (0.1.0)
+  openfeature-ofrep-provider (0.1.1)
   openfeature-sdk (0.3.1) sha256=17a930f52c66ee76a5d20f5bb68cfadbb8d86a4db5b1f99caab8c60ab577f9e5
   parallel (1.27.0) sha256=4ac151e1806b755fb4e2dc2332cbf0e54f2e24ba821ff2d3dcf86bf6dc4ae130
   parser (3.3.10.2) sha256=6f60c84aa4bdcedb6d1a2434b738fe8a8136807b6adc8f7f53b97da9bc4e9357
