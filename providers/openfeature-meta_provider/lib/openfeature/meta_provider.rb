@@ -14,7 +14,7 @@ module OpenFeature
     def metadata
       SDK::Provider::ProviderMetadata.new(name: "MetaProvider: #{providers.map do |provider|
         provider.metadata.name
-      end.join(', ')}")
+      end.join(", ")}")
     end
 
     def init
@@ -65,11 +65,11 @@ module OpenFeature
             variant: details.variant,
             error_code: details.error_code,
             error_message: details.error_message,
-            flag_metadata: (details.flag_metadata || {}).merge('matched_provider' => provider.metadata.name)
+            flag_metadata: (details.flag_metadata || {}).merge("matched_provider" => provider.metadata.name)
           )
 
           break details if details.error_code.nil?
-        rescue StandardError
+        rescue
           next
         end
 
@@ -77,11 +77,11 @@ module OpenFeature
           successful_details
         else
           SDK::Provider::ResolutionDetails.new(value: default_value, error_code: SDK::Provider::ErrorCode::GENERAL,
-                                               reason: SDK::Provider::Reason::ERROR)
+            reason: SDK::Provider::Reason::ERROR)
         end
       else
         SDK::Provider::ResolutionDetails.new(value: default_value, error_code: SDK::Provider::ErrorCode::GENERAL,
-                                             reason: 'Unknown strategy for MetaProvider')
+          reason: "Unknown strategy for MetaProvider")
       end
     end
   end
