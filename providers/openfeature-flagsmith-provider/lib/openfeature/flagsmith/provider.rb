@@ -96,12 +96,12 @@ module OpenFeature
 
         raw_value = found_flag.value
         value = if [Hash, Array].any? { |klass| allowed_type_classes.include?(klass) }
-                  parse_json_value(raw_value)
-                elsif [Integer, Float, Numeric].any? { |klass| allowed_type_classes.include?(klass) }
-                  parse_numeric_value(raw_value, allowed_type_classes)
-                else
-                  raw_value
-                end
+          parse_json_value(raw_value)
+        elsif [Integer, Float, Numeric].any? { |klass| allowed_type_classes.include?(klass) }
+          parse_numeric_value(raw_value, allowed_type_classes)
+        else
+          raw_value
+        end
 
         return type_mismatch_result(default_value, value, allowed_type_classes) unless type_matches?(value, allowed_type_classes)
 
@@ -185,7 +185,7 @@ module OpenFeature
         if targeting_key.nil? || targeting_key.to_s.strip.empty?
           @flagsmith_client.get_environment_flags
         else
-          traits = evaluation_context.fields.transform_keys(&:to_sym).reject { |k, _v| k == :targeting_key }
+          traits = evaluation_context.fields.transform_keys(&:to_sym).except(:targeting_key)
           @flagsmith_client.get_identity_flags(targeting_key.to_s, **traits)
         end
       rescue => e

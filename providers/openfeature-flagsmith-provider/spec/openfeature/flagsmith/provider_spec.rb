@@ -544,7 +544,6 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
 
         expect(result.value).to eq("value")
       end
-
     end
 
     describe "evaluation context edge cases" do
