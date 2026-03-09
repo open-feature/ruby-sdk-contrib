@@ -4,7 +4,7 @@ require_relative "lib/openfeature/meta_provider_version"
 
 Gem::Specification.new do |spec|
   spec.name = "openfeature-meta_provider"
-  spec.version = OpenFeature::META_PROVIDER_VERSION
+  spec.version = OpenFeature::MetaProvider::VERSION
   spec.authors = ["OpenFeature Authors"]
   spec.email = ["cncf-openfeature-contributors@lists.cncf.io"]
 
@@ -32,8 +32,9 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "openfeature-sdk", ">= 0.3.0", "<= 0.4"
 
+  spec.add_development_dependency "debug", "~> 1.9.2"
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rspec", "~> 3.12"
+  spec.add_development_dependency "simplecov", "~> 0.22"
   spec.add_development_dependency "standard", "~> 1.34"
-  spec.add_development_dependency "debug", "~> 1.9.2"
 end

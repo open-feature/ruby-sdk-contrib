@@ -11,6 +11,7 @@ GEM
   specs:
     ast (2.4.3)
     diff-lcs (1.6.1)
+    docile (1.4.1)
     ffi (1.17.3)
     ffi (1.17.3-aarch64-linux-gnu)
     ffi (1.17.3-aarch64-linux-musl)
@@ -68,6 +69,12 @@ GEM
       rubocop (>= 1.75.0, < 2.0)
       rubocop-ast (>= 1.47.1, < 2.0)
     ruby-progressbar (1.13.0)
+    simplecov (0.22.0)
+      docile (~> 1.1)
+      simplecov-html (~> 0.11)
+      simplecov_json_formatter (~> 0.1)
+    simplecov-html (0.13.2)
+    simplecov_json_formatter (0.1.4)
     standard (1.54.0)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.0)
@@ -102,6 +109,7 @@ DEPENDENCIES
   rake (~> 13.0)
   rspec (~> 3.12.0)
   rubocop
+  simplecov (~> 0.22)
   standard (>= 1.35.1)
 
 BUNDLED WITH
