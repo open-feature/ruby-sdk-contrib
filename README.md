@@ -38,7 +38,7 @@ gem "openfeature-flagd-provider"
 Then configure the OpenFeature SDK:
 
 ```ruby
-require "openfeature/sdk"
+require "open_feature/sdk"
 require "openfeature/flagd/provider"
 
 OpenFeature::SDK.configure do |config|

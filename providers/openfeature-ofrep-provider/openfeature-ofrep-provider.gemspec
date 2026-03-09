@@ -5,8 +5,8 @@ require_relative "lib/openfeature/ofrep/provider/version"
 Gem::Specification.new do |spec|
   spec.name = "openfeature-ofrep-provider"
   spec.version = OpenFeature::OFREP::OFREP_PROVIDER_VERSION
-  spec.authors = ["OpenFeature"]
-  spec.email = ["openfeature@openfeature.dev"]
+  spec.authors = ["OpenFeature Contributors"]
+  spec.email = ["cncf-openfeature-contributors@lists.cncf.io"]
 
   spec.summary = "The OFREP provider for the OpenFeature Ruby SDK"
   spec.description = "A vendor-neutral OFREP (OpenFeature Remote Evaluation Protocol) provider for the OpenFeature Ruby SDK"
@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.metadata["source_code_uri"] = "https://github.com/open-feature/ruby-sdk-contrib/tree/main/providers/openfeature-ofrep-provider"
   spec.metadata["changelog_uri"] = "https://github.com/open-feature/ruby-sdk-contrib/blob/main/providers/openfeature-ofrep-provider/CHANGELOG.md"
   spec.metadata["bug_tracker_uri"] = "https://github.com/open-feature/ruby-sdk-contrib/issues"
-  spec.metadata["documentation_uri"] = "https://openfeature.dev/docs/reference/technologies/server/ruby"
+  spec.metadata["documentation_uri"] = "https://github.com/open-feature/ruby-sdk-contrib/tree/main/providers/openfeature-ofrep-provider/README.md"
   spec.metadata["rubygems_mfa_required"] = "true"
 
   # Specify which files should be added to the gem when it is released.
