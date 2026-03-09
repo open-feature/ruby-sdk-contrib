@@ -4,7 +4,7 @@ require_relative "lib/openfeature/go-feature-flag/version"
 
 Gem::Specification.new do |spec|
   spec.name = "openfeature-go-feature-flag-provider"
-  spec.version = OpenFeature::GoFeatureFlag::GO_FEATURE_FLAG_PROVIDER_VERSION
+  spec.version = OpenFeature::GoFeatureFlag::VERSION
   spec.authors = ["Thomas Poignant"]
   spec.email = ["contact@gofeatureflag.org"]
 

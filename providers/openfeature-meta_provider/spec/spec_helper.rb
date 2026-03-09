@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
-require "bundler/setup"
-require "debug"
-require "openfeature/meta_provider"
-require "open_feature/sdk"
+require 'simplecov'
+SimpleCov.start
+
+require 'bundler/setup'
+require 'debug'
+require 'openfeature/meta_provider'
+require 'open_feature/sdk'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
@@ -18,7 +21,7 @@ RSpec.configure do |config|
 
   config.filter_run_when_matching :focus
 
-  config.example_status_persistence_file_path = "spec/examples.txt"
+  config.example_status_persistence_file_path = 'spec/examples.txt'
 
   config.disable_monkey_patching!
 

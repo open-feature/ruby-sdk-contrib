@@ -3,6 +3,7 @@
 require "spec_helper"
 require "open_feature/sdk"
 require "tempfile"
+require_relative "../../../../../shared_config/conformance/provider_shared_examples"
 
 # https://openfeature.dev/docs/specification/sections/providers
 
@@ -14,6 +15,10 @@ RSpec.describe OpenFeature::Flagd::Provider do
   end
 
   subject(:flagd_client) { described_class.build_client }
+  let(:provider) { described_class.build_client }
+
+  it_behaves_like "an OpenFeature provider"
+  it_behaves_like "an OpenFeature provider with integer and float support"
 
   context "#configure" do
     context "when defining host, port and tls options of gRPC service it wishes to access with configure method" do

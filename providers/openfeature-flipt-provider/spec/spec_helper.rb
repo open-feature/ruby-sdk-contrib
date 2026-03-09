@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require "simplecov"
+SimpleCov.start
+
 require "bundler/setup"
 require "open_feature/sdk"
 require "openfeature/flipt/provider"

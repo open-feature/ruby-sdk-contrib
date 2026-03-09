@@ -12,7 +12,9 @@ module OpenFeature
     end
 
     def metadata
-      SDK::Provider::ProviderMetadata.new(name: "MetaProvider: #{providers.map { |provider| provider.metadata.name }.join(", ")}")
+      SDK::Provider::ProviderMetadata.new(name: "MetaProvider: #{providers.map do |provider|
+        provider.metadata.name
+      end.join(', ')}")
     end
 
     def init
@@ -51,7 +53,7 @@ module OpenFeature
 
     attr_reader :providers, :strategy
 
-    def fetch_from_sources(default_value:, &blk)
+    def fetch_from_sources(default_value:)
       case strategy
       when :first_match
         successful_details = providers.each do |provider|
@@ -63,21 +65,23 @@ module OpenFeature
             variant: details.variant,
             error_code: details.error_code,
             error_message: details.error_message,
-            flag_metadata: (details.flag_metadata || {}).merge("matched_provider" => provider.metadata.name)
+            flag_metadata: (details.flag_metadata || {}).merge('matched_provider' => provider.metadata.name)
           )
 
           break details if details.error_code.nil?
-        rescue
+        rescue StandardError
           next
         end
 
         if successful_details.is_a?(SDK::Provider::ResolutionDetails)
           successful_details
         else
-          SDK::Provider::ResolutionDetails.new(value: default_value, error_code: SDK::Provider::ErrorCode::GENERAL, reason: SDK::Provider::Reason::ERROR)
+          SDK::Provider::ResolutionDetails.new(value: default_value, error_code: SDK::Provider::ErrorCode::GENERAL,
+                                               reason: SDK::Provider::Reason::ERROR)
         end
       else
-        SDK::Provider::ResolutionDetails.new(value: default_value, error_code: SDK::Provider::ErrorCode::GENERAL, reason: "Unknown strategy for MetaProvider")
+        SDK::Provider::ResolutionDetails.new(value: default_value, error_code: SDK::Provider::ErrorCode::GENERAL,
+                                             reason: 'Unknown strategy for MetaProvider')
       end
     end
   end
