@@ -14,7 +14,7 @@
     },
     "providers/openfeature-flipt-provider": {
       "package-name": "openfeature-flipt-provider",
-      "version-file": "lib/openfeature/flipt/provider/version.rb",
+      "version-file": "lib/openfeature/flipt/version.rb",
       "bump-minor-pre-major": true,
       "bump-patch-for-minor-pre-major": true,
       "versioning": "default",
