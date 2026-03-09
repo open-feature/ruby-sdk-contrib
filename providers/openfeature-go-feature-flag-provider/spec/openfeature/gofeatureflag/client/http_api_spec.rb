@@ -241,7 +241,7 @@ RSpec.describe OpenFeature::GoFeatureFlag::Client::HttpApi do
 
     it "should not be able to call the API again if rate-limited (with retry-after date)" do
       stub_request(:post, "http://localhost:1031/ofrep/v1/evaluate/flags/double_key")
-        .to_return(status: 429, headers: {"Retry-After" => (Time.now + 1).httpdate})
+        .to_return(status: 429, headers: {"Retry-After" => (Time.now + 60).httpdate})
 
       expect {
         goff_api.evaluate_ofrep_api(flag_key: "double_key", evaluation_context: default_evaluation_context)

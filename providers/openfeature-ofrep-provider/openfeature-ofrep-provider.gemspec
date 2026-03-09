@@ -4,21 +4,22 @@ require_relative "lib/openfeature/ofrep/provider/version"
 
 Gem::Specification.new do |spec|
   spec.name = "openfeature-ofrep-provider"
-  spec.version = OpenFeature::OFREP::OFREP_PROVIDER_VERSION
-  spec.authors = ["OpenFeature"]
-  spec.email = ["openfeature@openfeature.dev"]
+  spec.version = OpenFeature::OFREP::VERSION
+  spec.authors = ["OpenFeature Contributors"]
+  spec.email = ["cncf-openfeature-contributors@lists.cncf.io"]
 
   spec.summary = "The OFREP provider for the OpenFeature Ruby SDK"
   spec.description = "A vendor-neutral OFREP (OpenFeature Remote Evaluation Protocol) provider for the OpenFeature Ruby SDK"
   spec.homepage = "https://github.com/open-feature/ruby-sdk-contrib/tree/main/providers/openfeature-ofrep-provider"
   spec.license = "Apache-2.0"
-  spec.required_ruby_version = ">= 3.1"
+  spec.required_ruby_version = ">= 3.4"
 
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = "https://github.com/open-feature/ruby-sdk-contrib/tree/main/providers/openfeature-ofrep-provider"
   spec.metadata["changelog_uri"] = "https://github.com/open-feature/ruby-sdk-contrib/blob/main/providers/openfeature-ofrep-provider/CHANGELOG.md"
   spec.metadata["bug_tracker_uri"] = "https://github.com/open-feature/ruby-sdk-contrib/issues"
-  spec.metadata["documentation_uri"] = "https://openfeature.dev/docs/reference/technologies/server/ruby"
+  spec.metadata["documentation_uri"] = "https://github.com/open-feature/ruby-sdk-contrib/tree/main/providers/openfeature-ofrep-provider/README.md"
+  spec.metadata["rubygems_mfa_required"] = "true"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
@@ -37,5 +38,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "standard", ">= 1.35.1"
   spec.add_development_dependency "rubocop"
   spec.add_development_dependency "standard-performance"
+  spec.add_development_dependency "simplecov", "~> 0.22"
   spec.add_development_dependency "webmock"
 end

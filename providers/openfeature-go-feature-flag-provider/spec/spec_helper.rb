@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require "simplecov"
+SimpleCov.start
+
 require "bundler/setup"
 require "rspec"
 require "openfeature/go-feature-flag/go_feature_flag_provider"

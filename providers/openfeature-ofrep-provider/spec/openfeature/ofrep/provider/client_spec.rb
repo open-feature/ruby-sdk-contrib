@@ -173,7 +173,7 @@ RSpec.describe OpenFeature::OFREP::Client do
 
     it "blocks subsequent calls when rate limited with Retry-After header (date)" do
       stub_request(:post, "http://localhost:8080/ofrep/v1/evaluate/flags/my_flag")
-        .to_return(status: 429, headers: {"Retry-After" => (Time.now + 60).httpdate})
+        .to_return(status: 429, headers: {"Retry-After" => (Time.now + 1).httpdate})
 
       expect {
         client.evaluate(flag_key: "my_flag", evaluation_context: default_evaluation_context)

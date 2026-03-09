@@ -4,13 +4,22 @@
       "path": "providers/openfeature-flagd-provider"
     },
     {
-      "path": "providers/openfeature-meta_provider"
+      "path": "providers/openfeature-flagsmith-provider"
+    },
+    {
+      "path": "providers/openfeature-flipt-provider"
     },
     {
       "path": "providers/openfeature-go-feature-flag-provider"
     },
     {
-      "path": "providers/openfeature-flipt-provider"
+      "path": "providers/openfeature-meta_provider"
+    },
+    {
+      "path": "providers/openfeature-ofrep-provider"
+    },
+    {
+      "path": "hooks/openfeature-otel-hook"
     }
   ]
 }

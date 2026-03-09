@@ -9,6 +9,9 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
 
   let(:provider) { described_class.new(options: options) }
 
+  it_behaves_like "an OpenFeature provider"
+  it_behaves_like "an OpenFeature provider with integer and float support"
+
   let(:mock_flagsmith_client) { instance_double("Flagsmith::Client") }
   let(:mock_flags) { double("Flags") }
 
@@ -548,7 +551,6 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
 
         expect(result.value).to eq("value")
       end
-
     end
 
     describe "evaluation context edge cases" do

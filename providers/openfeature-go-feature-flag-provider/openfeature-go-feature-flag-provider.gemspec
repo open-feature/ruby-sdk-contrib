@@ -4,7 +4,7 @@ require_relative "lib/openfeature/go-feature-flag/version"
 
 Gem::Specification.new do |spec|
   spec.name = "openfeature-go-feature-flag-provider"
-  spec.version = OpenFeature::GoFeatureFlag::GO_FEATURE_FLAG_PROVIDER_VERSION
+  spec.version = OpenFeature::GoFeatureFlag::VERSION
   spec.authors = ["Thomas Poignant"]
   spec.email = ["contact@gofeatureflag.org"]
 
@@ -19,6 +19,7 @@ Gem::Specification.new do |spec|
   spec.metadata["changelog_uri"] = "https://github.com/open-feature/ruby-sdk-contrib/blob/main/providers/openfeature-go-feature-flag-provider/CHANGELOG.md"
   spec.metadata["bug_tracker_uri"] = "https://github.com/thomaspoignant/go-feature-flag/issues/new/choose"
   spec.metadata["documentation_uri"] = "https://gofeatureflag.org/docs"
+  spec.metadata["rubygems_mfa_required"] = "true"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.

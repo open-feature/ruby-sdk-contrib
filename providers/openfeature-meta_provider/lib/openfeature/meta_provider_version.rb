@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
 module OpenFeature
-  META_PROVIDER_VERSION = "0.0.5"
+  class MetaProvider
+    VERSION = "0.0.6"
+  end
 end

@@ -6,6 +6,9 @@ require_relative "../../../../../shared_config/conformance/provider_shared_examp
 RSpec.describe OpenFeature::Flipt::Provider do
   let(:provider) { described_class.new(namespace: "test-namespace") }
   let(:client_stub) { double(::Flipt::EvaluationClient) }
+
+  it_behaves_like "an OpenFeature provider"
+  it_behaves_like "an OpenFeature provider with integer and float support"
   let(:evaluation_context) { {"targeting_key" => "user123", "some_key" => "some_value"} }
 
   before do
