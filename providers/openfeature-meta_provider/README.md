@@ -10,8 +10,14 @@ The `OpenFeature::MetaProvider` is a utility provider that wraps multiple [provi
 | ✅ | Boolean Flags | Evaluate boolean feature flags |
 | ✅ | String Flags | Evaluate string feature flags |
 | ✅ | Number Flags | Evaluate numeric feature flags |
+| ✅ | Integer Flags | Evaluate integer feature flags |
+| ✅ | Float Flags | Evaluate float feature flags |
 | ✅ | Object Flags | Evaluate object feature flags |
 | ✅ | First Match Strategy | Return the first successful resolution across providers |
+| ✅ | First Successful Strategy | Skip FLAG_NOT_FOUND, stop on other errors |
+| ✅ | Comparison Strategy | Evaluate all providers and check for unanimity |
+| ✅ | Custom Strategies | Subclass `Strategy::Base` for custom resolution logic |
+| ✅ | Track Delegation | Delegates `track` calls to all providers that support it |
 | ✅ | Provider Metadata | Tracks which provider matched via `flag_metadata` |
 | ✅ | Lifecycle Management | Delegates `init` and `shutdown` to all wrapped providers |
 
@@ -107,7 +113,7 @@ The provider constructor accepts the following parameters:
 | Option | Type | Default | Required | Description |
 |--------|------|---------|----------|-------------|
 | `providers` | Array | - | **Yes** | An ordered array of provider instances to delegate to |
-| `strategy` | Symbol | `:first_match` | No | The resolution strategy to use |
+| `strategy` | Symbol or Strategy::Base | `:first_match` | No | The resolution strategy to use (see below) |
 
 ## Strategies
 
@@ -118,6 +124,64 @@ When `:first_match` is given as the strategy, each provider is evaluated in the 
 - If a provider raises an exception, it is skipped and the next provider is tried.
 - If a provider returns a resolution with an error code, it is skipped and the next provider is tried.
 - If no provider returns a successful resolution, the default value is returned with an `ERROR` reason and a `GENERAL` error code.
+
+### `:first_successful`
+
+Similar to `:first_match`, but distinguishes between "flag not found" and other errors:
+
+- If a provider returns `FLAG_NOT_FOUND`, it is skipped (the provider doesn't own that flag).
+- If a provider returns any other error code (`PARSE_ERROR`, `TYPE_MISMATCH`, etc.), evaluation **stops** — the provider owns the flag but failed to resolve it.
+- If a provider raises an exception, evaluation **stops** with the error details.
+- If all providers return `FLAG_NOT_FOUND`, the default value is returned with an error.
+
+```ruby
+meta_provider = OpenFeature::MetaProvider.new(
+  providers: [provider_a, provider_b],
+  strategy: :first_successful
+)
+```
+
+### `:comparison`
+
+Evaluates **all** providers (no short-circuit) and compares their results:
+
+- If all successful results agree, returns the unanimous value with `"comparison_result" => "unanimous"` in `flag_metadata`.
+- If results disagree, returns the default value with a mismatch error listing each provider's value.
+- Providers that error or raise are excluded from comparison (not fatal unless all fail).
+
+```ruby
+meta_provider = OpenFeature::MetaProvider.new(
+  providers: [provider_a, provider_b],
+  strategy: :comparison
+)
+```
+
+### Custom Strategies
+
+You can implement a custom strategy by subclassing `OpenFeature::MetaProvider::Strategy::Base`:
+
+```ruby
+class MyCustomStrategy < OpenFeature::MetaProvider::Strategy::Base
+  def resolve(providers:, default_value:, &fetch_block)
+    # Your custom logic here
+    # Use add_provider_metadata(details, provider) to tag results
+    # Use default_error_result(default_value, error_message:) for errors
+  end
+end
+
+meta_provider = OpenFeature::MetaProvider.new(
+  providers: [provider_a, provider_b],
+  strategy: MyCustomStrategy.new
+)
+```
+
+## Tracking
+
+The MetaProvider delegates `track` calls to all wrapped providers that support it:
+
+```ruby
+client.track("purchase_completed", evaluation_context: context)
+```
 
 ## Development
 

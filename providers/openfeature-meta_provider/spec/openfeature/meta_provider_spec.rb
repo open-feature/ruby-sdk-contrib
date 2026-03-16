@@ -67,14 +67,14 @@ RSpec.describe OpenFeature::MetaProvider do
   subject(:meta_provider) { described_class.new(providers: [provider_one, provider_two]) }
   let(:provider) { meta_provider }
 
-  it_behaves_like "an OpenFeature provider"
-
   let(:provider_one) do
     OpenFeature::SDK::Provider::InMemoryProvider.new(
       {
         "first_match_boolean" => true,
         "first_match_string" => "first",
         "first_match_number" => 1,
+        "first_match_integer" => 10,
+        "first_match_float" => 1.5,
         "first_match_object" => {one: 1}
       }
     )
@@ -85,6 +85,8 @@ RSpec.describe OpenFeature::MetaProvider do
         "second_match_boolean" => false,
         "second_match_string" => "second",
         "second_match_number" => 2,
+        "second_match_integer" => 20,
+        "second_match_float" => 2.5,
         "second_match_object" => {two: 2}
       }
     )
@@ -94,6 +96,7 @@ RSpec.describe OpenFeature::MetaProvider do
     let(:provider) { meta_provider }
 
     it_behaves_like "an OpenFeature provider"
+    it_behaves_like "an OpenFeature provider with integer and float support"
   end
 
   describe "#metadata" do
@@ -109,6 +112,10 @@ RSpec.describe OpenFeature::MetaProvider do
 
       meta_provider.init
     end
+
+    it "accepts an optional evaluation_context" do
+      expect { meta_provider.init(nil) }.not_to raise_error
+    end
   end
 
   describe "#shutdown" do
@@ -117,6 +124,16 @@ RSpec.describe OpenFeature::MetaProvider do
       expect(provider_two).to receive(:shutdown)
 
       meta_provider.shutdown
+    end
+
+    it "guards against providers without shutdown" do
+      no_shutdown_provider = Object.new
+      def no_shutdown_provider.metadata
+        OpenFeature::SDK::Provider::ProviderMetadata.new(name: "NoShutdown")
+      end
+
+      mp = described_class.new(providers: [no_shutdown_provider])
+      expect { mp.shutdown }.not_to raise_error
     end
   end
 
@@ -132,7 +149,72 @@ RSpec.describe OpenFeature::MetaProvider do
     include_examples "meta resolution", "number", 3, 1, 2
   end
 
+  describe "#fetch_integer_value" do
+    include_examples "meta resolution", "integer", 0, 10, 20
+  end
+
+  describe "#fetch_float_value" do
+    include_examples "meta resolution", "float", 0.0, 1.5, 2.5
+  end
+
   describe "#fetch_object_value" do
     include_examples "meta resolution", "object", {}, {one: 1}, {two: 2}
+  end
+
+  describe "#track" do
+    it "delegates to all providers that respond to track" do
+      trackable_class = Class.new do
+        attr_reader :metadata, :tracked_calls
+
+        def initialize
+          @metadata = OpenFeature::SDK::Provider::ProviderMetadata.new(name: "Trackable")
+          @tracked_calls = []
+        end
+
+        def track(event_name, evaluation_context: nil, tracking_event_details: nil)
+          @tracked_calls << {event_name: event_name, evaluation_context: evaluation_context,
+                             tracking_event_details: tracking_event_details}
+        end
+
+        def init = nil
+
+        def shutdown = nil
+      end
+
+      trackable = trackable_class.new
+
+      mp = described_class.new(providers: [trackable, provider_one])
+      mp.track("event_name", evaluation_context: nil, tracking_event_details: nil)
+
+      expect(trackable.tracked_calls).to eq([{
+        event_name: "event_name",
+        evaluation_context: nil,
+        tracking_event_details: nil
+      }])
+    end
+  end
+
+  describe "strategy acceptance" do
+    it "accepts :first_match symbol" do
+      expect { described_class.new(providers: [provider_one], strategy: :first_match) }.not_to raise_error
+    end
+
+    it "accepts :first_successful symbol" do
+      expect { described_class.new(providers: [provider_one], strategy: :first_successful) }.not_to raise_error
+    end
+
+    it "accepts :comparison symbol" do
+      expect { described_class.new(providers: [provider_one], strategy: :comparison) }.not_to raise_error
+    end
+
+    it "accepts a Strategy::Base subclass instance" do
+      custom = OpenFeature::MetaProvider::Strategy::FirstMatch.new
+      expect { described_class.new(providers: [provider_one], strategy: custom) }.not_to raise_error
+    end
+
+    it "raises ArgumentError for invalid strategy symbol" do
+      expect { described_class.new(providers: [provider_one], strategy: :invalid) }
+        .to raise_error(ArgumentError, /Unknown strategy/)
+    end
   end
 end
