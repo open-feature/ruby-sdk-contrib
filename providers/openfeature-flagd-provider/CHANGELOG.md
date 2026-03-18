@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.7](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-flagd-provider/v0.1.6...openfeature-flagd-provider/v0.1.7) (2026-03-18)
+
+
+### 🧹 Chore
+
+* **deps:** update dependency ruby to v3.4.9 ([#107](https://github.com/open-feature/ruby-sdk-contrib/issues/107)) ([e0d4314](https://github.com/open-feature/ruby-sdk-contrib/commit/e0d4314f1183cc80e84ba04980fe2d01584bec9c))
+
 ## [0.1.6](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-flagd-provider/v0.1.5...openfeature-flagd-provider/v0.1.6) (2026-03-09)
 
 
