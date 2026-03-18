@@ -1,0 +1,25 @@
+name: Auto Merge Bot PRs
+
+on:
+  pull_request_target:
+    types: [opened]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+    if: >-
+      github.actor == 'renovate[bot]' ||
+      github.actor == 'openfeaturebot'
+    env:
+      PR_URL: ${{ github.event.pull_request.html_url }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Approve PR
+        run: gh pr review "$PR_URL" --approve --body "Auto-approved bot PR"
+
+      - name: Enable auto-merge
+        run: gh pr merge "$PR_URL" --squash --auto
