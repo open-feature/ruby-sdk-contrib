@@ -1,6 +1,6 @@
 {
   "providers/openfeature-flagd-provider": "0.1.6",
-  "providers/openfeature-meta_provider": "0.0.7",
+  "providers/openfeature-meta_provider": "0.0.8",
   "providers/openfeature-flipt-provider": "0.0.3",
   "providers/openfeature-go-feature-flag-provider": "0.1.12",
   "providers/openfeature-flagsmith-provider": "0.1.2",

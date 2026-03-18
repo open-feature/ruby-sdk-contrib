@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.0.8](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-meta_provider/v0.0.7...openfeature-meta_provider/v0.0.8) (2026-03-18)
+
+
+### ✨ New Features
+
+* **meta_provider:** add multi-provider evaluation strategies ([#102](https://github.com/open-feature/ruby-sdk-contrib/issues/102)) ([9cce3f4](https://github.com/open-feature/ruby-sdk-contrib/commit/9cce3f4a0b075e853ce2c1f9a07f3ddc4c58044f))
+
+
+### 🧹 Chore
+
+* **deps:** update dependency ruby to v3.4.9 ([#107](https://github.com/open-feature/ruby-sdk-contrib/issues/107)) ([e0d4314](https://github.com/open-feature/ruby-sdk-contrib/commit/e0d4314f1183cc80e84ba04980fe2d01584bec9c))
+
 ## [0.0.7](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-meta_provider/v0.0.6...openfeature-meta_provider/v0.0.7) (2026-03-09)
 
 
