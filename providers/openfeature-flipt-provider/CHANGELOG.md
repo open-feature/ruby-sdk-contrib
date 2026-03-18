@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.4](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-flipt-provider/v0.0.3...openfeature-flipt-provider/v0.0.4) (2026-03-18)
+
+
+### 🧹 Chore
+
+* **deps:** update dependency ruby to v3.4.9 ([#107](https://github.com/open-feature/ruby-sdk-contrib/issues/107)) ([e0d4314](https://github.com/open-feature/ruby-sdk-contrib/commit/e0d4314f1183cc80e84ba04980fe2d01584bec9c))
+
 ## [0.0.3](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-flipt-provider/v0.0.2...openfeature-flipt-provider/v0.0.3) (2026-03-09)
 
 
