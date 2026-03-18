@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    openfeature-otel-hook (0.1.1)
+    openfeature-otel-hook (0.1.2)
       logger
       openfeature-sdk (~> 0.6)
       opentelemetry-api (~> 1.0)

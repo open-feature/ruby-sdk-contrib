@@ -1,9 +1,9 @@
 {
-  "providers/openfeature-flagd-provider": "0.1.6",
-  "providers/openfeature-meta_provider": "0.0.7",
+  "providers/openfeature-flagd-provider": "0.1.7",
+  "providers/openfeature-meta_provider": "0.1.1",
   "providers/openfeature-flipt-provider": "0.0.4",
-  "providers/openfeature-go-feature-flag-provider": "0.1.12",
+  "providers/openfeature-go-feature-flag-provider": "0.1.13",
   "providers/openfeature-flagsmith-provider": "0.1.3",
   "providers/openfeature-ofrep-provider": "0.1.1",
-  "hooks/openfeature-otel-hook": "0.1.1"
+  "hooks/openfeature-otel-hook": "0.1.2"
 }
