@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-ofrep-provider/v0.1.1...openfeature-ofrep-provider/v0.1.2) (2026-03-18)
+
+
+### 🐛 Bug Fixes
+
+* **ofrep:** fix flaky rate limit test with date-based Retry-After ([#118](https://github.com/open-feature/ruby-sdk-contrib/issues/118)) ([0ecdf00](https://github.com/open-feature/ruby-sdk-contrib/commit/0ecdf003a9c1b3b2c5e4fcf853ccc3614355df94))
+
 ## [0.1.1](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-ofrep-provider-v0.1.0...openfeature-ofrep-provider/v0.1.1) (2026-03-09)
 
 
