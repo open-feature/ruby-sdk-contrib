@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.13](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-go-feature-flag-provider/v0.1.12...openfeature-go-feature-flag-provider/v0.1.13) (2026-03-18)
+
+
+### 🛠️ Build
+
+* **deps:** bump faraday from 2.13.4 to 2.14.1 in /providers/openfeature-go-feature-flag-provider ([#114](https://github.com/open-feature/ruby-sdk-contrib/issues/114)) ([1da8add](https://github.com/open-feature/ruby-sdk-contrib/commit/1da8add491402bfd3ee202b6054f5116b44e000c))
+
 ## [0.1.12](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-go-feature-flag-provider/v0.1.11...openfeature-go-feature-flag-provider/v0.1.12) (2026-03-09)
 
 
