@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency "logger"
-  spec.add_runtime_dependency "openfeature-sdk", "~> 0.4.0"
+  spec.add_runtime_dependency "openfeature-sdk", "~> 0.4"
   spec.add_runtime_dependency "optimizely-sdk", "~> 5.0"
 
   spec.add_development_dependency "rake", "~> 13.0"
