@@ -133,6 +133,30 @@ jobs:
     - name: Run tests
       run: bundle exec rspec
 
+  test_optimizely_provider:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./providers/openfeature-optimizely-provider
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby-version:
+          - "3.4"
+          - "4.0"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+          bundler-cache: true
+          working-directory: ./providers/openfeature-optimizely-provider
+      - name: Check linting
+        run: bundle exec rubocop
+      - name: Run tests
+        run: bundle exec rspec
+
   test_ofrep_provider:
     runs-on: ubuntu-latest
     defaults:
