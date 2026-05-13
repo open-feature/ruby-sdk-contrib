@@ -181,10 +181,12 @@ jobs:
 
   test_otel_hook:
     runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.ruby-version == 'head' }}
     defaults:
       run:
         working-directory: ./hooks/openfeature-otel-hook
     strategy:
+      fail-fast: false
       matrix:
         ruby-version:
           - "3.4"
