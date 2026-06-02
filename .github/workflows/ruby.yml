@@ -181,7 +181,6 @@ jobs:
 
   test_otel_hook:
     runs-on: ubuntu-latest
-    continue-on-error: ${{ matrix.ruby-version == 'head' }}
     defaults:
       run:
         working-directory: ./hooks/openfeature-otel-hook
@@ -197,6 +196,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby-version }}
+          bundler: latest
           bundler-cache: true
           working-directory: ./hooks/openfeature-otel-hook
       - name: Check linting
