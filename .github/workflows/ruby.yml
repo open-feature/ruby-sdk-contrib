@@ -185,6 +185,7 @@ jobs:
       run:
         working-directory: ./hooks/openfeature-otel-hook
     strategy:
+      fail-fast: false
       matrix:
         ruby-version:
           - "3.4"
@@ -195,6 +196,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby-version }}
+          bundler: latest
           bundler-cache: true
           working-directory: ./hooks/openfeature-otel-hook
       - name: Check linting
