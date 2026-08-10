@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description = "Traces and metrics hooks that emit OpenTelemetry signals for OpenFeature flag evaluations"
   spec.homepage = "https://github.com/open-feature/ruby-sdk-contrib/tree/main/hooks/openfeature-otel-hook"
   spec.license = "Apache-2.0"
-  spec.required_ruby_version = ">= 3.4"
+  spec.required_ruby_version = ">= 3.3"
 
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = spec.homepage
