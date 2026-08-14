@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description = "A vendor-neutral OFREP (OpenFeature Remote Evaluation Protocol) provider for the OpenFeature Ruby SDK"
   spec.homepage = "https://github.com/open-feature/ruby-sdk-contrib/tree/main/providers/openfeature-ofrep-provider"
   spec.license = "Apache-2.0"
-  spec.required_ruby_version = ">= 3.4"
+  spec.required_ruby_version = ">= 3.3"
 
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = "https://github.com/open-feature/ruby-sdk-contrib/tree/main/providers/openfeature-ofrep-provider"
