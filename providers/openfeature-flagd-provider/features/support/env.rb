@@ -59,5 +59,6 @@ module Testbed
   end
 end
 
-Testbed.start
+# register teardown before startup so a container is cleaned up even if start raises
 at_exit { Testbed.stop }
+Testbed.start

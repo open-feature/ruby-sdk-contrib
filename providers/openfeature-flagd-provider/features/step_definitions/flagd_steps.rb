@@ -1,13 +1,21 @@
 # frozen_string_literal: true
 
+require "json"
+
 module StepHelpers
   def cast(type, value)
     case type
     when "Boolean" then value == "true"
     when "Integer" then value.to_i
     when "Float" then value.to_f
+    when "Object" then JSON.parse(value)
     else value
     end
+  end
+
+  # flagd returns object values as a protobuf Struct; normalise to a Hash for comparison.
+  def unwrap(value)
+    value.respond_to?(:to_h) ? value.to_h : value
   end
 end
 World(StepHelpers)
@@ -49,13 +57,14 @@ When(/^the flag was evaluated with details$/) do
     when "String" then @client.fetch_string_value(flag_key: @key, default_value: @default, evaluation_context: ctx)
     when "Integer" then @client.fetch_integer_value(flag_key: @key, default_value: @default.to_i, evaluation_context: ctx)
     when "Float" then @client.fetch_float_value(flag_key: @key, default_value: @default.to_f, evaluation_context: ctx)
-    when "Object" then @client.fetch_object_value(flag_key: @key, default_value: {}, evaluation_context: ctx)
+    when "Object" then @client.fetch_object_value(flag_key: @key, default_value: cast("Object", @default), evaluation_context: ctx)
     else raise "unsupported flag type: #{@type}"
     end
 end
 
 Then(/^the resolved details value should be "([^"]*)"$/) do |value|
-  expect(@details[:value]).to eq(cast(@type, value))
+  actual = (@type == "Object") ? unwrap(@details[:value]) : @details[:value]
+  expect(actual).to eq(cast(@type, value))
 end
 
 Then(/^the reason should be "([^"]*)"$/) do |reason|
