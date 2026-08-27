@@ -1,3 +1,6 @@
 [submodule "providers/openfeature-flagd-provider/schemas"]
 	path = providers/openfeature-flagd-provider/schemas
 	url = https://github.com/open-feature/flagd-schemas
+[submodule "providers/openfeature-flagd-provider/test-harness"]
+	path = providers/openfeature-flagd-provider/test-harness
+	url = https://github.com/open-feature/flagd-testbed.git
