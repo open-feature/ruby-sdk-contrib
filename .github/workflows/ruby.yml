@@ -44,6 +44,32 @@ jobs:
       run: bundle exec rubocop
     - name: Run tests
       run: bundle exec rspec
+
+  test_flagd_provider_e2e:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./providers/openfeature-flagd-provider
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby-version:
+          - "3.3"
+          - "3.4"
+          - "4.0"
+    steps:
+    - uses: actions/checkout@v7
+      with:
+        submodules: recursive
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby-version }}
+        bundler-cache: true
+        working-directory: ./providers/openfeature-flagd-provider
+    - name: Run e2e (flagd-testbed / cucumber)
+      run: bundle exec rake e2e
+
   test_meta_provider:
     runs-on: ubuntu-latest
     defaults:

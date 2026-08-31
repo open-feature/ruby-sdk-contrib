@@ -2,7 +2,12 @@
 
 require "bundler/gem_tasks"
 require "rspec/core/rake_task"
+require "cucumber/rake/task"
 
 RSpec::Core::RakeTask.new(:spec)
+
+# End-to-end suite: runs the shared flagd-testbed gherkin features against a testbed container.
+# Requires Docker; not part of the default task.
+Cucumber::Rake::Task.new(:e2e)
 
 task default: :spec
