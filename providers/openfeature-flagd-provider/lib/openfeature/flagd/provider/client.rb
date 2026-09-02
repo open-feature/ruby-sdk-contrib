@@ -3,8 +3,8 @@
 require "grpc"
 require "google/protobuf/well_known_types"
 
-require_relative "flagd/evaluation/v2/evaluation_services_pb"
 require_relative "configuration"
+require "flagd/evaluation/v2/evaluation_services_pb"
 
 module OpenFeature
   module Flagd

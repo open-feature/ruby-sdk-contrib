@@ -31,12 +31,16 @@ jobs:
           - "4.0"
     steps:
     - uses: actions/checkout@v7
+      with:
+        submodules: recursive
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
         working-directory: ./providers/openfeature-flagd-provider
+    - name: Generate gRPC bindings
+      run: bundle exec rake generate
     - name: Launch flagd instance
       run: docker compose up -d flagd
       working-directory: ./providers/openfeature-flagd-provider/docker
