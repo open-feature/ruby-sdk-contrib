@@ -36,11 +36,18 @@ module Testbed
     # point the provider at the mapped RPC port for this run
     ENV["FLAGD_HOST"] = host
     ENV["FLAGD_PORT"] = mapped(RPC_PORT).to_s
+  rescue
+    stop
+    raise
   end
 
   def stop
     @container&.stop
     @container&.remove
+  rescue
+    nil
+  ensure
+    @container = nil
   end
 
   def host
