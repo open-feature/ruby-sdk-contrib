@@ -9,6 +9,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.3)
+    base64 (0.3.0)
     bigdecimal (4.0.1)
     builder (3.3.0)
     cucumber (9.2.1)
@@ -38,6 +39,11 @@ GEM
     cucumber-tag-expressions (6.1.2)
     diff-lcs (1.5.1)
     docile (1.4.1)
+    docker-api (2.4.0)
+      excon (>= 0.64.0)
+      multi_json
+    excon (1.7.1)
+      logger
     ffi (1.17.4)
     ffi (1.17.4-arm64-darwin)
     ffi (1.17.4-x86_64-linux-gnu)
@@ -67,6 +73,7 @@ GEM
     logger (1.7.0)
     memoist3 (1.0.0)
     mini_mime (1.1.5)
+    multi_json (1.21.1)
     multi_test (1.1.0)
     openfeature-sdk (0.3.1)
     parallel (1.27.0)
@@ -131,6 +138,8 @@ GEM
     sys-uname (1.5.1)
       ffi (~> 1.1)
       memoist3 (~> 1.0.0)
+    testcontainers-core (0.2.0)
+      docker-api (~> 2.2)
     unicode-display_width (3.2.0)
       unicode-emoji (~> 4.1)
     unicode-emoji (4.2.0)
@@ -142,6 +151,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  base64
   cucumber (~> 9.2)
   logger
   openfeature-flagd-provider!
@@ -150,6 +160,7 @@ DEPENDENCIES
   rubocop
   simplecov (~> 0.22)
   standard
+  testcontainers-core (~> 0.2)
 
 BUNDLED WITH
    2.3.25

@@ -3,46 +3,64 @@
 require "net/http"
 require "uri"
 require "rspec/expectations"
+require "testcontainers"
 require "open_feature/sdk"
 require "openfeature/flagd/provider"
 
 World(RSpec::Matchers)
 
-# Boots the shared flagd testbed container and drives its launchpad so flagd is serving the
-# standard flag set before the suite runs. Uses the Docker CLI directly (reliable on CI).
+# Boots the flagd testbed container via testcontainers and drives its launchpad; version pinned to test-harness/version.txt
 module Testbed
   VERSION = File.read(File.expand_path("../../test-harness/version.txt", __dir__)).strip
   IMAGE = "ghcr.io/open-feature/flagd-testbed:v#{VERSION}"
-  NAME = "flagd-e2e-ruby-#{Process.pid}"
+  RPC_PORT = 8013
+  HEALTH_PORT = 8014
+  LAUNCHPAD_PORT = 8080
 
   module_function
 
   def start
-    sh("docker rm -f #{NAME}")
-    raise "failed to start #{IMAGE} (is docker available?)" unless
-      sh("docker run -d --name #{NAME} -p 8013:8013 -p 8014:8014 -p 8080:8080 #{IMAGE}")
+    @container = Testcontainers::DockerContainer
+      .new(IMAGE)
+      .with_exposed_ports(RPC_PORT, HEALTH_PORT, LAUNCHPAD_PORT)
+      .with_wait_for(:tcp_port, LAUNCHPAD_PORT)
+    @container.start
 
-    # launchpad starts flagd with the default flag set
-    wait_for { http_code(:post, "http://localhost:8080/start") }
-    wait_for { http_code(:get, "http://localhost:8014/healthz") == "200" } ||
+    # start flagd via launchpad; retry since the mapped port opens before the app serves
+    launchpad = "http://#{host}:#{mapped(LAUNCHPAD_PORT)}/start"
+    wait_for { http_code(:post, launchpad) == "200" } ||
+      raise("launchpad did not start flagd in time")
+    wait_for { http_code(:get, "http://#{host}:#{mapped(HEALTH_PORT)}/healthz") == "200" } ||
       raise("flagd testbed did not become healthy in time")
+
+    # point the provider at the mapped RPC port for this run
+    ENV["FLAGD_HOST"] = host
+    ENV["FLAGD_PORT"] = mapped(RPC_PORT).to_s
+  rescue
+    stop
+    raise
   end
 
   def stop
-    sh("docker rm -f #{NAME}")
+    @container&.stop
+    @container&.remove
+  rescue
+    nil
+  ensure
+    @container = nil
   end
 
-  def sh(cmd)
-    system(cmd, out: File::NULL, err: File::NULL)
+  def host
+    @container.host
+  end
+
+  def mapped(port)
+    @container.mapped_port(port)
   end
 
   def http_code(verb, url)
     uri = URI(url)
-    res = if verb == :post
-      Net::HTTP.post(uri, "")
-    else
-      Net::HTTP.get_response(uri)
-    end
+    res = (verb == :post) ? Net::HTTP.post(uri, "") : Net::HTTP.get_response(uri)
     res.code
   rescue
     nil
