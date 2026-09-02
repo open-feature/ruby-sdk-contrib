@@ -9,9 +9,7 @@ require "openfeature/flagd/provider"
 
 World(RSpec::Matchers)
 
-# Boots the shared flagd testbed container via testcontainers and drives its launchpad so flagd is
-# serving the standard flag set before the suite runs. The image version is pinned to the
-# flagd-testbed submodule (test-harness/version.txt), matching the other flagd providers.
+# Boots the flagd testbed container via testcontainers and drives its launchpad; version pinned to test-harness/version.txt
 module Testbed
   VERSION = File.read(File.expand_path("../../test-harness/version.txt", __dir__)).strip
   IMAGE = "ghcr.io/open-feature/flagd-testbed:v#{VERSION}"
@@ -28,8 +26,10 @@ module Testbed
       .with_wait_for(:tcp_port, LAUNCHPAD_PORT)
     @container.start
 
-    # launchpad starts flagd with the default flag set
-    Net::HTTP.post(URI("http://#{host}:#{mapped(LAUNCHPAD_PORT)}/start"), "")
+    # start flagd via launchpad; retry since the mapped port opens before the app serves
+    launchpad = "http://#{host}:#{mapped(LAUNCHPAD_PORT)}/start"
+    wait_for { http_code(:post, launchpad) == "200" } ||
+      raise("launchpad did not start flagd in time")
     wait_for { http_code(:get, "http://#{host}:#{mapped(HEALTH_PORT)}/healthz") == "200" } ||
       raise("flagd testbed did not become healthy in time")
 
