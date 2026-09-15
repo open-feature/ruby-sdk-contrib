@@ -42,6 +42,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           ref: ${{ env.TAG }}
+          submodules: recursive
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -54,6 +55,7 @@ jobs:
           gem install bundler
           bundle config unset deployment
           bundle install
+          bundle exec rake generate
           mkdir -p $HOME/.gem
           touch $HOME/.gem/credentials
           chmod 0600 $HOME/.gem/credentials

@@ -4,10 +4,17 @@ require "bundler/gem_tasks"
 require "rspec/core/rake_task"
 require "cucumber/rake/task"
 
-RSpec::Core::RakeTask.new(:spec)
+desc "Generate gRPC bindings from the schemas submodule"
+task :generate do
+  sh "grpc_tools_ruby_protoc -I schemas/protobuf --ruby_out=lib --grpc_out=lib " \
+    "schemas/protobuf/flagd/evaluation/v2/evaluation.proto " \
+    "schemas/protobuf/flagd/sync/v1/sync.proto"
+end
 
-# End-to-end suite: runs the shared flagd-testbed gherkin features against a testbed container.
-# Requires Docker; not part of the default task.
-Cucumber::Rake::Task.new(:e2e)
+RSpec::Core::RakeTask.new(:spec)
+Cucumber::Rake::Task.new(:e2e) # requires Docker; not part of default
+task spec: :generate
+task e2e: :generate
+Rake::Task["build"].enhance([:generate]) # ship freshly generated bindings
 
 task default: :spec

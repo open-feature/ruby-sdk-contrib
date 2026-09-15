@@ -9,3 +9,6 @@
 
 # rspec failure tracking
 .rspec_status
+
+# generated grpc bindings (built via `rake generate`)
+/lib/flagd/
