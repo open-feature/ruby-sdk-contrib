@@ -23,8 +23,11 @@ Gem::Specification.new do |spec|
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
+  # Generated gRPC bindings are not committed, so include them explicitly (see Rakefile :generate).
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
-    `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
+    tracked = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
+    generated = Dir["lib/flagd/**/*.rb"]
+    (tracked + generated).uniq
   end
   spec.bindir = "exe"
   spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
@@ -34,6 +37,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "openfeature-sdk", "~> 0.3.1"
 
   spec.add_development_dependency "rake", "~> 13.0"
+  spec.add_development_dependency "grpc-tools", "~> 1.71"
   spec.add_development_dependency "rspec", "~> 3.12.0"
   spec.add_development_dependency "cucumber", "~> 9.2"
   spec.add_development_dependency "testcontainers-core", "~> 0.2"
