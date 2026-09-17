@@ -1,9 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended"
+    "github>open-feature/community-tooling"
   ],
-  "labels": ["dependencies"],
   "packageRules": [
     {
       "matchManagers": ["bundler"],
