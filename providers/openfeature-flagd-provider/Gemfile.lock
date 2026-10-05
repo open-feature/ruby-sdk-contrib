@@ -42,7 +42,7 @@ GEM
     docker-api (2.4.0)
       excon (>= 0.64.0)
       multi_json
-    excon (1.7.1)
+    excon (1.7.2)
       logger
     ffi (1.17.4)
     ffi (1.17.4-arm64-darwin)
@@ -76,7 +76,7 @@ GEM
     multi_json (1.21.2)
     multi_test (1.1.0)
     openfeature-sdk (0.3.1)
-    parallel (2.2.0)
+    parallel (2.3.0)
     parser (3.3.12.0)
       ast (~> 2.4.1)
       racc
@@ -84,7 +84,7 @@ GEM
     racc (1.8.1)
     rainbow (3.1.1)
     rake (13.4.2)
-    regexp_parser (2.13.0)
+    regexp_parser (2.13.1)
     rspec (3.12.0)
       rspec-core (~> 3.12.0)
       rspec-expectations (~> 3.12.0)
