@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   flagd:
-    image: ghcr.io/open-feature/flagd:v0.17.1@sha256:594f980857ce608e0d6c2b2848f6d0f26b5f5a7e8429aa379defb0eb69e23fd0
+    image: ghcr.io/open-feature/flagd:v0.18.0@sha256:b8f0be60f813aced2bd2057d547c4781f26bee2dcae70fdf3933020c5e3b4592
     ports:
       - '127.0.0.1:8013:8013'
     volumes:
