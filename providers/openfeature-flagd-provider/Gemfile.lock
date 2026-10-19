@@ -42,7 +42,7 @@ GEM
     docker-api (2.4.0)
       excon (>= 0.64.0)
       multi_json
-    excon (1.7.2)
+    excon (1.7.3)
       logger
     ffi (1.17.4)
     ffi (1.17.4-arm64-darwin)
@@ -67,7 +67,7 @@ GEM
     grpc (1.84.0-x86_64-linux-gnu)
       google-protobuf (>= 3.25, < 5.0)
       googleapis-common-protos-types (~> 1.0)
-    json (3.0.2)
+    json (3.1.0)
     language_server-protocol (3.17.0.6)
     lint_roller (1.1.0)
     logger (1.7.0)
