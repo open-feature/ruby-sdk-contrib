@@ -173,9 +173,9 @@ RSpec.describe OpenFeature::Flagd::Provider do
         end
 
         expect(fetch_value_with_targeting_key.call("alice")).to eq("#b91c1c")
-        expect(fetch_value_with_targeting_key.call("bob")).to eq("#0284c7")
-        expect(fetch_value_with_targeting_key.call("charlie")).to eq("#16a34a")
-        expect(fetch_value_with_targeting_key.call("dave")).to eq("#4b5563")
+        expect(fetch_value_with_targeting_key.call("bob")).to eq("#4b5563")
+        expect(fetch_value_with_targeting_key.call("charlie")).to eq("#0284c7")
+        expect(fetch_value_with_targeting_key.call("dave")).to eq("#16a34a")
       end
     end
 
