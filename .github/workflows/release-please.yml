@@ -44,7 +44,7 @@ jobs:
           ref: ${{ env.TAG }}
 
       - name: Set up Ruby
-        uses: ruby/setup-ruby@a89e929fdc35d88f2b8f20f26452c4adbeb9e371 # v1.330.0
+        uses: ruby/setup-ruby@824c0e29fdfc7d689c191c27acc969d2d04b7dd8 # v1.331.0
         with:
           ruby-version: 4.0.7
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
