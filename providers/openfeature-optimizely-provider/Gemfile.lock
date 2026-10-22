@@ -97,7 +97,6 @@ PLATFORMS
 
 DEPENDENCIES
   openfeature-optimizely-provider!
-  openfeature-sdk (< 0.7)
   rake (~> 13.0)
   rspec (~> 3.12.0)
   rubocop
