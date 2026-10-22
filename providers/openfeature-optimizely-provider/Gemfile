@@ -1,3 +1,6 @@
 source "https://rubygems.org"
 
 gemspec
+
+# openfeature-sdk 0.6+ requires Ruby >= 3.4; CI still tests 3.3 (#204)
+gem "openfeature-sdk", "< 0.6"
