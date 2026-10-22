@@ -1,1 +1,1 @@
-default: --require features --publish-quiet --tags "not @deprecated and not @no-default-variant and not @fractional-v1 and not @fractional-v3" test-harness/gherkin/evaluation.feature test-harness/gherkin/targeting.feature
+default: --require features --publish-quiet --tags "not @deprecated and not @fractional-v1 and not @fractional-v3" test-harness/gherkin/evaluation.feature test-harness/gherkin/targeting.feature
