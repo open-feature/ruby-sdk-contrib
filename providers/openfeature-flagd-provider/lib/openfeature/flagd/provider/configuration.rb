@@ -6,7 +6,7 @@ module OpenFeature
       # Represents the configuration object for the Flagd provider,
       # This class is not meant to be interacted with directly but instead through the
       # <tt>OpenFeature::Flagd::Provider.configure</tt> method
-      class Configuration < Struct.new(:host, :port, :tls, :unix_socket_path, :root_cert_path)
+      class Configuration < Struct.new(:host, :port, :tls, :unix_socket_path, :root_cert_path, keyword_init: true)
         ENVIRONMENT_CONFIG_NAME = {
           host: "FLAGD_HOST",
           port: "FLAGD_PORT",
