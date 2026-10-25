@@ -1,6 +1,7 @@
 {
   "separate-pull-requests": true,
   "release-type": "ruby",
+  "signoff": "OpenFeature Bot <109696520+openfeaturebot@users.noreply.github.com>",
   "packages": {
     "providers/openfeature-flagd-provider": {
       "package-name": "openfeature-flagd-provider",
@@ -35,16 +36,6 @@
     "providers/openfeature-go-feature-flag-provider": {
       "package-name": "openfeature-go-feature-flag-provider",
       "version-file": "lib/openfeature/go-feature-flag/version.rb",
-      "bump-minor-pre-major": true,
-      "bump-patch-for-minor-pre-major": true,
-      "versioning": "default",
-      "extra-files": [
-        "README.md"
-      ]
-    },
-    "providers/openfeature-ofrep-provider": {
-      "package-name": "openfeature-ofrep-provider",
-      "version-file": "lib/openfeature/ofrep/provider/version.rb",
       "bump-minor-pre-major": true,
       "bump-patch-for-minor-pre-major": true,
       "versioning": "default",
