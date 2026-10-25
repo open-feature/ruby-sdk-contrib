@@ -14,11 +14,7 @@ jobs:
       - uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5
         id: release
         with:
-          release-type: ruby
-          command: manifest
           token: ${{ secrets.RELEASE_PLEASE_ACTION_TOKEN }}
-          default-branch: main
-          signoff: "OpenFeature Bot <109696520+openfeaturebot@users.noreply.github.com>"
 
     outputs:
       all: ${{ toJSON(steps.release.outputs) }}
@@ -29,7 +25,11 @@ jobs:
     needs: release-please
     runs-on: ubuntu-latest
     if: ${{ fromJSON(needs.release-please.outputs.paths_released)[0] != null }}
+    permissions:
+      contents: read
+      id-token: write # RubyGems trusted publishing
     strategy:
+      fail-fast: false
       matrix:
         path: ${{ fromJSON(needs.release-please.outputs.paths_released) }}
     env:
@@ -49,16 +49,13 @@ jobs:
           ruby-version: 4.0.7
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
 
+      - name: Configure RubyGems credentials
+        uses: rubygems/configure-rubygems-credentials@dc5a8d8553e6ee01fc26761a49e99e733d17954a # v2.1.0
+
       - name: Release Gem
         run: |
           gem install bundler
           bundle config unset deployment
           bundle install
-          mkdir -p $HOME/.gem
-          touch $HOME/.gem/credentials
-          chmod 0600 $HOME/.gem/credentials
-          printf -- "---\n:rubygems_api_key: ${RUBY_GEM_API_TOKEN}\n" > $HOME/.gem/credentials
           gem build *.gemspec
           gem push *.gem
-        env:
-          RUBY_GEM_API_TOKEN: "${{secrets.RUBY_GEM_API_TOKEN}}"
