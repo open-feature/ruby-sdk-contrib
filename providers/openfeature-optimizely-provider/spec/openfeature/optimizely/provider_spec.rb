@@ -39,6 +39,7 @@ RSpec.describe OpenFeature::Optimizely::Provider do
     it "sets metadata with provider name" do
       expect(provider.metadata).to be_a(OpenFeature::SDK::Provider::ProviderMetadata)
       expect(provider.metadata.name).to eq("Optimizely Provider")
+      expect(Ractor.shareable?(provider.metadata)).to be(true)
     end
   end
 

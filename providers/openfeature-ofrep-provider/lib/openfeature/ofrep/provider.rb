@@ -13,7 +13,7 @@ module OpenFeature
       attr_reader :metadata
 
       def initialize(configuration:)
-        @metadata = SDK::Provider::ProviderMetadata.new(name: PROVIDER_NAME)
+        @metadata = SDK::Provider::ProviderMetadata.new(name: PROVIDER_NAME).freeze
         @configuration = configuration
         @client = Client.new(configuration: configuration)
       end

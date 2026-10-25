@@ -42,6 +42,7 @@ RSpec.describe OpenFeature::Flagsmith::Provider do
   describe "#metadata" do
     it "should return provider metadata" do
       expect(provider.metadata.name).to eq("Flagsmith Provider")
+      expect(Ractor.shareable?(provider.metadata)).to be(true)
     end
   end
 

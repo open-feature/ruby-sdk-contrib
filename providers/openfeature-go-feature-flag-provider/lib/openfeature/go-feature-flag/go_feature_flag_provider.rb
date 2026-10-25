@@ -12,7 +12,7 @@ module OpenFeature
       attr_reader :metadata, :options
 
       def initialize(options: Options.new)
-        @metadata = SDK::Provider::ProviderMetadata.new(name: PROVIDER_NAME)
+        @metadata = SDK::Provider::ProviderMetadata.new(name: PROVIDER_NAME).freeze
         @options = options
         @goff_api = build_client(options)
       end

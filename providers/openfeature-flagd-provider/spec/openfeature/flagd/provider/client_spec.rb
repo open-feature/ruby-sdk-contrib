@@ -12,6 +12,7 @@ RSpec.describe OpenFeature::Flagd::Provider::Client do
       expect(client).to respond_to(:metadata)
       expect(client.metadata).to respond_to(:name)
       expect(client.metadata.name).to eq("flagd Provider")
+      expect(Ractor.shareable?(client.metadata)).to be(true)
     end
   end
 

@@ -14,7 +14,7 @@ module OpenFeature
       attr_reader :metadata, :options
 
       def initialize(options:)
-        @metadata = SDK::Provider::ProviderMetadata.new(name: PROVIDER_NAME)
+        @metadata = SDK::Provider::ProviderMetadata.new(name: PROVIDER_NAME).freeze
         @options = options
         @flagsmith_client = nil
       end
