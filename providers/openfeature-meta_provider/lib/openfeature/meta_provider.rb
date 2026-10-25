@@ -28,7 +28,7 @@ module OpenFeature
     def metadata
       @metadata ||= SDK::Provider::ProviderMetadata.new(name: "MetaProvider: #{providers.map do |provider|
         provider.metadata.name
-      end.join(", ")}")
+      end.join(", ")}".freeze).freeze
     end
 
     def init(evaluation_context = nil)

@@ -37,7 +37,7 @@ module OpenFeature
         attr_reader :metadata
 
         def initialize(configuration: nil)
-          @metadata = OpenFeature::SDK::Provider::ProviderMetadata.new(name: PROVIDER_NAME)
+          @metadata = OpenFeature::SDK::Provider::ProviderMetadata.new(name: PROVIDER_NAME).freeze
           @grpc_client = grpc_client(configuration)
         end
 

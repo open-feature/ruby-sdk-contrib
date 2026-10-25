@@ -21,6 +21,7 @@ RSpec.describe OpenFeature::OFREP::Provider do
       expect(ofrep_provider).to respond_to(:metadata)
       expect(ofrep_provider.metadata).to respond_to(:name)
       expect(ofrep_provider.metadata.name).to eq("OFREP Provider")
+      expect(Ractor.shareable?(ofrep_provider.metadata)).to be(true)
     end
   end
 

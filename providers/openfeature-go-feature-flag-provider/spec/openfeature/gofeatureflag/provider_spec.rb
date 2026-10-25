@@ -21,6 +21,7 @@ RSpec.describe OpenFeature::GoFeatureFlag::Provider do
       expect(goff_provider).to respond_to(:metadata)
       expect(goff_provider.metadata).to respond_to(:name)
       expect(goff_provider.metadata.name).to eq("GO Feature Flag Provider")
+      expect(Ractor.shareable?(goff_provider.metadata)).to be(true)
     end
   end
 

@@ -102,6 +102,7 @@ RSpec.describe OpenFeature::MetaProvider do
   describe "#metadata" do
     it "combines all metadata names" do
       expect(meta_provider.metadata.name).to eq("MetaProvider: In-memory Provider, In-memory Provider")
+      expect(Ractor.shareable?(meta_provider.metadata)).to be(true)
     end
   end
 
