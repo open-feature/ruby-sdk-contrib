@@ -42,7 +42,7 @@ GEM
     docker-api (2.4.0)
       excon (>= 0.64.0)
       multi_json
-    excon (1.7.3)
+    excon (1.8.0)
       logger
     ffi (1.17.4)
     ffi (1.17.4-arm64-darwin)
@@ -56,15 +56,15 @@ GEM
     google-protobuf (4.36.2-x86_64-linux-gnu)
       bigdecimal
       rake (~> 13.3)
-    googleapis-common-protos-types (1.23.0)
+    googleapis-common-protos-types (1.24.0)
       google-protobuf (~> 4.26)
-    grpc (1.84.0)
+    grpc (1.85.0)
       google-protobuf (>= 3.25, < 5.0)
       googleapis-common-protos-types (~> 1.0)
-    grpc (1.84.0-arm64-darwin)
+    grpc (1.85.0-arm64-darwin)
       google-protobuf (>= 3.25, < 5.0)
       googleapis-common-protos-types (~> 1.0)
-    grpc (1.84.0-x86_64-linux-gnu)
+    grpc (1.85.0-x86_64-linux-gnu)
       google-protobuf (>= 3.25, < 5.0)
       googleapis-common-protos-types (~> 1.0)
     json (3.1.0)
@@ -77,7 +77,7 @@ GEM
     multi_test (1.1.0)
     openfeature-sdk (0.3.1)
     parallel (2.3.0)
-    parser (3.3.12.0)
+    parser (3.3.13.0)
       ast (~> 2.4.1)
       racc
     prism (1.9.0)
