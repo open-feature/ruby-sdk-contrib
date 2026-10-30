@@ -3,7 +3,7 @@
 require "grpc"
 require "google/protobuf/well_known_types"
 
-require_relative "flagd/evaluation/v2/evaluation_services_pb"
+require "flagd/evaluation/v2/evaluation_services_pb"
 require_relative "configuration"
 
 module OpenFeature
@@ -74,10 +74,14 @@ module OpenFeature
 
         def process_request(default_value, &block)
           response = block.call
+          # empty variant + DEFAULT/DISABLED means no variant resolved; use the code default
+          variant = response.variant
+          reason = response.reason
+          fallback = variant.to_s.empty? && (reason == "DEFAULT" || reason == "DISABLED")
           OpenFeature::SDK::Provider::ResolutionDetails.new(
-            value: response.has_value? ? response.value : default_value,
-            reason: response.reason,
-            variant: response.has_variant? ? response.variant : nil,
+            value: fallback ? default_value : response.value,
+            reason: reason,
+            variant: variant.to_s.empty? ? nil : variant,
             error_code: nil,
             error_message: nil,
             flag_metadata: nil
