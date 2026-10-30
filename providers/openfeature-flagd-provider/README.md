@@ -22,6 +22,9 @@ Or install it yourself as:
 gem install openfeature-flagd-provider
 ```
 
+> [!NOTE]
+> The gRPC bindings are generated at build time and not committed, so Bundler `git:` sources won't work. To use unreleased code, clone the repo, run `bundle exec rake generate` in this directory, and reference it with `path:`.
+
 ## Usage
 
 The `OpenFeature::Flagd` supports multiple configuration options that dictate how the SDK communicates with flagd.

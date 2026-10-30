@@ -71,6 +71,8 @@ git submodule update
 
 Protobuf bindings are generated (not committed) into `lib/flagd/` from the `schemas` submodule via `bundle exec rake generate`; `spec`, `e2e`, and `build` run it automatically. They are excluded from RuboCop.
 
+Build the flagd gem with `bundle exec rake build`, not `gem build`; `gem build` does not generate the bindings and silently produces a gem without them.
+
 ### Running Integration Tests
 
 The flagd provider requires a running flagd instance for integration tests:
