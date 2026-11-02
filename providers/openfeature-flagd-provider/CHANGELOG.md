@@ -1,5 +1,83 @@
 # Changelog
 
+## [0.2.0](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-flagd-provider/v0.1.7...openfeature-flagd-provider/v0.2.0) (2026-11-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* require Ruby >= 3.4 and test only on 3.4 and 4.0 ([#264](https://github.com/open-feature/ruby-sdk-contrib/issues/264))
+* **flagd:** migrate provider to evaluation.v2 RPCs ([#263](https://github.com/open-feature/ruby-sdk-contrib/issues/263))
+
+### 🐛 Bug Fixes
+
+* **flagd-provider:** update fractional targeting test expectations for flagd v0.15.4 ([#166](https://github.com/open-feature/ruby-sdk-contrib/issues/166)) ([f3ea5cb](https://github.com/open-feature/ruby-sdk-contrib/commit/f3ea5cbd372b11942109c1ed1577d8bb2f577711))
+
+
+### ✨ New Features
+
+* **flagd:** migrate provider to evaluation.v2 RPCs ([#263](https://github.com/open-feature/ruby-sdk-contrib/issues/263)) ([340482b](https://github.com/open-feature/ruby-sdk-contrib/commit/340482bbacefe9c3dd04fc848ebc3579bb1a9dcf))
+* support Ruby 3.3 (lower minimum from 3.4 to 3.3) ([#204](https://github.com/open-feature/ruby-sdk-contrib/issues/204)) ([295a34f](https://github.com/open-feature/ruby-sdk-contrib/commit/295a34f6d0bb4ff382362020a976ae0235e3ed53))
+
+
+### 🧹 Chore
+
+* add e2e test suite ([#211](https://github.com/open-feature/ruby-sdk-contrib/issues/211)) ([c36b372](https://github.com/open-feature/ruby-sdk-contrib/commit/c36b37234b756fd1111f7e042202ab0be6d1616e))
+* **deps:** lock file maintenance ([#234](https://github.com/open-feature/ruby-sdk-contrib/issues/234)) ([402c691](https://github.com/open-feature/ruby-sdk-contrib/commit/402c6913534128605eb2bd4cad870c31cff2d7c0))
+* **deps:** lock file maintenance ([#242](https://github.com/open-feature/ruby-sdk-contrib/issues/242)) ([788b51c](https://github.com/open-feature/ruby-sdk-contrib/commit/788b51c34300d0654fa837bfd15a86d56a7ac142))
+* **deps:** lock file maintenance ([#248](https://github.com/open-feature/ruby-sdk-contrib/issues/248)) ([24d69f1](https://github.com/open-feature/ruby-sdk-contrib/commit/24d69f1ce10a461a9e86971ffa3d579394894145))
+* **deps:** lock file maintenance ([#251](https://github.com/open-feature/ruby-sdk-contrib/issues/251)) ([a351265](https://github.com/open-feature/ruby-sdk-contrib/commit/a3512650043f83c8be7e224d9797c639ddc3a4f0))
+* **deps:** lock file maintenance ([#259](https://github.com/open-feature/ruby-sdk-contrib/issues/259)) ([ffe7663](https://github.com/open-feature/ruby-sdk-contrib/commit/ffe7663ffef575202abe21b94f196076a49b3ad1))
+* **deps:** lock file maintenance ([#277](https://github.com/open-feature/ruby-sdk-contrib/issues/277)) ([857f47f](https://github.com/open-feature/ruby-sdk-contrib/commit/857f47f679bfa29454dd899ef40040c08a69dd13))
+* **deps:** lock file maintenance ([#284](https://github.com/open-feature/ruby-sdk-contrib/issues/284)) ([73f1ac8](https://github.com/open-feature/ruby-sdk-contrib/commit/73f1ac8372d698d0c913383b4c923b41620bc3be))
+* **deps:** pin dependencies ([#221](https://github.com/open-feature/ruby-sdk-contrib/issues/221)) ([6c727e5](https://github.com/open-feature/ruby-sdk-contrib/commit/6c727e5a4f9fa47140d0057fbb567405c9bd2adb))
+* **deps:** update dependency ruby to v4 ([#124](https://github.com/open-feature/ruby-sdk-contrib/issues/124)) ([f6fdaf6](https://github.com/open-feature/ruby-sdk-contrib/commit/f6fdaf6c304f730960e379ec7042657916a7ae44))
+* **deps:** update dependency ruby to v4.0.3 ([#161](https://github.com/open-feature/ruby-sdk-contrib/issues/161)) ([538486e](https://github.com/open-feature/ruby-sdk-contrib/commit/538486e8b6a42979c35a251f12e94292f412f8a0))
+* **deps:** update dependency ruby to v4.0.4 ([#170](https://github.com/open-feature/ruby-sdk-contrib/issues/170)) ([0bde1a8](https://github.com/open-feature/ruby-sdk-contrib/commit/0bde1a85b475764deb22b56d34e1e333a809ec37))
+* **deps:** update dependency ruby to v4.0.5 ([#173](https://github.com/open-feature/ruby-sdk-contrib/issues/173)) ([d410cee](https://github.com/open-feature/ruby-sdk-contrib/commit/d410ceeed7c77ea2626d009c052ed53d2621e511))
+* **deps:** update dependency ruby to v4.0.6 ([#194](https://github.com/open-feature/ruby-sdk-contrib/issues/194)) ([c786a79](https://github.com/open-feature/ruby-sdk-contrib/commit/c786a7972924b7feee9321fd20062bb17ca2caea))
+* **deps:** update dependency ruby to v4.0.7 ([#219](https://github.com/open-feature/ruby-sdk-contrib/issues/219)) ([74e1acb](https://github.com/open-feature/ruby-sdk-contrib/commit/74e1acb0bab6d20d74107da95a6472daff0c0da4))
+* **deps:** update dependency ruby to v4.0.8 ([#272](https://github.com/open-feature/ruby-sdk-contrib/issues/272)) ([003d193](https://github.com/open-feature/ruby-sdk-contrib/commit/003d193e84e4c27639405d2cfe83680f0aa0c21b))
+* **deps:** update dependency ruby to v4.0.9 ([#276](https://github.com/open-feature/ruby-sdk-contrib/issues/276)) ([feaca24](https://github.com/open-feature/ruby-sdk-contrib/commit/feaca24ef5f68442132750137c73a49780eabc3a))
+* **deps:** update ghcr.io/open-feature/flagd docker tag to v0.14.3 ([#120](https://github.com/open-feature/ruby-sdk-contrib/issues/120)) ([eed7fbd](https://github.com/open-feature/ruby-sdk-contrib/commit/eed7fbd9c72c4947d99c896ad6c170b093061ff6))
+* **deps:** update ghcr.io/open-feature/flagd docker tag to v0.14.4 ([#137](https://github.com/open-feature/ruby-sdk-contrib/issues/137)) ([85d0c36](https://github.com/open-feature/ruby-sdk-contrib/commit/85d0c36f1b7c4fd891a443a8f8e22829cea15715))
+* **deps:** update ghcr.io/open-feature/flagd docker tag to v0.14.5 ([#143](https://github.com/open-feature/ruby-sdk-contrib/issues/143)) ([cc3f37a](https://github.com/open-feature/ruby-sdk-contrib/commit/cc3f37a39445e34ecb982aa077af83285514b444))
+* **deps:** update ghcr.io/open-feature/flagd docker tag to v0.15.0 ([#144](https://github.com/open-feature/ruby-sdk-contrib/issues/144)) ([c35eaf7](https://github.com/open-feature/ruby-sdk-contrib/commit/c35eaf7232ff220f713fbfadf82677307c6dad16))
+* **deps:** update ghcr.io/open-feature/flagd docker tag to v0.15.1 ([#147](https://github.com/open-feature/ruby-sdk-contrib/issues/147)) ([f52786c](https://github.com/open-feature/ruby-sdk-contrib/commit/f52786c794e01578f544c5803a5b20206f64a5bc))
+* **deps:** update ghcr.io/open-feature/flagd docker tag to v0.15.2 ([#153](https://github.com/open-feature/ruby-sdk-contrib/issues/153)) ([0d0a63f](https://github.com/open-feature/ruby-sdk-contrib/commit/0d0a63ff08275529c697e7a7a3f752eb104c6f15))
+* **deps:** update ghcr.io/open-feature/flagd docker tag to v0.15.3 ([#156](https://github.com/open-feature/ruby-sdk-contrib/issues/156)) ([3bab478](https://github.com/open-feature/ruby-sdk-contrib/commit/3bab478d09eac169c9dfae558cf1b43ea4a7eb0b))
+* **deps:** update ghcr.io/open-feature/flagd docker tag to v0.15.4 ([#157](https://github.com/open-feature/ruby-sdk-contrib/issues/157)) ([9525476](https://github.com/open-feature/ruby-sdk-contrib/commit/9525476382a5ea03d617e9713a1843679e296fdd))
+* **deps:** update ghcr.io/open-feature/flagd docker tag to v0.15.5 ([#168](https://github.com/open-feature/ruby-sdk-contrib/issues/168)) ([3fb40ce](https://github.com/open-feature/ruby-sdk-contrib/commit/3fb40ce1f97c6a5cefbf3ca89866ceb0d11287ea))
+* **deps:** update ghcr.io/open-feature/flagd docker tag to v0.15.7 ([#178](https://github.com/open-feature/ruby-sdk-contrib/issues/178)) ([b5aacb4](https://github.com/open-feature/ruby-sdk-contrib/commit/b5aacb46d7cafc2bd49c8850d2001a35b355c6d6))
+* **deps:** update ghcr.io/open-feature/flagd docker tag to v0.16.0 ([#181](https://github.com/open-feature/ruby-sdk-contrib/issues/181)) ([38973ba](https://github.com/open-feature/ruby-sdk-contrib/commit/38973ba94ce78bd2173c901ee821a0beb75a08f2))
+* **deps:** update ghcr.io/open-feature/flagd docker tag to v0.16.1 ([#197](https://github.com/open-feature/ruby-sdk-contrib/issues/197)) ([305e086](https://github.com/open-feature/ruby-sdk-contrib/commit/305e08657c526b117cdee62d5b871d284e4e786b))
+* **deps:** update ghcr.io/open-feature/flagd docker tag to v0.16.2 ([#207](https://github.com/open-feature/ruby-sdk-contrib/issues/207)) ([19af251](https://github.com/open-feature/ruby-sdk-contrib/commit/19af251c6049ba3f9be20862be69492a96801273))
+* **deps:** update ghcr.io/open-feature/flagd docker tag to v0.16.3 ([#217](https://github.com/open-feature/ruby-sdk-contrib/issues/217)) ([32d368f](https://github.com/open-feature/ruby-sdk-contrib/commit/32d368f358638835833eef0826aeacf3b94309f9))
+* **deps:** update ghcr.io/open-feature/flagd docker tag to v0.17.0 ([#239](https://github.com/open-feature/ruby-sdk-contrib/issues/239)) ([a9ebd8d](https://github.com/open-feature/ruby-sdk-contrib/commit/a9ebd8dae98bb48ca09358af5c9700a8095e59f5))
+* **deps:** update ghcr.io/open-feature/flagd docker tag to v0.17.1 ([#255](https://github.com/open-feature/ruby-sdk-contrib/issues/255)) ([dc8dc9b](https://github.com/open-feature/ruby-sdk-contrib/commit/dc8dc9b954f61fc1c14fb69db33724b7ddb99abf))
+* **deps:** update ghcr.io/open-feature/flagd docker tag to v0.18.0 ([#257](https://github.com/open-feature/ruby-sdk-contrib/issues/257)) ([19cc45a](https://github.com/open-feature/ruby-sdk-contrib/commit/19cc45aba35ca7a8f5a8cdf0140b9e886961b21e))
+* **deps:** update ghcr.io/open-feature/flagd docker tag to v0.18.1 ([#279](https://github.com/open-feature/ruby-sdk-contrib/issues/279)) ([cf58cdb](https://github.com/open-feature/ruby-sdk-contrib/commit/cf58cdb40f033ab62c8c866b4cbb05f2605d8507))
+* **deps:** update ghcr.io/open-feature/flagd docker tag to v0.18.2 ([#281](https://github.com/open-feature/ruby-sdk-contrib/issues/281)) ([47d39d3](https://github.com/open-feature/ruby-sdk-contrib/commit/47d39d330590d435fa3fbf5a735b857ae9ceff10))
+* **deps:** update providers/openfeature-flagd-provider/schemas digest to 3aecf63 ([#222](https://github.com/open-feature/ruby-sdk-contrib/issues/222)) ([80b7f16](https://github.com/open-feature/ruby-sdk-contrib/commit/80b7f16184f6c646568f043e50028cbeb473107c))
+* **deps:** update providers/openfeature-flagd-provider/test-harness digest to 05e34e7 ([#230](https://github.com/open-feature/ruby-sdk-contrib/issues/230)) ([9c4d1e7](https://github.com/open-feature/ruby-sdk-contrib/commit/9c4d1e7e345d709149a42f44fa374959b199e6f3))
+* **deps:** update providers/openfeature-flagd-provider/test-harness digest to 5022ee2 ([#228](https://github.com/open-feature/ruby-sdk-contrib/issues/228)) ([c856315](https://github.com/open-feature/ruby-sdk-contrib/commit/c8563159a140344c8a3a392a95431cb0c7f7bc9b))
+* **deps:** update providers/openfeature-flagd-provider/test-harness digest to b308c1b ([#223](https://github.com/open-feature/ruby-sdk-contrib/issues/223)) ([bab0033](https://github.com/open-feature/ruby-sdk-contrib/commit/bab0033f9782ea425788034ea234e9a2b569e260))
+* **flagd:** fix lint and fractional expectations for flagd v0.18.0 ([#262](https://github.com/open-feature/ruby-sdk-contrib/issues/262)) ([56a6500](https://github.com/open-feature/ruby-sdk-contrib/commit/56a650012e7b9f17cae35b096043c8159577ed9f))
+* require Ruby &gt;= 3.4 and test only on 3.4 and 4.0 ([#264](https://github.com/open-feature/ruby-sdk-contrib/issues/264)) ([89489ce](https://github.com/open-feature/ruby-sdk-contrib/commit/89489ceb37f3d9dbebc29982a265bb7aeecc6af7))
+* resolve open dependabot security alerts ([#180](https://github.com/open-feature/ruby-sdk-contrib/issues/180)) ([b96958f](https://github.com/open-feature/ruby-sdk-contrib/commit/b96958ffd4603caf8b64dcf432a729a44289afc0))
+* resolve open dependabot security alerts ([#203](https://github.com/open-feature/ruby-sdk-contrib/issues/203)) ([a1ab3a3](https://github.com/open-feature/ruby-sdk-contrib/commit/a1ab3a38f8221ea822792f098c5213a071c01d68))
+* use testcontainers for e2e tests ([#213](https://github.com/open-feature/ruby-sdk-contrib/issues/213)) ([1101d49](https://github.com/open-feature/ruby-sdk-contrib/commit/1101d4990d64c4905404a98aab8d3c3b602bf2d1))
+
+
+### 🚀 Performance
+
+* freeze provider metadata so hooks skip the per-evaluation copy ([#274](https://github.com/open-feature/ruby-sdk-contrib/issues/274)) ([7a13862](https://github.com/open-feature/ruby-sdk-contrib/commit/7a138628c2b09e32631786669cfa3255b0ec4c40))
+
+
+### 🛠️ Build
+
+* **deps-dev:** bump json from 2.19.0 to 2.19.2 in /providers/openfeature-flagd-provider ([#139](https://github.com/open-feature/ruby-sdk-contrib/issues/139)) ([fdab199](https://github.com/open-feature/ruby-sdk-contrib/commit/fdab199870ffa27e96002e9c3239057223af2944))
+* **flagd:** generate grpc bindings at build time ([#215](https://github.com/open-feature/ruby-sdk-contrib/issues/215)) ([afd0d8c](https://github.com/open-feature/ruby-sdk-contrib/commit/afd0d8c35ad374d161cd9d342c8c156f7a033a37))
+
 ## [0.1.7](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-flagd-provider/v0.1.6...openfeature-flagd-provider/v0.1.7) (2026-03-18)
 
 
