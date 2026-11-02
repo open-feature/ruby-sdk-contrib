@@ -1,5 +1,38 @@
 # Changelog
 
+## [0.1.2](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-meta_provider/v0.1.1...openfeature-meta_provider/v0.1.2) (2026-11-02)
+
+
+### 🧹 Chore
+
+* **deps:** lock file maintenance ([#234](https://github.com/open-feature/ruby-sdk-contrib/issues/234)) ([402c691](https://github.com/open-feature/ruby-sdk-contrib/commit/402c6913534128605eb2bd4cad870c31cff2d7c0))
+* **deps:** lock file maintenance ([#242](https://github.com/open-feature/ruby-sdk-contrib/issues/242)) ([788b51c](https://github.com/open-feature/ruby-sdk-contrib/commit/788b51c34300d0654fa837bfd15a86d56a7ac142))
+* **deps:** lock file maintenance ([#248](https://github.com/open-feature/ruby-sdk-contrib/issues/248)) ([24d69f1](https://github.com/open-feature/ruby-sdk-contrib/commit/24d69f1ce10a461a9e86971ffa3d579394894145))
+* **deps:** lock file maintenance ([#251](https://github.com/open-feature/ruby-sdk-contrib/issues/251)) ([a351265](https://github.com/open-feature/ruby-sdk-contrib/commit/a3512650043f83c8be7e224d9797c639ddc3a4f0))
+* **deps:** lock file maintenance ([#259](https://github.com/open-feature/ruby-sdk-contrib/issues/259)) ([ffe7663](https://github.com/open-feature/ruby-sdk-contrib/commit/ffe7663ffef575202abe21b94f196076a49b3ad1))
+* **deps:** lock file maintenance ([#277](https://github.com/open-feature/ruby-sdk-contrib/issues/277)) ([857f47f](https://github.com/open-feature/ruby-sdk-contrib/commit/857f47f679bfa29454dd899ef40040c08a69dd13))
+* **deps:** lock file maintenance ([#284](https://github.com/open-feature/ruby-sdk-contrib/issues/284)) ([73f1ac8](https://github.com/open-feature/ruby-sdk-contrib/commit/73f1ac8372d698d0c913383b4c923b41620bc3be))
+* **deps:** update dependency ruby to v4 ([#124](https://github.com/open-feature/ruby-sdk-contrib/issues/124)) ([f6fdaf6](https://github.com/open-feature/ruby-sdk-contrib/commit/f6fdaf6c304f730960e379ec7042657916a7ae44))
+* **deps:** update dependency ruby to v4.0.3 ([#161](https://github.com/open-feature/ruby-sdk-contrib/issues/161)) ([538486e](https://github.com/open-feature/ruby-sdk-contrib/commit/538486e8b6a42979c35a251f12e94292f412f8a0))
+* **deps:** update dependency ruby to v4.0.4 ([#170](https://github.com/open-feature/ruby-sdk-contrib/issues/170)) ([0bde1a8](https://github.com/open-feature/ruby-sdk-contrib/commit/0bde1a85b475764deb22b56d34e1e333a809ec37))
+* **deps:** update dependency ruby to v4.0.5 ([#173](https://github.com/open-feature/ruby-sdk-contrib/issues/173)) ([d410cee](https://github.com/open-feature/ruby-sdk-contrib/commit/d410ceeed7c77ea2626d009c052ed53d2621e511))
+* **deps:** update dependency ruby to v4.0.6 ([#194](https://github.com/open-feature/ruby-sdk-contrib/issues/194)) ([c786a79](https://github.com/open-feature/ruby-sdk-contrib/commit/c786a7972924b7feee9321fd20062bb17ca2caea))
+* **deps:** update dependency ruby to v4.0.7 ([#219](https://github.com/open-feature/ruby-sdk-contrib/issues/219)) ([74e1acb](https://github.com/open-feature/ruby-sdk-contrib/commit/74e1acb0bab6d20d74107da95a6472daff0c0da4))
+* **deps:** update dependency ruby to v4.0.8 ([#272](https://github.com/open-feature/ruby-sdk-contrib/issues/272)) ([003d193](https://github.com/open-feature/ruby-sdk-contrib/commit/003d193e84e4c27639405d2cfe83680f0aa0c21b))
+* **deps:** update dependency ruby to v4.0.9 ([#276](https://github.com/open-feature/ruby-sdk-contrib/issues/276)) ([feaca24](https://github.com/open-feature/ruby-sdk-contrib/commit/feaca24ef5f68442132750137c73a49780eabc3a))
+* resolve open dependabot security alerts ([#180](https://github.com/open-feature/ruby-sdk-contrib/issues/180)) ([b96958f](https://github.com/open-feature/ruby-sdk-contrib/commit/b96958ffd4603caf8b64dcf432a729a44289afc0))
+* resolve open dependabot security alerts ([#203](https://github.com/open-feature/ruby-sdk-contrib/issues/203)) ([a1ab3a3](https://github.com/open-feature/ruby-sdk-contrib/commit/a1ab3a38f8221ea822792f098c5213a071c01d68))
+
+
+### 🚀 Performance
+
+* freeze provider metadata so hooks skip the per-evaluation copy ([#274](https://github.com/open-feature/ruby-sdk-contrib/issues/274)) ([7a13862](https://github.com/open-feature/ruby-sdk-contrib/commit/7a138628c2b09e32631786669cfa3255b0ec4c40))
+
+
+### 🛠️ Build
+
+* **flagd:** generate grpc bindings at build time ([#215](https://github.com/open-feature/ruby-sdk-contrib/issues/215)) ([afd0d8c](https://github.com/open-feature/ruby-sdk-contrib/commit/afd0d8c35ad374d161cd9d342c8c156f7a033a37))
+
 ## [0.1.1](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-meta_provider-v0.1.0...openfeature-meta_provider/v0.1.1) (2026-03-18)
 
 
