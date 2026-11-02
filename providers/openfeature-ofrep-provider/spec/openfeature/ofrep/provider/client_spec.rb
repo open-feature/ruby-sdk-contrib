@@ -47,8 +47,8 @@ RSpec.describe OpenFeature::OFREP::Client do
         .to_return(status: 400, body:
           {
             key: "my_flag",
-            error_code: "TYPE_MISMATCH",
-            error_details: "expected type: boolean, got: string"
+            errorCode: "TYPE_MISMATCH",
+            errorDetails: "expected type: boolean, got: string"
           }.to_json)
 
       got = client.evaluate(flag_key: "my_flag", evaluation_context: default_evaluation_context)
@@ -127,7 +127,7 @@ RSpec.describe OpenFeature::OFREP::Client do
       stub_request(:post, "http://localhost:8080/ofrep/v1/evaluate/flags/my_flag")
         .to_return(status: 400, body:
           {
-            error_code: "TYPE_MISMATCH"
+            errorCode: "TYPE_MISMATCH"
           }.to_json)
 
       expect {

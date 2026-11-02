@@ -99,7 +99,7 @@ module OpenFeature
       end
 
       def parse_error_response(response)
-        required_keys = %w[key error_code]
+        required_keys = %w[key errorCode]
         parsed = JSON.parse(response.body)
 
         missing_keys = required_keys - parsed.keys
@@ -112,8 +112,8 @@ module OpenFeature
           key: parsed["key"],
           reason: SDK::Provider::Reason::ERROR,
           variant: nil,
-          error_code: error_code_mapper(parsed["error_code"]),
-          error_details: parsed["error_details"],
+          error_code: error_code_mapper(parsed["errorCode"]),
+          error_details: parsed["errorDetails"],
           metadata: nil
         )
       end
