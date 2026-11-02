@@ -25,6 +25,7 @@ jobs:
     needs: release-please
     runs-on: ubuntu-latest
     if: ${{ fromJSON(needs.release-please.outputs.paths_released)[0] != null }}
+    environment: publish
     permissions:
       contents: read
       id-token: write # RubyGems trusted publishing
