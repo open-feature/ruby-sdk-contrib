@@ -6,6 +6,7 @@ require "cucumber/rake/task"
 
 desc "Generate gRPC bindings from the schemas submodule"
 task :generate do
+  sh "git submodule update --init schemas" unless File.exist?("schemas/protobuf")
   sh "grpc_tools_ruby_protoc -I schemas/protobuf --ruby_out=lib --grpc_out=lib " \
     "schemas/protobuf/flagd/evaluation/v2/evaluation.proto " \
     "schemas/protobuf/flagd/sync/v1/sync.proto"

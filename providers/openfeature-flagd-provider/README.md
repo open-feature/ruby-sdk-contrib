@@ -23,7 +23,7 @@ gem install openfeature-flagd-provider
 ```
 
 > [!NOTE]
-> The gRPC bindings are generated at build time and not committed, so Bundler `git:` sources won't work. To use unreleased code, clone the repo, run `bundle exec rake generate` in this directory, and reference it with `path:`.
+> The gRPC bindings are generated at build time and not committed, so Bundler `git:` sources won't work. To use unreleased code, clone the repo, run `bundle exec rake generate` in this directory (it initializes the `schemas` submodule if needed), and reference it with `path:`.
 
 ## Usage
 
