@@ -7,7 +7,7 @@ inherit_mode:
 AllCops:
   Exclude:
   # gRPC generated files
-    - 'lib/openfeature/flagd/provider/flagd/**/*.rb'
+    - 'lib/flagd/**/*.rb'
 
 # keyword_init: true is not redundant: it maps a positional Hash to fields and rejects positional args
 Style/RedundantStructKeywordInit:

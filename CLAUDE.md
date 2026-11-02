@@ -69,7 +69,7 @@ Provider code lives under `lib/openfeature/<provider_name>/` with a `provider.rb
 
 - Commit messages must follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) — this is enforced by a PR title linter and drives Release Please automation
 - Tests use RSpec with `--format documentation`
-- The flagd provider uses gRPC with protobuf-generated code in `lib/openfeature/flagd/provider/flagd/` (excluded from RuboCop)
+- The flagd provider uses gRPC with protobuf code generated (not committed) into `lib/flagd/` via `bundle exec rake generate` (excluded from RuboCop)
 - The `schemas/` submodule in the flagd provider points to [flagd-schemas](https://github.com/open-feature/flagd-schemas)
 
 ## CI

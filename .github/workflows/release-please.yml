@@ -42,6 +42,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ env.TAG }}
+          submodules: recursive
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@7f797815d8adceb1c412e7abefdd1ab4abc47a5f # v1.335.0
@@ -57,5 +58,7 @@ jobs:
           gem install bundler
           bundle config unset deployment
           bundle install
+          # flagd grpc bindings are generated, not committed
+          if bundle exec rake -T generate | grep -q '^rake generate'; then bundle exec rake generate; fi
           gem build *.gemspec
           gem push *.gem

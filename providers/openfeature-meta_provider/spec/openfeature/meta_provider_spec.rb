@@ -108,6 +108,8 @@ RSpec.describe OpenFeature::MetaProvider do
 
   describe "#init" do
     it "calls all providers' inits" do
+      # InMemoryProvider has no init since openfeature-sdk 0.8
+      [provider_one, provider_two].each { |p| p.define_singleton_method(:init) { |_ctx = nil| } }
       expect(provider_one).to receive(:init)
       expect(provider_two).to receive(:init)
 
