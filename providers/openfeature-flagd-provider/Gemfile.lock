@@ -42,7 +42,7 @@ GEM
     docker-api (2.5.0)
       base64
       excon (>= 0.64.0)
-    excon (1.10.0)
+    excon (1.11.0)
     ffi (1.17.4)
     ffi (1.17.4-arm64-darwin)
     ffi (1.17.4-x86_64-linux-gnu)
@@ -55,7 +55,7 @@ GEM
     google-protobuf (4.36.2-x86_64-linux-gnu)
       bigdecimal
       rake (~> 13.3)
-    googleapis-common-protos-types (1.24.0)
+    googleapis-common-protos-types (1.25.0)
       google-protobuf (~> 4.26)
     grpc (1.85.0)
       google-protobuf (>= 3.25, < 5.0)
