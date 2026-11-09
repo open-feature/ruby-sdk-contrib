@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-flagd-provider/v0.2.0...openfeature-flagd-provider/v0.2.1) (2026-11-09)
+
+
+### 🧹 Chore
+
+* **deps:** lock file maintenance ([#296](https://github.com/open-feature/ruby-sdk-contrib/issues/296)) ([1bb9318](https://github.com/open-feature/ruby-sdk-contrib/commit/1bb9318c57711d56913e6ce8a78ed3e83fe67a15))
+
 ## [0.2.0](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-flagd-provider/v0.1.7...openfeature-flagd-provider/v0.2.0) (2026-11-02)
 
 
