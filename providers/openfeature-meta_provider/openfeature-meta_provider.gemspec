@@ -32,7 +32,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "openfeature-sdk", ">= 0.4.0", "< 1.0"
 
-  spec.add_development_dependency "debug", "~> 1.9.2"
+  spec.add_development_dependency "debug", "~> 1.11.0"
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rspec", "~> 3.12"
   spec.add_development_dependency "simplecov", "~> 0.22"
