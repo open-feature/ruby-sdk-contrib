@@ -32,7 +32,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "ffi", "~> 1.17"
   spec.add_dependency "openfeature-sdk", "~> 0.4.0"
-  spec.add_dependency "flipt_client", "~> 0.10.0"
+  spec.add_dependency "flipt_client", "~> 0.17.0"
 
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rspec", "~> 3.12.0"
