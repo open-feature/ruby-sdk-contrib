@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-flipt-provider/v0.1.0...openfeature-flipt-provider/v0.1.1) (2026-11-11)
+
+
+### 🧹 Chore
+
+* **deps:** update dependency flipt_client to "~&gt; 0.17.0" ([#303](https://github.com/open-feature/ruby-sdk-contrib/issues/303)) ([5d71333](https://github.com/open-feature/ruby-sdk-contrib/commit/5d7133329494148799d78973632e7f37a17c1eb0))
+
 ## [0.1.0](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-flipt-provider/v0.0.4...openfeature-flipt-provider/v0.1.0) (2026-11-02)
 
 
