@@ -35,7 +35,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "flipt_client", "~> 0.17.0"
 
   spec.add_development_dependency "rake", "~> 13.0"
-  spec.add_development_dependency "rspec", "~> 3.12.0"
+  spec.add_development_dependency "rspec", "~> 3.13.0"
   spec.add_development_dependency "standard", ">= 1.35.1"
   spec.add_development_dependency "rubocop"
   spec.add_development_dependency "simplecov", "~> 0.22"

@@ -38,7 +38,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "grpc-tools", "~> 1.71"
-  spec.add_development_dependency "rspec", "~> 3.12.0"
+  spec.add_development_dependency "rspec", "~> 3.13.0"
   spec.add_development_dependency "cucumber", "~> 9.2"
   spec.add_development_dependency "testcontainers-core", "~> 0.2"
   spec.add_development_dependency "base64"
