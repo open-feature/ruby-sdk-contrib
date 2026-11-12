@@ -26,7 +26,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   # Runtime dependencies
-  spec.add_runtime_dependency "openfeature-sdk", "~> 0.3.1"
+  spec.add_runtime_dependency "openfeature-sdk", "~> 0.8.0"
   spec.add_runtime_dependency "flagsmith", "~> 4.3"
 
   # Development dependencies

@@ -3,7 +3,7 @@ PATH
   specs:
     openfeature-ofrep-provider (0.1.2)
       faraday-net_http_persistent (~> 2.3)
-      openfeature-sdk (~> 0.3.1)
+      openfeature-sdk (~> 0.8.0)
 
 GEM
   remote: https://rubygems.org/
@@ -39,7 +39,7 @@ GEM
       connection_pool (>= 2.2.4, < 4)
     net-protocol (0.4.0)
       timeout
-    openfeature-sdk (0.3.1)
+    openfeature-sdk (0.8.1)
     parallel (2.3.0)
     parser (3.3.13.0)
       ast (~> 2.4.1)
@@ -145,7 +145,7 @@ CHECKSUMS
   net-http-persistent (4.0.8) sha256=ef3de8319d691537b329053fae3a33195f8b070bbbfae8bf1a58c796081960e6
   net-protocol (0.4.0) sha256=f9f90c8c6f64794a45160bf422177a336db12809de3beeeaa26b88fcd2e8c853
   openfeature-ofrep-provider (0.1.2)
-  openfeature-sdk (0.3.1) sha256=17a930f52c66ee76a5d20f5bb68cfadbb8d86a4db5b1f99caab8c60ab577f9e5
+  openfeature-sdk (0.8.1) sha256=848384105923a686e93c154a445c60df5c540a99926a5c75c6d9c41201e24cda
   parallel (2.3.0) sha256=f75a3e904101ce6a1ccb6b8dc800cbafd42166d83330192438dcf29395167a6f
   parser (3.3.13.0) sha256=e02f9b63c2fe05b0c68f692ba4df89b3cb113b663964f75d988fbebfd6c3deca
   prism (1.9.0) sha256=7b530c6a9f92c24300014919c9dcbc055bf4cdf51ec30aed099b06cd6674ef85
