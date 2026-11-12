@@ -31,7 +31,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "optimizely-sdk", "~> 5.0"
 
   spec.add_development_dependency "rake", "~> 13.0"
-  spec.add_development_dependency "rspec", "~> 3.12.0"
+  spec.add_development_dependency "rspec", "~> 3.13.0"
   spec.add_development_dependency "standard", ">= 1.35.1"
   spec.add_development_dependency "rubocop"
   spec.add_development_dependency "standard-performance"
