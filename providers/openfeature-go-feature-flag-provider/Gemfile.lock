@@ -3,7 +3,7 @@ PATH
   specs:
     openfeature-go-feature-flag-provider (0.2.0)
       faraday-net_http_persistent (~> 2.3)
-      openfeature-sdk (~> 0.3.1)
+      openfeature-sdk (~> 0.8.0)
 
 GEM
   remote: https://rubygems.org/
@@ -38,7 +38,7 @@ GEM
       connection_pool (>= 2.2.4, < 4)
     net-protocol (0.4.0)
       timeout
-    openfeature-sdk (0.3.1)
+    openfeature-sdk (0.8.1)
     parallel (2.3.0)
     parser (3.3.13.0)
       ast (~> 2.4.1)
