@@ -74,10 +74,10 @@ module OpenFeature
 
         def process_request(default_value, &block)
           response = block.call
-          # empty variant + DEFAULT/DISABLED means no variant resolved; use the code default
+          # An empty variant means flagd resolved nothing, whatever the reason (e.g. `resolve` can send OFF_BY_POLICY)
           variant = response.variant
           reason = response.reason
-          fallback = variant.to_s.empty? && (reason == "DEFAULT" || reason == "DISABLED")
+          fallback = variant.to_s.empty?
           # SDK >= 0.8 rejects non-Hash object values, so unwrap protobuf Structs
           value = response.value
           value = value.to_h if value.is_a?(Google::Protobuf::Struct)
