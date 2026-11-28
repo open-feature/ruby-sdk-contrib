@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.1.4](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-otel-hook/v0.1.3...openfeature-otel-hook/v0.1.4) (2026-11-28)
+
+
+### 🧹 Chore
+
+* **deps:** lock file maintenance ([#296](https://github.com/open-feature/ruby-sdk-contrib/issues/296)) ([1bb9318](https://github.com/open-feature/ruby-sdk-contrib/commit/1bb9318c57711d56913e6ce8a78ed3e83fe67a15))
+* **deps:** update dependency ruby to v4.0.10 ([#320](https://github.com/open-feature/ruby-sdk-contrib/issues/320)) ([3ba6f84](https://github.com/open-feature/ruby-sdk-contrib/commit/3ba6f84b07a0eaa56fadc9fae95dd2fd0dd12a3b))
+* **deps:** update dependency standard to v1.57.0 ([#310](https://github.com/open-feature/ruby-sdk-contrib/issues/310)) ([2b619f1](https://github.com/open-feature/ruby-sdk-contrib/commit/2b619f1bf6c576668fb5ed7825a39e6003d41748))
+* **deps:** update dependency standard to v1.57.0 ([#312](https://github.com/open-feature/ruby-sdk-contrib/issues/312)) ([6f5f98b](https://github.com/open-feature/ruby-sdk-contrib/commit/6f5f98bf12f64a8229ad05fbc4cd6cc1da325a2c))
+* **deps:** update dependency standard to v1.57.0 ([#314](https://github.com/open-feature/ruby-sdk-contrib/issues/314)) ([283df2e](https://github.com/open-feature/ruby-sdk-contrib/commit/283df2e18ff2bf936a5984e54aff5a528da12104))
+* **deps:** update dependency standard to v1.57.0 ([#316](https://github.com/open-feature/ruby-sdk-contrib/issues/316)) ([678c54a](https://github.com/open-feature/ruby-sdk-contrib/commit/678c54af32722b6dfbbaa1052cbd991dc260d903))
+* **deps:** update dependency standard to v1.57.0 ([#319](https://github.com/open-feature/ruby-sdk-contrib/issues/319)) ([b50c9e7](https://github.com/open-feature/ruby-sdk-contrib/commit/b50c9e7b4700cb72943a1bc78e814ab963a42534))
+* **deps:** update dependency standard to v1.57.0 ([#330](https://github.com/open-feature/ruby-sdk-contrib/issues/330)) ([566dd4d](https://github.com/open-feature/ruby-sdk-contrib/commit/566dd4d969bf639831faaa9878a3f0baa0a535c0))
+* **deps:** update dependency standard to v1.57.0 ([#333](https://github.com/open-feature/ruby-sdk-contrib/issues/333)) ([bafb6b7](https://github.com/open-feature/ruby-sdk-contrib/commit/bafb6b71c377dd17f9bb4866e6780641413f2dc2))
+* **deps:** update dependency standard to v1.57.0 ([#335](https://github.com/open-feature/ruby-sdk-contrib/issues/335)) ([dfc60ab](https://github.com/open-feature/ruby-sdk-contrib/commit/dfc60abfbdc0fcd30ee2429d7607afb44840042e))
+
 ## [0.1.3](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-otel-hook/v0.1.2...openfeature-otel-hook/v0.1.3) (2026-11-02)
 
 
