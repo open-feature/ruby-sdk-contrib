@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.2.1](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-go-feature-flag-provider/v0.2.0...openfeature-go-feature-flag-provider/v0.2.1) (2026-11-28)
+
+
+### 🐛 Bug Fixes
+
+* repair failing CI on main (flagd, go-feature-flag, ofrep) ([#342](https://github.com/open-feature/ruby-sdk-contrib/issues/342)) ([87d3e42](https://github.com/open-feature/ruby-sdk-contrib/commit/87d3e420cf67674d7808499fb0c17ec1967c84ea))
+
+
+### 🧹 Chore
+
+* **deps:** update dependency openfeature-sdk to "~&gt; 0.8.0" ([#305](https://github.com/open-feature/ruby-sdk-contrib/issues/305)) ([df4567b](https://github.com/open-feature/ruby-sdk-contrib/commit/df4567b1c429824f4a53d35ec919417c150dbb3d))
+* **deps:** update dependency rspec to "~&gt; 3.13.0" ([#306](https://github.com/open-feature/ruby-sdk-contrib/issues/306)) ([53ac7a3](https://github.com/open-feature/ruby-sdk-contrib/commit/53ac7a3ab73f62312646aa760e626edce8c7e4ff))
+
 ## [0.2.0](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-go-feature-flag-provider/v0.1.13...openfeature-go-feature-flag-provider/v0.2.0) (2026-11-11)
 
 
