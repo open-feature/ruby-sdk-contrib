@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.2.2](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-flagd-provider/v0.2.1...openfeature-flagd-provider/v0.2.2) (2026-11-28)
+
+
+### 🐛 Bug Fixes
+
+* repair failing CI on main (flagd, go-feature-flag, ofrep) ([#342](https://github.com/open-feature/ruby-sdk-contrib/issues/342)) ([87d3e42](https://github.com/open-feature/ruby-sdk-contrib/commit/87d3e420cf67674d7808499fb0c17ec1967c84ea))
+
+
+### 🧹 Chore
+
+* **deps:** update dependency grpc to v1.85.4 ([#338](https://github.com/open-feature/ruby-sdk-contrib/issues/338)) ([04b33eb](https://github.com/open-feature/ruby-sdk-contrib/commit/04b33eb564fee4706d6fb447d06c31805c900e13))
+* **deps:** update dependency grpc-tools to v1.85.4 ([#339](https://github.com/open-feature/ruby-sdk-contrib/issues/339)) ([840d91c](https://github.com/open-feature/ruby-sdk-contrib/commit/840d91cab6db75b3788fd0bbe24a644045358425))
+* **deps:** update dependency openfeature-sdk to "~&gt; 0.8.0" ([#305](https://github.com/open-feature/ruby-sdk-contrib/issues/305)) ([df4567b](https://github.com/open-feature/ruby-sdk-contrib/commit/df4567b1c429824f4a53d35ec919417c150dbb3d))
+* **deps:** update dependency rspec to "~&gt; 3.13.0" ([#306](https://github.com/open-feature/ruby-sdk-contrib/issues/306)) ([53ac7a3](https://github.com/open-feature/ruby-sdk-contrib/commit/53ac7a3ab73f62312646aa760e626edce8c7e4ff))
+* **deps:** update dependency ruby to v4.0.10 ([#320](https://github.com/open-feature/ruby-sdk-contrib/issues/320)) ([3ba6f84](https://github.com/open-feature/ruby-sdk-contrib/commit/3ba6f84b07a0eaa56fadc9fae95dd2fd0dd12a3b))
+* **deps:** update ghcr.io/open-feature/flagd docker tag to v0.19.0 ([#317](https://github.com/open-feature/ruby-sdk-contrib/issues/317)) ([48388e2](https://github.com/open-feature/ruby-sdk-contrib/commit/48388e2f4095546a23845f4fc528ec07d334f4c4))
+
 ## [0.2.1](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-flagd-provider/v0.2.0...openfeature-flagd-provider/v0.2.1) (2026-11-09)
 
 
