@@ -148,7 +148,7 @@ RSpec.describe OpenFeature::Flagd::Provider do
       end
 
       it do
-        expect(client.fetch_object_value(flag_key: "object-flag", default_value: {"a" => "b"})).to be_a(Google::Protobuf::Struct)
+        expect(client.fetch_object_value(flag_key: "object-flag", default_value: {"a" => "b"})).to be_a(Hash)
       end
     end
 
