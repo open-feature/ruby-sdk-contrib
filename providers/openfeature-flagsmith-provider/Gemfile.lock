@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    openfeature-flagsmith-provider (0.1.3)
+    openfeature-flagsmith-provider (0.2.0)
       flagsmith (~> 4.3)
       openfeature-sdk (~> 0.8.0)
 
