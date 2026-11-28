@@ -78,8 +78,11 @@ module OpenFeature
           variant = response.variant
           reason = response.reason
           fallback = variant.to_s.empty? && (reason == "DEFAULT" || reason == "DISABLED")
+          # SDK >= 0.8 rejects non-Hash object values, so unwrap protobuf Structs
+          value = response.value
+          value = value.to_h if value.is_a?(Google::Protobuf::Struct)
           OpenFeature::SDK::Provider::ResolutionDetails.new(
-            value: fallback ? default_value : response.value,
+            value: fallback ? default_value : value,
             reason: reason,
             variant: variant.to_s.empty? ? nil : variant,
             error_code: nil,
