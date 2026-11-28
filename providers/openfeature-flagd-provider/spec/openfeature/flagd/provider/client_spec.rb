@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "spec_helper"
+require "open_feature/sdk"
 
 # https://openfeature.dev/docs/specification/sections/providers
 RSpec.describe OpenFeature::Flagd::Provider::Client do
@@ -80,6 +81,48 @@ RSpec.describe OpenFeature::Flagd::Provider::Client do
         variant: "real-object"
       )
       expect(resolution_details[:value]).to include("real" => "value")
+    end
+  end
+
+  context "when the response has no variant" do
+    let(:grpc_stub) { double("grpc stub") }
+    let(:responses) { OpenFeature::Flagd::Provider::Grpc::Evaluation::V2 }
+
+    before { allow(responses::Service::Stub).to receive(:new).and_return(grpc_stub) }
+
+    %w[OFF_BY_POLICY DEFAULT DISABLED STATIC].each do |reason|
+      it "uses the code default for reason #{reason}" do
+        allow(grpc_stub).to receive(:resolve_boolean).and_return(responses::ResolveBooleanResponse.new(value: false, reason: reason, variant: ""))
+
+        expect(client.fetch_boolean_value(flag_key: "flag", default_value: true).to_h).to include(
+          value: true,
+          variant: nil,
+          reason: reason,
+          error_code: nil
+        )
+      end
+    end
+
+    it "uses the code default for string values" do
+      allow(grpc_stub).to receive(:resolve_string).and_return(responses::ResolveStringResponse.new(value: "", reason: "OFF_BY_POLICY", variant: ""))
+
+      expect(client.fetch_string_value(flag_key: "flag", default_value: "fallback").to_h).to include(value: "fallback", variant: nil)
+    end
+
+    it "uses the code default for object values" do
+      allow(grpc_stub).to receive(:resolve_object).and_return(responses::ResolveObjectResponse.new(reason: "OFF_BY_POLICY", variant: ""))
+
+      expect(client.fetch_object_value(flag_key: "flag", default_value: {"a" => "b"}).to_h).to include(value: {"a" => "b"}, variant: nil)
+    end
+
+    it "keeps the flagd value when a variant is present" do
+      allow(grpc_stub).to receive(:resolve_boolean).and_return(responses::ResolveBooleanResponse.new(value: true, reason: "TARGETING_MATCH", variant: "on"))
+
+      expect(client.fetch_boolean_value(flag_key: "flag", default_value: false).to_h).to include(
+        value: true,
+        variant: "on",
+        reason: "TARGETING_MATCH"
+      )
     end
   end
 
