@@ -100,7 +100,8 @@ RSpec.describe OpenFeature::GoFeatureFlag::Provider do
           value: false,
           reason: OpenFeature::SDK::Provider::Reason::ERROR,
           error_code: OpenFeature::SDK::Provider::ErrorCode::TYPE_MISMATCH,
-          error_message: "flag type String does not match allowed types [TrueClass, FalseClass]"
+          error_message: "flag type String does not match allowed types [TrueClass, FalseClass]",
+          flag_metadata: {}
         )
       )
       expect(got).to eql(want)
@@ -126,7 +127,8 @@ RSpec.describe OpenFeature::GoFeatureFlag::Provider do
           value: false,
           reason: OpenFeature::SDK::Provider::Reason::ERROR,
           error_code: OpenFeature::SDK::Provider::ErrorCode::GENERAL,
-          error_message: "unauthorized"
+          error_message: "unauthorized",
+          flag_metadata: {}
         )
       )
       expect(got).to eql(want)
@@ -155,7 +157,8 @@ RSpec.describe OpenFeature::GoFeatureFlag::Provider do
         resolution_details: OpenFeature::SDK::Provider::ResolutionDetails.new(
           value: false,
           reason: OpenFeature::SDK::Provider::Reason::ERROR,
-          error_code: OpenFeature::SDK::Provider::ErrorCode::INVALID_CONTEXT
+          error_code: OpenFeature::SDK::Provider::ErrorCode::INVALID_CONTEXT,
+          flag_metadata: {}
         )
       )
       expect(got).to eql(want)
@@ -188,7 +191,8 @@ RSpec.describe OpenFeature::GoFeatureFlag::Provider do
           value: false,
           reason: OpenFeature::SDK::Provider::Reason::ERROR,
           error_code: OpenFeature::SDK::Provider::ErrorCode::INVALID_CONTEXT,
-          error_message: "invalid evaluation context provided"
+          error_message: "invalid evaluation context provided",
+          flag_metadata: {}
         )
       )
       expect(got).to eql(want)
@@ -221,7 +225,8 @@ RSpec.describe OpenFeature::GoFeatureFlag::Provider do
           value: false,
           reason: OpenFeature::SDK::Provider::Reason::ERROR,
           error_code: OpenFeature::SDK::Provider::ErrorCode::INVALID_CONTEXT,
-          error_message: "invalid evaluation context provided"
+          error_message: "invalid evaluation context provided",
+          flag_metadata: {}
         )
       )
       expect(got).to eql(want)
@@ -254,7 +259,8 @@ RSpec.describe OpenFeature::GoFeatureFlag::Provider do
           value: false,
           reason: OpenFeature::SDK::Provider::Reason::ERROR,
           error_code: OpenFeature::SDK::Provider::ErrorCode::INVALID_CONTEXT,
-          error_message: "invalid evaluation context provided"
+          error_message: "invalid evaluation context provided",
+          flag_metadata: {}
         )
       )
       expect(got).to eql(want)
@@ -287,7 +293,8 @@ RSpec.describe OpenFeature::GoFeatureFlag::Provider do
           value: false,
           reason: OpenFeature::SDK::Provider::Reason::ERROR,
           error_code: OpenFeature::SDK::Provider::ErrorCode::GENERAL,
-          error_message: "invalid flag key provided"
+          error_message: "invalid flag key provided",
+          flag_metadata: {}
         )
       )
       expect(got).to eql(want)
@@ -320,7 +327,8 @@ RSpec.describe OpenFeature::GoFeatureFlag::Provider do
           value: false,
           reason: OpenFeature::SDK::Provider::Reason::ERROR,
           error_code: OpenFeature::SDK::Provider::ErrorCode::GENERAL,
-          error_message: "invalid flag key provided"
+          error_message: "invalid flag key provided",
+          flag_metadata: {}
         )
       )
       expect(got).to eql(want)
@@ -418,7 +426,8 @@ RSpec.describe OpenFeature::GoFeatureFlag::Provider do
           value: "default",
           reason: OpenFeature::SDK::Provider::Reason::ERROR,
           error_code: OpenFeature::SDK::Provider::ErrorCode::TYPE_MISMATCH,
-          error_message: "flag type Integer does not match allowed types [String]"
+          error_message: "flag type Integer does not match allowed types [String]",
+          flag_metadata: {}
         )
       )
       expect(got).to eql(want)
@@ -486,7 +495,8 @@ RSpec.describe OpenFeature::GoFeatureFlag::Provider do
           value: 25,
           reason: OpenFeature::SDK::Provider::Reason::ERROR,
           error_code: OpenFeature::SDK::Provider::ErrorCode::TYPE_MISMATCH,
-          error_message: "flag type String does not match allowed types [Integer, Float]"
+          error_message: "flag type String does not match allowed types [Integer, Float]",
+          flag_metadata: {}
         )
       )
       expect(got).to eql(want)
@@ -554,7 +564,8 @@ RSpec.describe OpenFeature::GoFeatureFlag::Provider do
           value: {"fail" => true},
           reason: OpenFeature::SDK::Provider::Reason::ERROR,
           error_code: OpenFeature::SDK::Provider::ErrorCode::TYPE_MISMATCH,
-          error_message: "flag type String does not match allowed types [Array, Hash]"
+          error_message: "flag type String does not match allowed types [Array, Hash]",
+          flag_metadata: {}
         )
       )
       expect(got).to eql(want)
