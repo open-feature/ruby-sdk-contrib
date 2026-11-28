@@ -79,7 +79,7 @@ RSpec.describe OpenFeature::Flagd::Provider::Client do
         reason: "STATIC",
         variant: "real-object"
       )
-      expect(resolution_details[:value].fields["real"].string_value).to eq("value")
+      expect(resolution_details[:value]).to include("real" => "value")
     end
   end
 
