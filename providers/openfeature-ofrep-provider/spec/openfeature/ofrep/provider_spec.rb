@@ -123,7 +123,7 @@ RSpec.describe OpenFeature::OFREP::Provider do
         .to_return(status: 400, body:
           {
             key: "boolean_flag",
-            error_code: "INVALID_CONTEXT"
+            errorCode: "INVALID_CONTEXT"
           }.to_json)
 
       OpenFeature::SDK.configure do |config|
