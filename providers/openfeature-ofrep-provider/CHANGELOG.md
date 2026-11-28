@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-ofrep-provider/v0.2.0...openfeature-ofrep-provider/v0.2.1) (2026-11-28)
+
+
+### 🐛 Bug Fixes
+
+* repair failing CI on main (flagd, go-feature-flag, ofrep) ([#342](https://github.com/open-feature/ruby-sdk-contrib/issues/342)) ([87d3e42](https://github.com/open-feature/ruby-sdk-contrib/commit/87d3e420cf67674d7808499fb0c17ec1967c84ea))
+
 ## [0.2.0](https://github.com/open-feature/ruby-sdk-contrib/compare/openfeature-ofrep-provider/v0.1.2...openfeature-ofrep-provider/v0.2.0) (2026-11-21)
 
 
